@@ -1,8 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Nome: Tomás Leonardo Leão Sousa Neto
+* Número: 8220862
+* Turma: 
+*
+* Nome: Tânia Sofia da Silva Morais
+* Número: 8220190
+* Turma: 
+*/
 package PP_AC_8220190_8220862.classes;
 
 import com.estg.core.ItemType;
@@ -10,10 +14,7 @@ import com.estg.core.Measurement;
 import com.estg.core.exceptions.MeasurementException;
 import java.time.LocalDate;
 
-/**
- *
- * @author tomas
- */
+
 public class Container implements com.estg.core.Container {
 
     @Override
