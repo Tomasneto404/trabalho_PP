@@ -15,6 +15,11 @@ import com.estg.core.exceptions.MeasurementException;
 import java.time.LocalDate;
 
 
+/***
+ * 
+ * <strong>Container</strong>
+ * <p>This class</p>
+ */
 public class Container implements com.estg.core.Container {
 
     @Override
