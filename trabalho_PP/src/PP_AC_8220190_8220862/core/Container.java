@@ -13,6 +13,7 @@ import com.estg.core.ItemType;
 import com.estg.core.Measurement;
 import com.estg.core.exceptions.MeasurementException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * *
@@ -32,27 +33,26 @@ public class Container implements com.estg.core.Container {
     private ItemType type;
 
     private Measurement[] measurement;
-    
+
     /**
      * <strong>Instance Constructor Method</strong>
      * <p>
-     * This method defines the default values for all the constructors methods of
-     * the instance.</p>
+     * This method defines the default values for all the constructors methods
+     * of the instance.</p>
      */
-
     {
         this.measurement = new Measurement[MAX_MEASUREMENT];
     }
 
     /**
      * <strong> Container()</strong>
-     * <p>Container constructor method.</p>
+     * <p>
+     * Container constructor method.</p>
      *
      * @param code receives the containers's code
      * @param capacity receives the container's capacity
      * @param type receives the container's type
      */
-    
     public Container(String code, double capacity, ItemType type) {
         this.code = code;
         this.capacity = capacity;
@@ -61,7 +61,9 @@ public class Container implements com.estg.core.Container {
 
     /**
      * <strong> getCode() </strong>
-     * <p> method to obtain a code </p>
+     * <p>
+     * method to obtain a code </p>
+     *
      * @return the container's code
      */
     @Override
@@ -71,32 +73,49 @@ public class Container implements com.estg.core.Container {
 
     @Override
     public double getCapacity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.capacity;
     }
 
     @Override
     public ItemType getType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.type;
     }
 
     @Override
     public Measurement[] getMeasurements() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.measurement;
     }
 
     @Override
     public Measurement[] getMeasurements(LocalDate ld) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Measurement[] tmp = new Measurement[MAX_MEASUREMENT];
+        int contador=0;
+        LocalDateTime ld2= convertToDatetime(ld);
+
+        for (int i = 0; i < this.measurement.length; i++) {
+             if(this.measurement[i].getDate()==ld2){
+                 tmp[++contador]=this.measurement[i];
+             }
+        }
+        
+        this.measurement=tmp;
+        
+        return this.measurement;
     }
 
     @Override
     public boolean addMeasurement(Measurement msrmnt) throws MeasurementException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     //Preciso deste método para usar no AidBox
-    public boolean equals(Container cntnr){
+    public boolean equals(Container cntnr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     private LocalDateTime convertToDatetime(LocalDate date){
+         return date.atStartOfDay();
     }
 
 }
