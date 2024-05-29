@@ -1,11 +1,11 @@
 /*
 * Nome: Tomás Leonardo Leão Sousa Neto
 * Número: 8220862
-* Turma: 
+* Turma: LSIRC12T1
 *
 * Nome: Tânia Sofia da Silva Morais
 * Número: 8220190
-* Turma: 
+* Turma: LSIRC12T1
  */
 package PP_AC_8220190_8220862.classes;
 
@@ -17,8 +17,7 @@ import com.estg.core.exceptions.ContainerException;
 
 /**
  * <strong>AidBox</strong>
- * <p>
- * Coisas</p>
+ * <p>Coisas</p>
  *
  */
 public class AidBox implements com.estg.core.AidBox {
@@ -36,7 +35,7 @@ public class AidBox implements com.estg.core.AidBox {
     /**
      * <strong>Instance Constructor Method</strong>
      * <p>
-     * This method defines deafault values for all the constructors methods of
+     * This method defines the default values for all the constructors methods of
      * the instance.</p>
      */
     {
@@ -44,10 +43,11 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     /**
-     * <strong>AidBox() Constructor Method</strong>
-     * <p>
-     * </p> @param code
-     * @param zone
+     * <strong>AidBox()</strong>
+     * <p>AidBox constructor method.</p>
+     * @param code String value that represents the code of an AidBox.
+     * @param zone String value that represents the zone where the AiBox is.
+     * @param coordinates GeographicCoordinates value that represents the actual coordinates of the AidBox.
      */
     public AidBox(String code, String zone, GeographicCoordinates coordinates) {
         this.code = code;
@@ -56,19 +56,27 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     /**
-     *
-     * @return
+     *<strong>getCode()</strong>
+     * @return String that represents the AidBox code.
      */
     @Override
     public String getCode() {
         return this.code;
     }
 
+    /**
+     *<strong>getZone()</strong>
+     * @return String that represents the AidBox zone.
+     */
     @Override
     public String getZone() {
         return this.zone;
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public String getRefLocal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -86,7 +94,7 @@ public class AidBox implements com.estg.core.AidBox {
 
     @Override
     public GeographicCoordinates getCoordinates() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.coordinates;
     }
 
     @Override
