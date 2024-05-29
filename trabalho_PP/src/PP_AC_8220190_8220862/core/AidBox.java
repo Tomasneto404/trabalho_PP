@@ -31,6 +31,10 @@ public class AidBox implements com.estg.core.AidBox {
     private GeographicCoordinates coordinates;
 
     private Container[] containers;
+    
+    private int containerCounter;
+    
+    private double weight;
 
     /**
      * <strong>Instance Constructor Method</strong>
@@ -40,6 +44,7 @@ public class AidBox implements com.estg.core.AidBox {
      */
     {
         this.containers = new Container[MAX_CONTAINERS];
+        this.containerCounter = 0;
     }
 
     /**
@@ -99,7 +104,13 @@ public class AidBox implements com.estg.core.AidBox {
 
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if ( this.containerCounter < containers.length ) {
+            containers[containerCounter++] = cntnr;
+            return true;
+        }
+        
+        return false;
     }
 
     @Override
