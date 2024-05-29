@@ -71,6 +71,10 @@ public class Container implements com.estg.core.Container {
         return this.code;
     }
 
+    /**
+     * <strong> getCapacity() </strong>
+     * @return 
+     */
     @Override
     public double getCapacity() {
         return this.capacity;
@@ -94,14 +98,12 @@ public class Container implements com.estg.core.Container {
         LocalDateTime ld2= convertToDatetime(ld);
 
         for (int i = 0; i < this.measurement.length; i++) {
-             if(this.measurement[i].getDate()==ld2){
+             if(this.measurement[i].getDate().equals(ld2)){
                  tmp[++contador]=this.measurement[i];
              }
         }
-        
-        this.measurement=tmp;
-        
-        return this.measurement;
+
+        return tmp;
     }
 
     @Override
