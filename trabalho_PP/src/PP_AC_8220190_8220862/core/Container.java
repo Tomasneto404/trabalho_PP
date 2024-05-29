@@ -93,5 +93,10 @@ public class Container implements com.estg.core.Container {
     public boolean addMeasurement(Measurement msrmnt) throws MeasurementException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    //Preciso deste método para usar no AidBox
+    public boolean equals(Container cntnr){
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

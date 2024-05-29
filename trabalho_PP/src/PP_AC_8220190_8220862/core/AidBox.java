@@ -27,6 +27,8 @@ public class AidBox implements com.estg.core.AidBox {
     private String code;
 
     private String zone;
+    
+    private String refLocal;
 
     private GeographicCoordinates coordinates;
 
@@ -84,7 +86,7 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public String getRefLocal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.refLocal;
     }
 
     @Override
@@ -106,11 +108,23 @@ public class AidBox implements com.estg.core.AidBox {
     public boolean addContainer(Container cntnr) throws ContainerException {
         
         if ( this.containerCounter < containers.length ) {
-            containers[containerCounter++] = cntnr;
-            return true;
+            
+             
+           
         }
         
         return false;
+    }
+    
+    private boolean verifyContainer(Container cntnr){
+        
+        for (int i = 0; i < this.containers.length; i++ ){
+            if (containers[i].equals(cntnr)){
+                return true;
+            }
+        }
+        return false;
+        
     }
 
     @Override
