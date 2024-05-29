@@ -14,17 +14,59 @@ import com.estg.core.Measurement;
 import com.estg.core.exceptions.MeasurementException;
 import java.time.LocalDate;
 
-
-/***
- * 
+/**
+ * *
+ *
  * <strong>Container</strong>
- * <p>This class</p>
+ * <p>
+ * This class identifies a container</p>
  */
 public class Container implements com.estg.core.Container {
 
+    private final int MAX_MEASUREMENT = 100;
+
+    private String code;
+
+    private double capacity;
+
+    private ItemType type;
+
+    private Measurement[] measurement;
+    
+    /**
+     * <strong>Instance Constructor Method</strong>
+     * <p>
+     * This method defines the default values for all the constructors methods of
+     * the instance.</p>
+     */
+
+    {
+        this.measurement = new Measurement[MAX_MEASUREMENT];
+    }
+
+    /**
+     * <strong> Container()</strong>
+     * <p>Container constructor method.</p>
+     *
+     * @param code receives the containers's code
+     * @param capacity receives the container's capacity
+     * @param type receives the container's type
+     */
+    
+    public Container(String code, double capacity, ItemType type) {
+        this.code = code;
+        this.capacity = capacity;
+        this.type = type;
+    }
+
+    /**
+     * <strong> getCode() </strong>
+     * <p> method to obtain a code </p>
+     * @return the container's code
+     */
     @Override
     public String getCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.code;
     }
 
     @Override
@@ -51,5 +93,5 @@ public class Container implements com.estg.core.Container {
     public boolean addMeasurement(Measurement msrmnt) throws MeasurementException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
