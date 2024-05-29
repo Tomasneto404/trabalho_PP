@@ -1,14 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Nome: Tomás Leonardo Leão Sousa Neto
+* Número: 8220862
+* Turma: LSIRC12T1
+*
+* Nome: Tânia Sofia da Silva Morais
+* Número: 8220190
+* Turma: LSIRC12T1
  */
 package PP_AC_8220190_8220862;
 
-/**
- *
- * @author tomas
- */
+
 public class Main {
     
 }

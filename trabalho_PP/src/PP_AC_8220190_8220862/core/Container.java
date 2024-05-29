@@ -7,7 +7,7 @@
 * Número: 8220190
 * Turma: LSIRC12T1
  */
-package PP_AC_8220190_8220862.classes;
+package PP_AC_8220190_8220862.core;
 
 import com.estg.core.ItemType;
 import com.estg.core.Measurement;
