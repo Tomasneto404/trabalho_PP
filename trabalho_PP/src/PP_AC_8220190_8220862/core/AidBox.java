@@ -104,18 +104,35 @@ public class AidBox implements com.estg.core.AidBox {
         return this.coordinates;
     }
 
+    /**
+     * 
+     * @param cntnr
+     * @return
+     * @throws ContainerException 
+     */
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
         
-        if ( this.containerCounter < containers.length ) {
+        if ( this.containerCounter < containers.length ) { //Verifica se cabe dentro do array
             
-             
+             if (!verifyContainer(cntnr)){ //Verifica se existe algum igual dentro do array
+                 
+                 this.containers[this.containerCounter++] = cntnr;
+                 return true;
+                 
+             }
            
         }
         
         return false;
     }
     
+    /**
+     * <strong>verifyContainer()</strong>
+     * <p>This method verifys if a given container already existes inside the containers array.</p>
+     * @param cntnr - Container to be analyzed
+     * @return true if already exists and equal container, false if not
+     */
     private boolean verifyContainer(Container cntnr){
         
         for (int i = 0; i < this.containers.length; i++ ){
