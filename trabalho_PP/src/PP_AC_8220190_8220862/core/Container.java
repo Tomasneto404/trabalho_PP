@@ -139,7 +139,7 @@ public class Container implements com.estg.core.Container {
 
     //Isto é para apagar o quaralho
     public boolean equals(Container cntnr) {
-        if (this.code == cntnr.getCode()) {
+        if (this.code.equals(cntnr.getCode())) {
             return true;
         }
         return false;
