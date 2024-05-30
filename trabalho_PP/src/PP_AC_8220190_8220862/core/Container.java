@@ -137,36 +137,48 @@ public class Container implements com.estg.core.Container {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    //Isto é para apagar o quaralho
-    public boolean equals(Container cntnr) {
-        if (this.code.equals(cntnr.getCode())) {
-            return true;
-        }
-        return false;
-    }
-    
     /**
-     * <strong> exist(Measurement measurement) </strong>
-     * @param measurement receives a variable of type Measurement
-     * @return true if it exists, false if it does not exist
+     * <strong>equals()</strong>
+     * <p>This method verifys if a given Object is equal a specific Container</p>
+     * @param o - Object to be compared
+     * @return True if que object is equal, False if it is not
      */
-    public boolean exist(Measurement measurement){
-       
-        for(Measurement msrm: this.measurement){
-            if(msrm.equals(measurement)){
+    @Override
+    public boolean equals(Object o) {
+
+        if (o instanceof Container) {
+            if (this.code.equals( (Container) o )){
                 return true;
             }
         }
-        
+
         return false;
     }
+
+    /**
+     * <strong> exist(Measurement measurement) </strong>
+     *
+     * @param measurement receives a variable of type Measurement
+     * @return true if it exists, false if it does not exist
+     */
+    public boolean exist(Measurement measurement) {
+
+        for (Measurement msrm : this.measurement) {
+            if (msrm.equals(measurement)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * <strong> convertToDateTime (LocalDate date) </strong>
      * <p>
      * This function transforms a variable of type LocalDate into
      * LocalDateTime</p>
      *
-     * @param date  receives a date of type LocalDate
+     * @param date receives a date of type LocalDate
      * @return a date of type LocalDateTime
      */
     private LocalDateTime convertToDatetime(LocalDate date) {
