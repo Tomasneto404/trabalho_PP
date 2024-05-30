@@ -73,34 +73,60 @@ public class Container implements com.estg.core.Container {
 
     /**
      * <strong> getCapacity() </strong>
-     * @return 
+     * <p>
+     * method to obtain a capacity </p>
+     *
+     * @return the container's capacity
      */
     @Override
     public double getCapacity() {
         return this.capacity;
     }
 
+    /**
+     * <strong> getType() </strong>
+     * <p>
+     * method to obtain a type </p>
+     *
+     * @return the container's type
+     */
     @Override
     public ItemType getType() {
         return this.type;
     }
 
+    /**
+     * <strong> getMeasurements() </strong>
+     * <p>
+     * method to obtain the measurements </p>
+     *
+     * @return the container's measurements
+     */
     @Override
     public Measurement[] getMeasurements() {
         return this.measurement;
     }
 
+    /**
+     * <strong> getMeasurements(LocalDat ld) </strong>
+     * <p>
+     * This function allows you to obtain the measurements of a container on a
+     * given date </p>
+     *
+     * @param ld receives a date of type LocalDate
+     * @return the container's measurments in one date
+     */
     @Override
     public Measurement[] getMeasurements(LocalDate ld) {
 
         Measurement[] tmp = new Measurement[MAX_MEASUREMENT];
-        int contador=0;
-        LocalDateTime ld2= convertToDatetime(ld);
+        int contador = 0;
+        LocalDateTime ld2 = convertToDatetime(ld);
 
         for (int i = 0; i < this.measurement.length; i++) {
-             if(this.measurement[i].getDate().equals(ld2)){
-                 tmp[++contador]=this.measurement[i];
-             }
+            if (this.measurement[i].getDate().equals(ld2)) {
+                tmp[++contador] = this.measurement[i];
+            }
         }
 
         return tmp;
@@ -111,13 +137,37 @@ public class Container implements com.estg.core.Container {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    //Preciso deste método para usar no AidBox
+    //Isto é para apagar
     public boolean equals(Container cntnr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
     
-     private LocalDateTime convertToDatetime(LocalDate date){
-         return date.atStartOfDay();
+    /**
+     * <strong> exist(Measurement measurement) </strong>
+     * @param measurement receives a variable of type Measurement
+     * @return true if it exists, false if it does not exist
+     */
+    public boolean exist(Measurement measurement){
+       
+        for(Measurement msrm: this.measurement){
+            if(msrm.equals(measurement)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    /**
+     * <strong> convertToDateTime (LocalDate date) </strong>
+     * <p>
+     * This function transforms a variable of type LocalDate into
+     * LocalDateTime</p>
+     *
+     * @param date  receives a date of type LocalDate
+     * @return a date of type LocalDateTime
+     */
+    private LocalDateTime convertToDatetime(LocalDate date) {
+        return date.atStartOfDay();
     }
 
 }
