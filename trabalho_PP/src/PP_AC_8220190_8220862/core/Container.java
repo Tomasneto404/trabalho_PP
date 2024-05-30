@@ -137,8 +137,11 @@ public class Container implements com.estg.core.Container {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    //Isto é para apagar
+    //Isto é para apagar o quaralho
     public boolean equals(Container cntnr) {
+        if (this.code == cntnr.getCode()) {
+            return true;
+        }
         return false;
     }
     
