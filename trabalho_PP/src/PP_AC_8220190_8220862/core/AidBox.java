@@ -17,7 +17,6 @@ import com.estg.core.exceptions.ContainerException;
 
 /**
  * <strong>AidBox</strong>
- * <p>Coisas</p>
  *
  */
 public class AidBox implements com.estg.core.AidBox {
@@ -27,22 +26,22 @@ public class AidBox implements com.estg.core.AidBox {
     private String code;
 
     private String zone;
-    
+
     private String refLocal;
 
     private GeographicCoordinates coordinates;
 
     private Container[] containers;
-    
+
     private int containerCounter;
-    
+
     private double weight;
 
     /**
      * <strong>Instance Constructor Method</strong>
      * <p>
-     * This method defines the default values for all the constructors methods of
-     * the instance.</p>
+     * This method defines the default values for all the constructors methods
+     * of the instance.</p>
      */
     {
         this.containers = new Container[MAX_CONTAINERS];
@@ -51,19 +50,22 @@ public class AidBox implements com.estg.core.AidBox {
 
     /**
      * <strong>AidBox()</strong>
-     * <p>AidBox constructor method.</p>
+     * <p>
+     * AidBox constructor method.</p>
+     *
      * @param code String value that represents the code of an AidBox.
      * @param zone String value that represents the zone where the AiBox is.
-     * @param coordinates GeographicCoordinates value that represents the actual coordinates of the AidBox.
+     * @param coordinates GeographicCoordinates value that represents the actual
+     * coordinates of the AidBox.
      */
-    public AidBox(String code, String zone, GeographicCoordinates coordinates) {
+    public AidBox(String code, String zone) {
         this.code = code;
         this.zone = zone;
-        this.coordinates = coordinates;
     }
 
     /**
-     *<strong>getCode()</strong>
+     * <strong>getCode()</strong>
+     *
      * @return String that represents the AidBox code.
      */
     @Override
@@ -72,7 +74,8 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     /**
-     *<strong>getZone()</strong>
+     * <strong>getZone()</strong>
+     *
      * @return String that represents the AidBox zone.
      */
     @Override
@@ -81,8 +84,9 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     /**
-     * 
-     * @return 
+     * <strong>getRefLocal()</strong>
+     *
+     * @return String that represents the AidBox ref local.
      */
     @Override
     public String getRefLocal() {
@@ -99,59 +103,104 @@ public class AidBox implements com.estg.core.AidBox {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * <strong>getCoordinates()</strong>
+     *
+     * @return GeograpicCoordinates object that represents the coordinates of
+     * the AidBox
+     */
     @Override
     public GeographicCoordinates getCoordinates() {
         return this.coordinates;
     }
 
     /**
-     * 
-     * @param cntnr
-     * @return
-     * @throws ContainerException 
+     * <strong>addContainer()</strong>
+     * <p>
+     * This method allows to insert a Container inside the containers array.</p>
+     *
+     * @param cntnr Container to be added
+     * @return True if it was possible to insert the new container, false if it
+     * wasn't.
+     * @throws ContainerException
      */
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
-        
-        if ( this.containerCounter < containers.length ) { //Verifica se cabe dentro do array
-            
-             if (!verifyContainer(cntnr)){ //Verifica se existe algum igual dentro do array
-                 
-                 this.containers[this.containerCounter++] = cntnr;
-                 return true;
-                 
-             }
-           
+
+        if (this.containerCounter < containers.length) { //Verifica se cabe dentro do array
+
+            if (!verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
+
+                this.containers[this.containerCounter++] = cntnr;
+
+                return true;
+
+            }
+
         }
-        
+
         return false;
     }
-    
+
     /**
      * <strong>verifyContainer()</strong>
-     * <p>This method verifys if a given container already existes inside the containers array.</p>
+     * <p>
+     * This method verifys if a given container already existes inside the
+     * containers array.</p>
+     *
      * @param cntnr - Container to be analyzed
-     * @return true if already exists and equal container, false if not
+     * @return true if already exists an equal container, false if it doesn't
      */
-    private boolean verifyContainer(Container cntnr){
-        
-        for (int i = 0; i < this.containers.length; i++ ){
-            if (containers[i].equals(cntnr)){
+    private boolean verifyContainer(Container cntnr) {
+
+        for (Container container : this.containers) {
+
+            if (container.equals(cntnr)) {
+
                 return true;
+
             }
+
         }
+
         return false;
-        
+
     }
 
+    /**
+     * <strong>getContainer()</strong>
+     *
+     * @param it The item type of the container to be returned
+     * @return The container that corresponds to the item type. Null if there's
+     * no container with the specific item type.
+     */
     @Override
     public Container getContainer(ItemType it) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        for (Container container : this.containers) {
+
+            if (container.getType() == it) {
+
+                return container;
+
+            }
+
+        }
+
+        return null;
+
     }
 
+    /**
+     * <strong>getContainers()</strong>
+     * <p>
+     * This function returns all te containers inside an AidBox</p>
+     *
+     * @return The array of containers
+     */
     @Override
     public Container[] getContainers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.containers;
     }
 
 }
