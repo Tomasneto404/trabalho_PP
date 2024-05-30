@@ -26,6 +26,8 @@ public class Container implements com.estg.core.Container {
 
     private final int MAX_MEASUREMENT = 100;
 
+    private int counter;
+
     private String code;
 
     private double capacity;
@@ -42,6 +44,7 @@ public class Container implements com.estg.core.Container {
      */
     {
         this.measurement = new Measurement[MAX_MEASUREMENT];
+        this.counter = 0;
     }
 
     /**
@@ -121,6 +124,8 @@ public class Container implements com.estg.core.Container {
 
         Measurement[] tmp = new Measurement[MAX_MEASUREMENT];
         int contador = 0;
+
+        //convert a LocalDate variable in a LocalDateTime variable
         LocalDateTime ld2 = convertToDatetime(ld);
 
         for (int i = 0; i < this.measurement.length; i++) {
@@ -132,14 +137,42 @@ public class Container implements com.estg.core.Container {
         return tmp;
     }
 
+    /**
+     * <strong> addMeasurement(Measurement msrmnt) </strong>
+     * <p>
+     * This function checks whether the capacity and the measurements array have
+     * already reached the limit and whether this measurement already exists. If
+     * none of the options happen, add a measurement </p>
+     *
+     * @param msrmnt receives a variable of Measurement type
+     * @return true if a measurement is added
+     * @throws MeasurementException exception corresponding to a measurement
+     */
     @Override
     public boolean addMeasurement(Measurement msrmnt) throws MeasurementException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (this.counter == MAX_MEASUREMENT) {
+            throw new MeasurementException("Measurements are full");
+        }
+
+        if (this.capacity == msrmnt.getValue()) {
+            throw new MeasurementException("The capacity is full");
+        }
+
+        if (exist(msrmnt)) {
+            throw new MeasurementException("The measurement exist");
+        }
+
+        this.measurement[++counter] = msrmnt;
+
+        return true;
     }
 
     /**
      * <strong>equals()</strong>
-     * <p>This method verifys if a given Object is equal a specific Container</p>
+     * <p>
+     * This method verifys if a given Object is equal a specific Container</p>
+     *
      * @param o - Object to be compared
      * @return True if que object is equal, False if it is not
      */
@@ -147,7 +180,7 @@ public class Container implements com.estg.core.Container {
     public boolean equals(Object o) {
 
         if (o instanceof Container) {
-            if (this.code.equals( (Container) o )){
+            if (this.code.equals((Container) o)) {
                 return true;
             }
         }
