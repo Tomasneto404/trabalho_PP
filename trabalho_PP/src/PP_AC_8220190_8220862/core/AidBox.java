@@ -127,7 +127,7 @@ public class AidBox implements com.estg.core.AidBox {
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
 
-        if (this.containerCounter < containers.length) { //Verifica se cabe dentro do array
+        if (canAddContainer()) { //Verifica se cabe dentro do array
 
             if (!verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
 
@@ -135,11 +135,25 @@ public class AidBox implements com.estg.core.AidBox {
 
                 return true;
 
+            } else {
+                throw new ContainerException("Container already exists in array.");
             }
 
+        } else {
+            throw new ContainerException("Containers array is full.");
         }
+    }
 
-        return false;
+    /**
+     * <strong>canAddContainer()</strong>
+     * <p>
+     * This method verifys if the number of the container counter is minor then
+     * the containers array lenght.</p>
+     *
+     * @return true if is possible to enter a new Container, false if it is not.
+     */
+    private boolean canAddContainer() {
+        return this.containerCounter < containers.length;
     }
 
     /**
