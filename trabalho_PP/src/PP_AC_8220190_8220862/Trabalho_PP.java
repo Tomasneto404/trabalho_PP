@@ -15,11 +15,13 @@ import PP_AC_8220190_8220862.core.Container;
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
+import java.io.IOException;
+import menus.Menu;
 
 
 public class Trabalho_PP {    
     
-    public static void main(String[] args) throws ContainerException{
+    public static void main(String[] args) throws ContainerException, IOException{
         HTTPProvider provider = new HTTPProvider();
         
         AidBox box = new AidBox("123", "lixa");
@@ -29,9 +31,12 @@ public class Trabalho_PP {
         //System.out.println(box.addContainer(container));
         //System.out.println(box.getContainers());
         
-        String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37");
+        //String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37");
         
-        System.out.println(string);
+        //System.out.println(string);
+        
+        Menu menu = new Menu();
+        menu.InstitutionMenu();
     }
     
 }
