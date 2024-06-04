@@ -14,12 +14,13 @@ public class Menu {
     
     
     public void InstitutionMenu() throws IOException{
-        
-        
         System.out.println("""
-                  Institution    
+                  <Institution Menu>
                   1 - Manage Coisa
+                  2 - Manage outra coisa
                            """);
+        
+        System.out.print("> ");
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         
