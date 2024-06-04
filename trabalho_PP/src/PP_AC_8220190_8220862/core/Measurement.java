@@ -12,7 +12,7 @@ package PP_AC_8220190_8220862.core;
 import java.time.LocalDateTime;
 
 /**
- * <strong>AidBox</strong>
+ * <strong>Measurement</strong>
  * <p>
  * This class intends to implement the measurements of a count on a given date
  * </p>
