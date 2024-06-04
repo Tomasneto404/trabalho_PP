@@ -65,7 +65,6 @@ public class AidBox implements com.estg.core.AidBox {
 
     /**
      * <strong>getCode()</strong>
-     *
      * @return String that represents the AidBox code.
      */
     @Override
