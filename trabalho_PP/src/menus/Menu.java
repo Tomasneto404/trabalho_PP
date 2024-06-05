@@ -53,7 +53,10 @@ public final class Menu {
         while (flag == true) {
             System.out.println("""
                   <Institution Menu>
-                  1 - asdsad
+                  1 - Manage vehicles
+                  2 - Manage Aid Box
+                  3 - Manage Picking Maps
+                  4 - 
                   \n0 - Quit
                            """);
 
