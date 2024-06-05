@@ -24,9 +24,15 @@ import java.time.LocalDateTime;
  */
 public class Institution implements com.estg.core.Institution {
 
+    private final int MAX_AIDBOXS = 10;
+    
+    private final int MAX_MEASUREMENTS = 10;
+    
     private String name;
     
     private AidBox[] aidBoxs;
+    
+    private Measurement[] measurements;
     
     @Override
     public String getName() {
