@@ -34,7 +34,7 @@ public class Container implements com.estg.core.Container {
 
     private ItemType type;
 
-    private Measurement[] measurement;
+    private Measurement[] measurements;
 
     /**
      * <strong>Instance Constructor Method</strong>
@@ -43,7 +43,7 @@ public class Container implements com.estg.core.Container {
      * of the instance.</p>
      */
     {
-        this.measurement = new Measurement[MAX_MEASUREMENT];
+        this.measurements = new Measurement[MAX_MEASUREMENT];
         this.counter = 0;
     }
 
@@ -107,7 +107,7 @@ public class Container implements com.estg.core.Container {
      */
     @Override
     public Measurement[] getMeasurements() {
-        return this.measurement;
+        return this.measurements;
     }
 
     /**
@@ -128,9 +128,9 @@ public class Container implements com.estg.core.Container {
         //convert a LocalDate variable in a LocalDateTime variable
         LocalDateTime ld2 = convertToDatetime(ld);
 
-        for (int i = 0; i < this.measurement.length; i++) {
-            if (this.measurement[i].getDate().equals(ld2)) {
-                tmp[++contador] = this.measurement[i];
+        for (int i = 0; i < this.measurements.length; i++) {
+            if (this.measurements[i].getDate().equals(ld2)) {
+                tmp[++contador] = this.measurements[i];
             }
         }
 
@@ -163,7 +163,7 @@ public class Container implements com.estg.core.Container {
             throw new MeasurementException("The measurement exist");
         }
 
-        this.measurement[counter++] = msrmnt;
+        this.measurements[counter++] = msrmnt;
 
         return true;
     }
@@ -185,7 +185,7 @@ public class Container implements com.estg.core.Container {
             throw new MeasurementException("Measurement doesn't exist");
         }
 
-        this.measurement[pos] = msrmt;
+        this.measurements[pos] = msrmt;
         return true;
     }
 
@@ -205,10 +205,10 @@ public class Container implements com.estg.core.Container {
         }
 
         for (int i = pos; i < this.counter; i++) {
-            this.measurement[i] = this.measurement[i + 1];
+            this.measurements[i] = this.measurements[i + 1];
         }
 
-        this.measurement[this.counter--] = null;
+        this.measurements[this.counter--] = null;
     }
 
     /**
@@ -220,7 +220,7 @@ public class Container implements com.estg.core.Container {
         Measurement[] temp = new Measurement[this.counter];
         
         for (int i = 0; i < this.counter; i++) {
-            temp[i] = this.measurement[i];
+            temp[i] = this.measurements[i];
         }
         
         return temp;
@@ -253,7 +253,7 @@ public class Container implements com.estg.core.Container {
      */
     public boolean exist(Measurement measurement) {
 
-        for (Measurement msrm : this.measurement) {
+        for (Measurement msrm : this.measurements) {
             if (msrm != null && msrm.equals(measurement)) {
                 return true;
             }
@@ -273,7 +273,7 @@ public class Container implements com.estg.core.Container {
      */
     private int getIndex(Measurement msrmt) {
         for (int i = 0; i < this.counter; i++) {
-            if (this.measurement[i].equals(msrmt)) {
+            if (this.measurements[i].equals(msrmt)) {
                 return i;
             }
         }
