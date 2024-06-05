@@ -168,6 +168,18 @@ public class Container implements com.estg.core.Container {
         return true;
     }
 
+    public boolean updateMeasurement(Measurement msrmt) throws MeasurementException {
+
+        int pos= getIndex(msrmt);
+        
+        if (!exist(msrmt)) {
+            throw new MeasurementException("Measurement doesn't exist");
+        }
+
+        this.measurement[pos]=msrmt;
+        return true;
+    }
+
     /**
      * <strong>equals()</strong>
      * <p>
@@ -203,6 +215,16 @@ public class Container implements com.estg.core.Container {
         }
 
         return false;
+    }
+
+    private int getIndex(Measurement msrmt) {
+        for (int i = 0; i < this.counter; i++) {
+            if (msrmt.equals(measurement)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     /**
