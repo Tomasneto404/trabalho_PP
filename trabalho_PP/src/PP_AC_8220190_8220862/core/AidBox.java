@@ -9,11 +9,17 @@
  */
 package PP_AC_8220190_8220862.core;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.estg.core.Container;
 import com.estg.core.GeographicCoordinates;
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
+import com.estg.io.HTTPProvider;
 
 /**
  * <strong>AidBox</strong>
@@ -35,6 +41,8 @@ public class AidBox implements com.estg.core.AidBox {
 
     private int containerCounter;
 
+    private HTTPProvider provider;
+
     private double weight;
 
     /**
@@ -46,6 +54,7 @@ public class AidBox implements com.estg.core.AidBox {
     {
         this.containers = new Container[MAX_CONTAINERS];
         this.containerCounter = 0;
+        this.provider = new HTTPProvider();
     }
 
     /**
@@ -65,6 +74,7 @@ public class AidBox implements com.estg.core.AidBox {
 
     /**
      * <strong>getCode()</strong>
+     *
      * @return String that represents the AidBox code.
      */
     @Override
@@ -92,9 +102,31 @@ public class AidBox implements com.estg.core.AidBox {
         return this.refLocal;
     }
 
+    /**
+     * <strong>getDistance()</strong>
+     * <p>
+     * This method makes the request to the WEB API and returns the distance
+     * from one aid box to another</p>
+     *
+     * @param aidbox
+     * @return Distance from one aid box to another
+     * @throws AidBoxException
+     */
     @Override
     public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
+
+        JSONParser parser = new JSONParser();
+
+        JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
+
+        JSONArray stringToArray = (JSONArray) jsonObject.get("to");
+
+        JSONObject object = (JSONObject) stringToArray.get(0);
+
+        double distance = (double) object.get("distance");
+
+        return distance;
     }
 
     @Override

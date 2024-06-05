@@ -49,8 +49,10 @@ public class Trabalho_PP {
 
         //System.out.println(box.addContainer(container));
         //System.out.println(box.getContainers());
-        //String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37");
-        //System.out.println(string);
+        String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=CAIXF37&to=CAIXF44");
+        System.out.println(string);
+        
+       
 
     }
 
