@@ -168,6 +168,15 @@ public class Container implements com.estg.core.Container {
         return true;
     }
 
+    /**
+     * <strong> updateMeasurement(Measurement msrmnt) </strong>
+     * <p>
+     * This function allows you to update a measurement </p>
+     *
+     * @param msrmt a variable of Measurement's type
+     * @return true if it was successufly
+     * @throws MeasurementException exception corresponding to a measurement
+     */
     public boolean updateMeasurement(Measurement msrmt) throws MeasurementException {
 
         int pos = getIndex(msrmt);
@@ -180,6 +189,42 @@ public class Container implements com.estg.core.Container {
         return true;
     }
 
+    /**
+     * <strong> delete(Measurement msrmt)</strong>
+     * <p>
+     * deletes a given measurement from the measurement array </p>
+     *
+     * @param msrmt a variable of Measurement's type
+     * @throws MeasurementException exception corresponding to a measurement
+     */
+    public void delete(Measurement msrmt) throws MeasurementException {
+        int pos = getIndex(msrmt);
+
+        if (pos == -1) {
+            throw new MeasurementException("Measurement doesn't exist");
+        }
+
+        for (int i = pos; i < this.counter; i++) {
+            this.measurement[i] = this.measurement[i + 1];
+        }
+
+        this.measurement[this.counter--] = null;
+    }
+
+    /**
+     * <strong> listMeasurements </strong>
+     * <p> lists all measurements that are contracted within the measurement array </p>
+     * @return measurement array
+     */
+    public Measurement[] listMeasurements() {
+        Measurement[] temp = new Measurement[this.counter];
+        
+        for (int i = 0; i < this.counter; i++) {
+            temp[i] = this.measurement[i];
+        }
+        
+        return temp;
+    }
     /**
      * <strong>equals()</strong>
      * <p>
@@ -217,6 +262,15 @@ public class Container implements com.estg.core.Container {
         return false;
     }
 
+    /**
+     * <strong> getIndex(Measurement msrmt) </strong>
+     * <p>
+     * This function allows you to identify the address of a given
+     * measurement</p>
+     *
+     * @param msrmt receveis a variable of Measurement type
+     * @return i if find the address and -1 otherwise
+     */
     private int getIndex(Measurement msrmt) {
         for (int i = 0; i < this.counter; i++) {
             if (this.measurement[i].equals(msrmt)) {
