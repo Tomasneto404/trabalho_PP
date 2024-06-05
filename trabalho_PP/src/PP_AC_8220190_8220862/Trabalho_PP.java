@@ -36,7 +36,8 @@ public class Trabalho_PP {
         //System.out.println(string);
         
         Menu menu = new Menu();
-        menu.InstitutionMenu();
+        
+        menu.MainMenu();
     }
     
 }
