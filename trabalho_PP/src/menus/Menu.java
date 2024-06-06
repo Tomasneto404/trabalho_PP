@@ -16,12 +16,7 @@ public final class Menu {
         boolean flag = true;
 
         while (flag == true) {
-            System.out.println("""
-                  <Main Menu>
-                  1 - Manage Institution
-                  2 - Manage outra coisa
-                  \n0 - Quit
-                           """);
+            System.out.println("<Main Menu>\n" + "1 - Manage Institution\n" + "2 - Manage outra coisa\n" + "\n" + "0 - Quit\n");
 
             System.out.print("> ");
 
@@ -51,14 +46,7 @@ public final class Menu {
         boolean flag = true;
 
         while (flag == true) {
-            System.out.println("""
-                  <Institution Menu>
-                  1 - Manage vehicles
-                  2 - Manage Aid Box
-                  3 - Manage Picking Maps
-                  4 - 
-                  \n0 - Quit
-                           """);
+            System.out.println("<Institution Menu>\n" + "1 - Manage vehicles\n" + "2 - Manage Aid Box\n" + "3 - Manage Picking Maps\n" + "4 -\n" + "\n" + "0 - Quit\n");
 
             System.out.print("> ");
 
