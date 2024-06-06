@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pickingManagement;
+package PP_AC_8220190_8220862.pickingManagement;
 
-import com.estg.pickingManagement.Route;
-import java.time.LocalDateTime;
+import com.estg.core.ItemType;
 
 /**
  *
- * @author tomas
+ * @author Asus
  */
-public class PickingMap implements com.estg.pickingManagement.PickingMap {
+public class Vehicle implements com.estg.pickingManagement.Vehicle {
 
-    private LocalDateTime date;
-    
     @Override
-    public LocalDateTime getDate() {
+    public ItemType getSupplyType() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Route[] getRoutes() {
+    public double getMaxCapacity() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

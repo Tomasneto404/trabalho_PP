@@ -161,7 +161,7 @@ public class AidBox implements com.estg.core.AidBox {
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
 
-        if (!canAddContainer()) { //Verifica se cabe dentro do array
+        if (!canAddContainerToArray()) { //Verifica se cabe dentro do array
 
             throw new ContainerException("Containers array is full.");
         }
@@ -169,6 +169,12 @@ public class AidBox implements com.estg.core.AidBox {
         if (verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container already exists in array.");
+
+        }
+        
+        if (verifyContainerType(cntnr)) { //Verifica se existe algum igual dentro do array
+
+            throw new ContainerException("Container type already exists in container array.");
 
         }
 
@@ -185,7 +191,7 @@ public class AidBox implements com.estg.core.AidBox {
      *
      * @return true if is possible to enter a new Container, false if it is not.
      */
-    private boolean canAddContainer() {
+    private boolean canAddContainerToArray() {
         return this.containerCounter < containers.length;
     }
 
@@ -193,8 +199,7 @@ public class AidBox implements com.estg.core.AidBox {
      * <strong>verifyContainer()</strong>
      * <p>
      * This method verifys if a given container already existes inside the
-     * containers array or if there is a container with the same type as the one
-     * to be inserted.</p>
+     * containers array.</p>
      *
      * @param cntnr - Container to be analyzed
      * @return true if already exists an equal container, false if it doesn't
@@ -203,7 +208,30 @@ public class AidBox implements com.estg.core.AidBox {
 
         for (Container container : this.containers) {
 
-            if (container.equals(cntnr) || (container.getType() == cntnr.getType())) {
+            if ( container.equals(cntnr) ) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+    
+    /**
+     * <strong>verifyContainerType()</strong>
+     * <p>This methods verifys if there is a container with the same type as the one
+     * to be inserted. </p>
+     * @param cntnr
+     * @return True if there is a Container with the same type as the one to be inserted. False if it doesn't.
+     */
+    private boolean verifyContainerType(Container cntnr) {
+
+        for (Container container : this.containers) {
+
+            if ( container.getType() == cntnr.getType() ) {
 
                 return true;
 
