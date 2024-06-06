@@ -9,9 +9,6 @@
  */
 package PP_AC_8220190_8220862.core;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import com.estg.core.Container;
 import com.estg.core.GeographicCoordinates;
@@ -19,10 +16,6 @@ import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Reader;
-
 
 /**
  * <strong>AidBox</strong>
