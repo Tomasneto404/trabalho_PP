@@ -19,10 +19,12 @@ import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Reader;
-
+import java.io.StringReader;
+import org.json.simple.parser.ParseException;
 
 /**
  * <strong>AidBox</strong>
@@ -117,7 +119,38 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
-        return 1.1;
+
+        try {
+
+            String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
+
+            JSONParser parser = new JSONParser();
+
+            StringReader reader = new StringReader(jsonString);
+
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            JSONArray toArray = (JSONArray) jsonObject.get("to");
+
+            JSONObject firstObject = (JSONObject) toArray.get(0);
+
+            Object distanceObj = firstObject.get("distance");
+            double distance;
+
+            if (distanceObj instanceof Long) {
+                distance = ((Long) distanceObj).doubleValue();
+            } else if (distanceObj instanceof Double) {
+                distance = (Double) distanceObj;
+            } else {
+                throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN, "Unexpected type for distance");
+            }
+
+            return distance;
+
+        } catch (Exception e) {
+            throw new AidBoxException("Couldn't get data from API.");
+        }
+
     }
 
     /**
@@ -132,9 +165,36 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
-        String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
+        try {
 
-        return 1.1;
+            String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
+
+            JSONParser parser = new JSONParser();
+
+            StringReader reader = new StringReader(jsonString);
+
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            JSONArray toArray = (JSONArray) jsonObject.get("to");
+
+            JSONObject firstObject = (JSONObject) toArray.get(0);
+
+            Object durationObj = firstObject.get("duration");
+            double duration;
+
+            if (durationObj instanceof Long) {
+                duration = ((Long) durationObj).doubleValue();
+            } else if (durationObj instanceof Double) {
+                duration = (Double) durationObj;
+            } else {
+                throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN, "Unexpected type for distance");
+            }
+
+            return duration;
+
+        } catch (Exception e) {
+            throw new AidBoxException("Couldn't get data from API.");
+        }
     }
 
     /**
@@ -171,7 +231,7 @@ public class AidBox implements com.estg.core.AidBox {
             throw new ContainerException("Container already exists in array.");
 
         }
-        
+
         if (verifyContainerType(cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container type already exists in container array.");
@@ -208,7 +268,7 @@ public class AidBox implements com.estg.core.AidBox {
 
         for (Container container : this.containers) {
 
-            if ( container.equals(cntnr) ) {
+            if (container.equals(cntnr)) {
 
                 return true;
 
@@ -219,19 +279,22 @@ public class AidBox implements com.estg.core.AidBox {
         return false;
 
     }
-    
+
     /**
      * <strong>verifyContainerType()</strong>
-     * <p>This methods verifys if there is a container with the same type as the one
-     * to be inserted. </p>
+     * <p>
+     * This methods verifys if there is a container with the same type as the
+     * one to be inserted. </p>
+     *
      * @param cntnr
-     * @return True if there is a Container with the same type as the one to be inserted. False if it doesn't.
+     * @return True if there is a Container with the same type as the one to be
+     * inserted. False if it doesn't.
      */
     private boolean verifyContainerType(Container cntnr) {
 
         for (Container container : this.containers) {
 
-            if ( container.getType() == cntnr.getType() ) {
+            if (container.getType() == cntnr.getType()) {
 
                 return true;
 
@@ -278,5 +341,5 @@ public class AidBox implements com.estg.core.AidBox {
     public Container[] getContainers() {
         return this.containers;
     }
-    
+
 }
