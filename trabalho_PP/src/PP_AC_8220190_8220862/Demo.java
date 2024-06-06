@@ -19,7 +19,7 @@ import java.io.IOException;
 import menus.Menu;
 
 
-public class Trabalho_PP {    
+public class Demo {    
     
     public static void main(String[] args) throws ContainerException, IOException{
         HTTPProvider provider = new HTTPProvider();
@@ -33,22 +33,18 @@ public class Trabalho_PP {
      
 
         //System.out.println(box.addContainer(container));
-        //System.out.println(box.getContainers());
-<<<<<<< HEAD
-        
+        //System.out.println(box.getContainers()); 
         //String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37");
         
         //System.out.println(string);
         
         Menu menu = new Menu();
-        menu.InstitutionMenu();
-=======
-        String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=CAIXF37&to=CAIXF44");
-        System.out.println(string);
-        
-       
+        menu.MainMenu();
+     
 
->>>>>>> b6deb32c9546670403f91022465fd85eed296e13
+        //String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=CAIXF37&to=CAIXF44");
+        //System.out.println(string);
+
     }
     
 }
