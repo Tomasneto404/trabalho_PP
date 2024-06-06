@@ -5,10 +5,25 @@
  */
 package pickingManagement;
 
+import com.estg.pickingManagement.Route;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author tomas
  */
-public class PickingMap {
+public class PickingMap implements com.estg.pickingManagement.PickingMap {
+
+    private LocalDateTime date;
+    
+    @Override
+    public LocalDateTime getDate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Route[] getRoutes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

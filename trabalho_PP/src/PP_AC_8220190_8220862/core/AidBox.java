@@ -19,6 +19,10 @@ import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Reader;
+
 
 /**
  * <strong>AidBox</strong>
@@ -26,7 +30,7 @@ import com.estg.io.HTTPProvider;
  */
 public class AidBox implements com.estg.core.AidBox {
 
-    private final int MAX_CONTAINERS = 10;
+    private final int MAX_CONTAINERS = 4;
 
     private String code;
 
@@ -117,7 +121,9 @@ public class AidBox implements com.estg.core.AidBox {
 
         JSONParser parser = new JSONParser();
 
-        JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
+        Reader reader = new Reader(jsonString);
+
+        JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
         JSONArray stringToArray = (JSONArray) jsonObject.get("to");
 
@@ -142,17 +148,27 @@ public class AidBox implements com.estg.core.AidBox {
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
         String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
 
-        JSONParser parser = new JSONParser();
+        try {
 
-        JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
+            FileWriter writer = new FileWriter("test.txt");
+            writer.write(jsonString);
+            writer.close();
 
-        JSONArray stringToArray = (JSONArray) jsonObject.get("to");
+            Reader input = new FileReader("test.txt");
 
-        JSONObject object = (JSONObject) stringToArray.get(0);
+            JSONParser parser = new JSONParser();
 
-        double duration = (double) object.get("duration");
+            JSONObject jsonObject = (JSONObject) parser.parse(input);
 
-        return duration;
+            JSONArray stringToArray = (JSONArray) jsonObject.get("to");
+
+            JSONObject object = (JSONObject) stringToArray.get(0);
+
+            double duration = (double) object.get("duration");
+
+            return duration;
+
+        } catch ()
     }
 
     /**
@@ -179,21 +195,20 @@ public class AidBox implements com.estg.core.AidBox {
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
 
-        if (canAddContainer()) { //Verifica se cabe dentro do array
+        if (!canAddContainer()) { //Verifica se cabe dentro do array
 
-            if (!verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
-
-                this.containers[this.containerCounter++] = cntnr;
-
-                return true;
-
-            } else {
-                throw new ContainerException("Container already exists in array.");
-            }
-
-        } else {
             throw new ContainerException("Containers array is full.");
         }
+
+        if (verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
+
+            throw new ContainerException("Container already exists in array.");
+
+        }
+
+        this.containers[this.containerCounter++] = cntnr;
+
+        return true;
     }
 
     /**
@@ -212,7 +227,8 @@ public class AidBox implements com.estg.core.AidBox {
      * <strong>verifyContainer()</strong>
      * <p>
      * This method verifys if a given container already existes inside the
-     * containers array.</p>
+     * containers array or if there is a container with the same type as the one
+     * to be inserted.</p>
      *
      * @param cntnr - Container to be analyzed
      * @return true if already exists an equal container, false if it doesn't
@@ -221,7 +237,7 @@ public class AidBox implements com.estg.core.AidBox {
 
         for (Container container : this.containers) {
 
-            if (container.equals(cntnr)) {
+            if (container.equals(cntnr) || (container.getType() == cntnr.getType())) {
 
                 return true;
 
