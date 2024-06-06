@@ -16,7 +16,7 @@ import com.estg.core.ItemType;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
 import java.io.IOException;
-import menus.Menu;
+import PP_AC_8220190_8220862.menus.Menu;
 
 
 public class Demo {    

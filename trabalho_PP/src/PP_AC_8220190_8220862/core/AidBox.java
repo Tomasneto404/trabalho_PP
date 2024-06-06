@@ -19,6 +19,10 @@ import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Reader;
+
 
 /**
  * <strong>AidBox</strong>
@@ -26,7 +30,7 @@ import com.estg.io.HTTPProvider;
  */
 public class AidBox implements com.estg.core.AidBox {
 
-    private final int MAX_CONTAINERS = 10;
+    private final int MAX_CONTAINERS = 4;
 
     private String code;
 
@@ -113,19 +117,7 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
-        String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
-
-        JSONParser parser = new JSONParser();
-
-        JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
-
-        JSONArray stringToArray = (JSONArray) jsonObject.get("to");
-
-        JSONObject object = (JSONObject) stringToArray.get(0);
-
-        double distance = (double) object.get("distance");
-
-        return distance;
+        return 1.1;
     }
 
     /**
@@ -142,17 +134,7 @@ public class AidBox implements com.estg.core.AidBox {
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
         String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
 
-        JSONParser parser = new JSONParser();
-
-        JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
-
-        JSONArray stringToArray = (JSONArray) jsonObject.get("to");
-
-        JSONObject object = (JSONObject) stringToArray.get(0);
-
-        double duration = (double) object.get("duration");
-
-        return duration;
+        return 1.1;
     }
 
     /**
@@ -179,21 +161,26 @@ public class AidBox implements com.estg.core.AidBox {
     @Override
     public boolean addContainer(Container cntnr) throws ContainerException {
 
-        if (canAddContainer()) { //Verifica se cabe dentro do array
+        if (!canAddContainerToArray()) { //Verifica se cabe dentro do array
 
-            if (!verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
-
-                this.containers[this.containerCounter++] = cntnr;
-
-                return true;
-
-            } else {
-                throw new ContainerException("Container already exists in array.");
-            }
-
-        } else {
             throw new ContainerException("Containers array is full.");
         }
+
+        if (verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
+
+            throw new ContainerException("Container already exists in array.");
+
+        }
+        
+        if (verifyContainerType(cntnr)) { //Verifica se existe algum igual dentro do array
+
+            throw new ContainerException("Container type already exists in container array.");
+
+        }
+
+        this.containers[this.containerCounter++] = cntnr;
+
+        return true;
     }
 
     /**
@@ -204,7 +191,7 @@ public class AidBox implements com.estg.core.AidBox {
      *
      * @return true if is possible to enter a new Container, false if it is not.
      */
-    private boolean canAddContainer() {
+    private boolean canAddContainerToArray() {
         return this.containerCounter < containers.length;
     }
 
@@ -221,7 +208,30 @@ public class AidBox implements com.estg.core.AidBox {
 
         for (Container container : this.containers) {
 
-            if (container.equals(cntnr)) {
+            if ( container.equals(cntnr) ) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+    
+    /**
+     * <strong>verifyContainerType()</strong>
+     * <p>This methods verifys if there is a container with the same type as the one
+     * to be inserted. </p>
+     * @param cntnr
+     * @return True if there is a Container with the same type as the one to be inserted. False if it doesn't.
+     */
+    private boolean verifyContainerType(Container cntnr) {
+
+        for (Container container : this.containers) {
+
+            if ( container.getType() == cntnr.getType() ) {
 
                 return true;
 
@@ -268,5 +278,5 @@ public class AidBox implements com.estg.core.AidBox {
     public Container[] getContainers() {
         return this.containers;
     }
-
+    
 }

@@ -7,12 +7,13 @@
 * Número: 8220190
 * Turma: LSIRC12T1
  */
-package pickingManagement;
+package PP_AC_8220190_8220862.core;
 
 import com.estg.core.exceptions.VehicleException;
 import com.estg.core.ItemType;
 
 /**
+<<<<<<< HEAD:trabalho_PP/src/pickingManagement/Vehicle.java
  * <strong>Vehicle</strong>
  * <p>
  * This class identifies a vehicle</p>
@@ -51,4 +52,11 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
         return this.maxCapacity;
     }
 
+=======
+ *
+ * @author tomas
+ */
+class ObjectOutputStream {
+    
+>>>>>>> 94769fc30c9d146d83d002a6680d6f4a3cc1c212:trabalho_PP/src/PP_AC_8220190_8220862/core/ObjectOutputStream.java
 }
