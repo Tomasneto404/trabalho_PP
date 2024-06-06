@@ -117,21 +117,7 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
-        String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
-
-        JSONParser parser = new JSONParser();
-
-        Reader reader = new Reader(jsonString);
-
-        JSONObject jsonObject = (JSONObject) parser.parse(reader);
-
-        JSONArray stringToArray = (JSONArray) jsonObject.get("to");
-
-        JSONObject object = (JSONObject) stringToArray.get(0);
-
-        double distance = (double) object.get("distance");
-
-        return distance;
+        return 1.1;
     }
 
     /**
@@ -148,27 +134,7 @@ public class AidBox implements com.estg.core.AidBox {
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
         String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
 
-        try {
-
-            FileWriter writer = new FileWriter("test.txt");
-            writer.write(jsonString);
-            writer.close();
-
-            Reader input = new FileReader("test.txt");
-
-            JSONParser parser = new JSONParser();
-
-            JSONObject jsonObject = (JSONObject) parser.parse(input);
-
-            JSONArray stringToArray = (JSONArray) jsonObject.get("to");
-
-            JSONObject object = (JSONObject) stringToArray.get(0);
-
-            double duration = (double) object.get("duration");
-
-            return duration;
-
-        } catch ()
+        return 1.1;
     }
 
     /**
@@ -284,5 +250,5 @@ public class AidBox implements com.estg.core.AidBox {
     public Container[] getContainers() {
         return this.containers;
     }
-
+    
 }
