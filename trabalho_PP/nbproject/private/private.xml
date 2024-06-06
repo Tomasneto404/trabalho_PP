@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/Asus/Desktop/Universidade/projetoPP/trabalho_PP/src/pickingManagement/Vehicle.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/projetoPP/trabalho_PP/src/PP_AC_8220190_8220862/core/Measurement.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/projetoPP/trabalho_PP/src/menus/Menu.java</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/projetoPP/trabalho_PP/src/PP_AC_8220190_8220862/core/Container.java</file>
+=======
             <file>file:/C:/Users/tomas/Documents/trabalho_PP/trabalho_PP/src/PP_AC_8220190_8220862/Demo.java</file>
             <file>file:/C:/Users/tomas/Documents/trabalho_PP/trabalho_PP/src/pickingManagement/PickingMap.java</file>
             <file>file:/C:/Users/tomas/Documents/trabalho_PP/trabalho_PP/src/PP_AC_8220190_8220862/core/Institution.java</file>
             <file>file:/C:/Users/tomas/Documents/trabalho_PP/trabalho_PP/src/PP_AC_8220190_8220862/core/AidBox.java</file>
+>>>>>>> 94769fc30c9d146d83d002a6680d6f4a3cc1c212
         </group>
     </open-files>
 </project-private>

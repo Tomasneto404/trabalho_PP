@@ -9,10 +9,6 @@
  */
 package PP_AC_8220190_8220862.core;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import com.estg.core.Container;
 import com.estg.core.GeographicCoordinates;
 import com.estg.core.ItemType;
@@ -20,14 +16,18 @@ import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
 
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * <strong>AidBox</strong>
+ * <strong>AidBox()</strong>
  *
  */
 public class AidBox implements com.estg.core.AidBox {
@@ -63,14 +63,12 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     /**
-     * <strong>AidBox()</strong>
+     * <strong>AidBox()
      * <p>
      * AidBox constructor method.</p>
      *
      * @param code String value that represents the code of an AidBox.
      * @param zone String value that represents the zone where the AiBox is.
-     * @param coordinates GeographicCoordinates value that represents the actual
-     * coordinates of the AidBox.
      */
     public AidBox(String code, String zone) {
         this.code = code;
