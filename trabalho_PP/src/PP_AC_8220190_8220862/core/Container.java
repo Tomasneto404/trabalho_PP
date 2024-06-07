@@ -127,9 +127,9 @@ public class Container implements com.estg.core.Container {
         //convert a LocalDate variable in a LocalDateTime variable
         LocalDateTime ld2 = convertToDatetime(ld);
 
-        for (int i = 0; i < this.measurements.length; i++) {
-            if (this.measurements[i].getDate().equals(ld2)) {
-                tmp[contador++] = this.measurements[i];
+        for (Measurement measurement : this.measurements) {
+            if (measurement.getDate().equals(ld2)) {
+                tmp[contador++] = measurement;
             }
         }
 
