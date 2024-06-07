@@ -22,6 +22,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * <strong>AidBox()</strong>
  *
@@ -373,4 +375,14 @@ public class AidBox implements com.estg.core.AidBox {
         return this.containers;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        AidBox cloned = (AidBox) super.clone();
+        cloned.containers = containers.clone();
+        for (int i = 0; i < containers.length; i++) {
+            cloned.containers[i] = (Container) containers[i].clone();
+        }
+        return cloned;
+    }
 }
+

@@ -293,4 +293,8 @@ public class Container implements com.estg.core.Container {
         return date.atStartOfDay();
     }
 
+      @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
