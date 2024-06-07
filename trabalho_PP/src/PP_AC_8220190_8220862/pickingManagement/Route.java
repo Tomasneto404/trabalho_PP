@@ -32,6 +32,7 @@ public class Route implements com.estg.pickingManagement.Route {
         this.totalDuration=0.0;
     }
 
+    
     @Override
     public void addAidBox(com.estg.core.AidBox aidbox) throws RouteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

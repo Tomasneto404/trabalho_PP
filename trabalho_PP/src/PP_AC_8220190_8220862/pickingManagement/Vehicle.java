@@ -10,6 +10,7 @@
 
 package PP_AC_8220190_8220862.pickingManagement;
 
+import PP_AC_8220190_8220862.enums.VehicleState;
 
 import PP_AC_8220190_8220862.enums.VehicleState;
 
