@@ -5,6 +5,7 @@
  */
 package PP_AC_8220190_8220862.core;
 
+import PP_AC_8220190_8220862.enums.VehicleState;
 import com.estg.core.AidBox;
 import com.estg.core.Container;
 import com.estg.core.ItemType;
@@ -123,7 +124,15 @@ public class Institution implements com.estg.core.Institution {
         return this.aidBoxCounter < this.aidBoxs.length;
     }
 
-    
+    /**
+     * <strong>addMeasurement()</strong>
+     * <p>This method makes verifications and inserts a new Measurement according to a Container in the measurements array of the Institution.</p>
+     * @param msrmnt Measurement object to be inserted
+     * @param cntnr Container of the measurement
+     * @return true if it was possible to add the new Measurement to the array.
+     * @throws ContainerException
+     * @throws MeasurementException 
+     */
     @Override
     public boolean addMeasurement(Measurement msrmnt, Container cntnr) throws ContainerException, MeasurementException {
         
@@ -131,18 +140,52 @@ public class Institution implements com.estg.core.Institution {
             throw new MeasurementException("Measurements array is full");
         }
         
-                
+        if ( verifyMeasurement(msrmnt) ) {
+             throw new MeasurementException("This Measurement already exists in the array.");
+        }
+        
+        if ( verifyContainerMeasurements(msrmnt, cntnr) ) {
+            throw new ContainerException("Container already has a measurement with the same date.");
+        }
         
         this.measurements[measurementCounter++] = msrmnt;
         
         return true;
     }
     
-    private boolean verifyMeasurement() {
+    /**
+     * <strong>verifyContainerMeasurements()</strong>
+     * <p>This method verifys if a given container has in its Measurements array a measurement with the same date as the one to be verified.</p>
+     * @param msrmnt Measurement to verify date
+     * @param cntnr Container to check if already exists a Measurement with the date of the measurement received.
+     * @return True if there is a measurement with the same date. False if it doesn't.
+     */
+    private boolean verifyContainerMeasurements(Measurement msrmnt, Container cntnr) {
         
+       return cntnr.getMeasurements( msrmnt.getDate().toLocalDate() ).length != 0;
+    }
+    
+    
+    
+   /**
+     * <strong>verifyMeasurement()</strong>
+     * <p>This method verifys if there is and equal measurement to the one to be inserted in the array</p>
+     * @param msrmnt
+     * @return True if already exists the same measurement. false if it doesn't.
+     */
+    private boolean verifyMeasurement(Measurement msrmnt) {
         
-        
-        return true;
+        for (Measurement measurement : this.measurements) {
+
+            if ( measurement.equals(msrmnt) ) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
     }
     
     /**
@@ -250,12 +293,12 @@ public class Institution implements com.estg.core.Institution {
     
     @Override
     public void disableVehicle(Vehicle vhcl) throws VehicleException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        vhcl.setState(VehicleState.INACTIVE);
     }
 
     @Override
     public void enableVehicle(Vehicle vhcl) throws VehicleException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        vhcl.setState(VehicleState.ACTIVE);
     }
 
     @Override

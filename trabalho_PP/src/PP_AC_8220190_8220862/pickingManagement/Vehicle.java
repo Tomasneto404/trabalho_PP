@@ -8,7 +8,11 @@
 * Turma: LSIRC12T1
  */
 
+<<<<<<< HEAD
 package PP_AC_8220190_8220862.pickingManagement;
+=======
+import PP_AC_8220190_8220862.enums.VehicleState;
+>>>>>>> 0c1ebc5e81ec8b87580d4ee7f7b538cc385a3697
 import com.estg.core.exceptions.VehicleException;
 import com.estg.core.ItemType;
 
@@ -24,6 +28,8 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
     private String plate;
 
     private double maxCapacity;
+    
+    private VehicleState state;
 
     /**
      * <strong>Vehicle() </strong>
@@ -38,6 +44,7 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
 
         this.plate = plate;
         this.item = item;
+        this.state = VehicleState.ACTIVE;
 
         this.maxCapacity = maxCapacity;
     }
@@ -91,6 +98,24 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
     @Override
     public double getMaxCapacity() {
         return this.maxCapacity;
+    }
+    
+    /**
+     * <strong>setState()</strong>
+     * <p>Sets the value of state to the vehicle.</p>
+     * @param state 
+     */
+    public void setState(VehicleState state) {
+        this.state = state;
+    }
+    
+    /**
+     * <strong>getState()</strong>
+     * <p>Gets the value of the actual state of the vehicle.</p>
+     * @return The VehicleState object that identifies the actual state of vehicle.
+     */
+    public VehicleState getState(){
+        return this.state;
     }
 
 }
