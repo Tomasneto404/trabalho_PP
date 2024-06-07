@@ -56,10 +56,9 @@ public class Container implements com.estg.core.Container {
      * @param capacity receives the container's capacity
      * @param type receives the container's type
      */
-    public Container(String code, double capacity, ItemType type) {
+    public Container(String code, double capacity) {
         this.code = code;
         this.capacity = capacity;
-        this.type = type;
     }
 
     /**
