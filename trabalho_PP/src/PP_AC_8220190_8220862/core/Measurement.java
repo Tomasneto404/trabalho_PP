@@ -25,12 +25,13 @@ public class Measurement implements com.estg.core.Measurement {
     private double value;
 
     /**
-     *  <strong> Measurement()</strong>
+     * <strong> Measurement()</strong>
      * <p>Measurement constructor method.</p>
      * @param value receives the container weight in kg
      */
-    public Measurement(double value) {
+    public Measurement(double value, LocalDateTime date) {        
         this.value = value;
+        this.date = date;
     }
 
     /**

@@ -30,12 +30,12 @@ public class Demo {
         Container container1 = new Container("3232", 323);
         
      
-         //System.out.println(provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37"));
+         System.out.println(provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/readings"));
          
-         System.out.println(box.getZone());
-         System.out.println(box.getCoordinates().getLatitude());
-         System.out.println(box.getCoordinates().getLongitude());
-         System.out.println(box.getDistance(box1));
+         //System.out.println(box.getZone());
+         //System.out.println(box.getCoordinates().getLatitude());
+         //System.out.println(box.getCoordinates().getLongitude());
+         //System.out.println(box.getDistance(box1));
 
     }
     
