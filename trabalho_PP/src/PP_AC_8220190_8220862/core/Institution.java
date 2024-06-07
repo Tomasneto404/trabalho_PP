@@ -31,6 +31,8 @@ public class Institution implements com.estg.core.Institution {
     
     private final int MAX_VEHICLES = 10;
     
+    private final int MAX_PICKINGMAPS = 10;
+    
     private String name;
     
     private AidBox[] aidBoxs;
@@ -45,6 +47,10 @@ public class Institution implements com.estg.core.Institution {
     
     private int vehicleCounter;
     
+    private PickingMap[] pickingMaps;
+    
+    private int pickingMpaCounter;
+    
     /**
      * <strong>Institution()</strong>
      * <p>Constructor method of Institution</p>
@@ -55,9 +61,11 @@ public class Institution implements com.estg.core.Institution {
         this.aidBoxCounter = 0;
         this.vehicleCounter = 0;
         this.measurementCounter = 0;
+        this.pickingMpaCounter = 0;
         this.aidBoxs = new AidBox[MAX_AIDBOXS];
         this.measurements = new Measurement[MAX_MEASUREMENTS];
         this.vehicles = new Vehicle[MAX_VEHICLES];
+        this.pickingMaps = new PickingMap[MAX_PICKINGMAPS];
     }
     
     /**
@@ -289,19 +297,29 @@ public class Institution implements com.estg.core.Institution {
         return false;
     }
     
+    /**
+     * 
+     * @param vhcl
+     * @throws VehicleException 
+     */
     @Override
     public void disableVehicle(Vehicle vhcl) throws VehicleException {
-        vhcl.setState(VehicleState.INACTIVE);
+        //vhcl.setState(VehicleState.INACTIVE);
     }
 
     @Override
     public void enableVehicle(Vehicle vhcl) throws VehicleException {
-        vhcl.setState(VehicleState.ACTIVE);
+        //vhcl.setState(VehicleState.ACTIVE);
     }
 
+    /**
+     * <strong>getPickingMaps()</strong>
+     * <p>This method gets the pickingMaps array.</p>
+     * @return The PickingMaps array.
+     */
     @Override
     public PickingMap[] getPickingMaps() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.pickingMaps;
     }
 
     @Override
@@ -309,9 +327,22 @@ public class Institution implements com.estg.core.Institution {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * <strong>getCurrentPickingMap()</strong>
+     * <p>This method returns the current picking map that is being used by the Institution</p>
+     * @return The last PickingMap from the array of pickingMaps;
+     * @throws PickingMapException If the PickingMap doesn't exist.
+     */
     @Override
     public PickingMap getCurrentPickingMap() throws PickingMapException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        PickingMap lastPckMp = this.pickingMaps[this.pickingMpaCounter];
+        
+        if (lastPckMp == null) {
+            throw new PickingMapException("No current PickingMap is being used.");
+        }
+        
+        return lastPckMp;
     }
 
     @Override
