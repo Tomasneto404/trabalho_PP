@@ -304,13 +304,13 @@ public class Institution implements com.estg.core.Institution {
     
     @Override
     public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
-        Vehicle vehicle= (Vehicle) vhcl;
+        Vehicle vehicle = (Vehicle) vhcl;
         vehicle.setState(VehicleState.INACTIVE);
     }
 
     @Override
     public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
-        Vehicle vehicle= (Vehicle) vhcl;
+        Vehicle vehicle = (Vehicle) vhcl;
         vehicle.setState(VehicleState.ACTIVE);
     }
 
