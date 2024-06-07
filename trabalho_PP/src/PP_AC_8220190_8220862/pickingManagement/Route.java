@@ -32,6 +32,9 @@ public class Route implements com.estg.pickingManagement.Route {
         this.totalDuration=0.0;
     }
 
+    public Route (Vehicle vehicle){
+        this.vehicle=vehicle;
+    }
     
     @Override
     public void addAidBox(com.estg.core.AidBox aidbox) throws RouteException {
