@@ -25,7 +25,7 @@ import PP_AC_8220190_8220862.pickingManagement.Vehicle;
  *
  * @author tomas
  */
-public class InstitutionImp implements com.estg.core.Institution {
+public class Institution implements com.estg.core.Institution {
 
     private final int MAX_AIDBOXS = 10;
     
@@ -58,7 +58,7 @@ public class InstitutionImp implements com.estg.core.Institution {
      * <p>Constructor method of Institution</p>
      * @param name Receives the name of the institution.
      */
-    public InstitutionImp(String name) {
+    public Institution(String name) {
         this.name = name;
         this.aidBoxCounter = 0;
         this.vehicleCounter = 0;
@@ -301,7 +301,7 @@ public class InstitutionImp implements com.estg.core.Institution {
     
     
     @Override
-    public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {        
+    public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         //vhcl.setState(VehicleState.INACTIVE);
     }
 
