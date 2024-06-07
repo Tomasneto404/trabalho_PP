@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  */
-public class Measurement implements com.estg.core.Measurement {
+public class MeasurementImp implements com.estg.core.Measurement {
 
     private LocalDateTime date;
 
@@ -29,7 +29,7 @@ public class Measurement implements com.estg.core.Measurement {
      * <p>Measurement constructor method.</p>
      * @param value receives the container weight in kg
      */
-    public Measurement(double value, LocalDateTime date) {        
+    public MeasurementImp(double value, LocalDateTime date) {        
         this.value = value;
         this.date = date;
     }

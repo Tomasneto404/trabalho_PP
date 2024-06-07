@@ -25,13 +25,15 @@ import PP_AC_8220190_8220862.pickingManagement.Vehicle;
  *
  * @author tomas
  */
-public class Institution implements com.estg.core.Institution {
+public class InstitutionImp implements com.estg.core.Institution {
 
     private final int MAX_AIDBOXS = 10;
     
     private final int MAX_MEASUREMENTS = 10;
     
     private final int MAX_VEHICLES = 10;
+    
+    private final int MAX_PICKINGMAPS = 10;
     
     private String name;
     
@@ -47,19 +49,25 @@ public class Institution implements com.estg.core.Institution {
     
     private int vehicleCounter;
     
+    private PickingMap[] pickingMaps;
+    
+    private int pickingMpaCounter;
+    
     /**
      * <strong>Institution()</strong>
      * <p>Constructor method of Institution</p>
      * @param name Receives the name of the institution.
      */
-    public Institution(String name) {
+    public InstitutionImp(String name) {
         this.name = name;
         this.aidBoxCounter = 0;
         this.vehicleCounter = 0;
         this.measurementCounter = 0;
+        this.pickingMpaCounter = 0;
         this.aidBoxs = new AidBox[MAX_AIDBOXS];
         this.measurements = new Measurement[MAX_MEASUREMENTS];
         this.vehicles = new Vehicle[MAX_VEHICLES];
+        this.pickingMaps = new PickingMap[MAX_PICKINGMAPS];
     }
     
     /**
@@ -243,17 +251,17 @@ public class Institution implements com.estg.core.Institution {
      * @throws VehicleException If ocurred and error during the validations to insert the new vehicle.
      */
     @Override
-    public boolean addVehicle(Vehicle vhcl) throws VehicleException {
+    public boolean addVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         
         if ( !canAddVehicleToArray() ) {
             throw new VehicleException("Vehicle array is full.");
         }
         
-        if ( verifyVehicle(vhcl) ) {
+        if ( verifyVehicle((Vehicle) vhcl) ) {
             throw new VehicleException("This vehicle already exists inside the array.");
         }
      
-        this.vehicles[this.vehicleCounter++] = vhcl;
+        this.vehicles[this.vehicleCounter++] = (Vehicle) vhcl;
         
         return true;
     }
@@ -291,19 +299,25 @@ public class Institution implements com.estg.core.Institution {
         return false;
     }
     
+    
     @Override
-    public void disableVehicle(Vehicle vhcl) throws VehicleException {
-        vhcl.setState(VehicleState.INACTIVE);
+    public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {        
+        //vhcl.setState(VehicleState.INACTIVE);
     }
 
     @Override
-    public void enableVehicle(Vehicle vhcl) throws VehicleException {
-        vhcl.setState(VehicleState.ACTIVE);
+    public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
+        //vhcl.setState(VehicleState.ACTIVE);
     }
 
+    /**
+     * <strong>getPickingMaps()</strong>
+     * <p>This method gets the pickingMaps array.</p>
+     * @return The PickingMaps array.
+     */
     @Override
     public PickingMap[] getPickingMaps() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.pickingMaps;
     }
 
     @Override
@@ -311,9 +325,22 @@ public class Institution implements com.estg.core.Institution {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * <strong>getCurrentPickingMap()</strong>
+     * <p>This method returns the current picking map that is being used by the Institution</p>
+     * @return The last PickingMap from the array of pickingMaps;
+     * @throws PickingMapException If the PickingMap doesn't exist.
+     */
     @Override
     public PickingMap getCurrentPickingMap() throws PickingMapException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        PickingMap lastPckMp = this.pickingMaps[this.pickingMpaCounter];
+        
+        if (lastPckMp == null) {
+            throw new PickingMapException("No current PickingMap is being used.");
+        }
+        
+        return lastPckMp;
     }
 
     @Override

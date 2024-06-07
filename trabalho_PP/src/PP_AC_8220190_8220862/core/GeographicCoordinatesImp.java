@@ -14,7 +14,7 @@ package PP_AC_8220190_8220862.core;
  * <p>This class represents coordinates trough latitude and longitude values</p>
  * 
  */
-public class GeographicCoordinates implements com.estg.core.GeographicCoordinates {
+public class GeographicCoordinatesImp implements com.estg.core.GeographicCoordinates {
 
     private double latitude;
     private double longitude;
@@ -25,7 +25,7 @@ public class GeographicCoordinates implements com.estg.core.GeographicCoordinate
      * @param latitude double value that represents the latitude of the coordinates
      * @param longitude double value that represents the longitude of the coordinates 
      */
-    public GeographicCoordinates(double latitude, double longitude) {
+    public GeographicCoordinatesImp(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
