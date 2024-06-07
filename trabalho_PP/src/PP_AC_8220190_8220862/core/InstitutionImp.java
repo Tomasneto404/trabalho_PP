@@ -16,11 +16,11 @@ import com.estg.core.exceptions.MeasurementException;
 import com.estg.core.exceptions.PickingMapException;
 import com.estg.core.exceptions.VehicleException;
 import com.estg.pickingManagement.PickingMap;
-import com.estg.pickingManagement.Vehicle;
+
 import java.time.LocalDateTime;
 
 
-
+import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 /**
  *
  * @author tomas
