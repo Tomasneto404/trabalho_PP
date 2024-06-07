@@ -253,15 +253,17 @@ public class Institution implements com.estg.core.Institution {
     @Override
     public boolean addVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         
+        Vehicle vehicle= (Vehicle) vhcl;
+        
         if ( !canAddVehicleToArray() ) {
             throw new VehicleException("Vehicle array is full.");
         }
         
-        if ( verifyVehicle((Vehicle) vhcl) ) {
+        if ( verifyVehicle( vehicle) ) {
             throw new VehicleException("This vehicle already exists inside the array.");
         }
      
-        this.vehicles[this.vehicleCounter++] = (Vehicle) vhcl;
+        this.vehicles[this.vehicleCounter++] = vehicle;
         
         return true;
     }
@@ -302,12 +304,14 @@ public class Institution implements com.estg.core.Institution {
     
     @Override
     public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
-        //vhcl.setState(VehicleState.INACTIVE);
+        Vehicle vehicle= (Vehicle) vhcl;
+        vehicle.setState(VehicleState.INACTIVE);
     }
 
     @Override
     public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
-        //vhcl.setState(VehicleState.ACTIVE);
+        Vehicle vehicle= (Vehicle) vhcl;
+        vehicle.setState(VehicleState.ACTIVE);
     }
 
     /**

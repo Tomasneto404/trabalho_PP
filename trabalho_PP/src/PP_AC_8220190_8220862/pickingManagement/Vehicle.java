@@ -10,10 +10,7 @@
 
 package PP_AC_8220190_8220862.pickingManagement;
 
-<<<<<<< HEAD
 import PP_AC_8220190_8220862.enums.VehicleState;
-=======
->>>>>>> 31964344b8904e87c669b255ecebfcc6272fa1b2
 import com.estg.core.exceptions.VehicleException;
 import com.estg.core.ItemType;
 
