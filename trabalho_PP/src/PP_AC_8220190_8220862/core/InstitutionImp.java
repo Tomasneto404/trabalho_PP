@@ -251,17 +251,17 @@ public class InstitutionImp implements com.estg.core.Institution {
      * @throws VehicleException If ocurred and error during the validations to insert the new vehicle.
      */
     @Override
-    public boolean addVehicle(Vehicle vhcl) throws VehicleException {
+    public boolean addVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         
         if ( !canAddVehicleToArray() ) {
             throw new VehicleException("Vehicle array is full.");
         }
         
-        if ( verifyVehicle(vhcl) ) {
+        if ( verifyVehicle((Vehicle) vhcl) ) {
             throw new VehicleException("This vehicle already exists inside the array.");
         }
      
-        this.vehicles[this.vehicleCounter++] = vhcl;
+        this.vehicles[this.vehicleCounter++] = (Vehicle) vhcl;
         
         return true;
     }
@@ -301,12 +301,12 @@ public class InstitutionImp implements com.estg.core.Institution {
     
     
     @Override
-    public void disableVehicle(Vehicle vhcl) throws VehicleException {        
+    public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {        
         //vhcl.setState(VehicleState.INACTIVE);
     }
 
     @Override
-    public void enableVehicle(Vehicle vhcl) throws VehicleException {
+    public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         //vhcl.setState(VehicleState.ACTIVE);
     }
 
