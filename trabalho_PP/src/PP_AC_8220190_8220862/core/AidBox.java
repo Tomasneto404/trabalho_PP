@@ -9,8 +9,6 @@
  */
 package PP_AC_8220190_8220862.core;
 
-import PP_AC_8220190_8220862.core.Container;
-import PP_AC_8220190_8220862.core.GeographicCoordinates;
 
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;

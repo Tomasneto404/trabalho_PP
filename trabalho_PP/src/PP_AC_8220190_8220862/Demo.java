@@ -35,6 +35,7 @@ public class Demo {
          System.out.println(box.getZone());
          System.out.println(box.getCoordinates().getLatitude());
          System.out.println(box.getCoordinates().getLongitude());
+         System.out.println(box.getDistance(box1));
 
     }
     
