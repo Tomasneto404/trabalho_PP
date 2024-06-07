@@ -18,6 +18,8 @@ public class Route implements com.estg.pickingManagement.Route {
 
     private final int MAX_AIDBOXS = 20;
     
+    private int counter;
+    
     private AidBox[] aidBoxs;
     
     private Vehicle vehicle;
@@ -30,12 +32,33 @@ public class Route implements com.estg.pickingManagement.Route {
         this.aidBoxs= new AidBox[MAX_AIDBOXS];
         this.totalDistance=0.0;
         this.totalDuration=0.0;
+        this.counter=0;
     }
 
     public Route (Vehicle vehicle){
         this.vehicle=vehicle;
     }
     
+    private boolean existAidBox (AidBox aidbox){
+         for (AidBox box : this.aidBoxs) {
+            if (box != null && box.equals(aidbox)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+       private int getIndex(AidBox aidbox) {
+        for (int i = 0; i < this.counter; i++) {
+            if (this.aidBoxs[i].equals(aidbox)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     @Override
     public void addAidBox(com.estg.core.AidBox aidbox) throws RouteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
