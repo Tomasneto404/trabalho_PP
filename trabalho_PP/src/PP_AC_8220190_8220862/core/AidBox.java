@@ -72,7 +72,7 @@ public class AidBox implements com.estg.core.AidBox {
         this.code = code;
         this.refLocal = refLocal;
         
-        String aidBoxString = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=" + code);
+        String aidBoxString = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=" + this.code);
         
         JSONParser parser = new JSONParser();
 
@@ -84,10 +84,10 @@ public class AidBox implements com.estg.core.AidBox {
             this.coordinates = new GeographicCoordinates((double) jsonObject.get("Latitude"), (double) jsonObject.get("Longitude"));
             this.zone = (String) jsonObject.get("Zona");
 
+            /*
+            JSONArray containersArray = (JSONArray) jsonObject.get("Contentores");
             
-            JSONArray containerssArray = (JSONArray) jsonObject.get("Contentores");
-            
-            for (Object obj : containerssArray) {
+            for (Object obj : containersArray) {
                 JSONObject contentor = (JSONObject) obj;
                 String codigo = (String) contentor.get("codigo");
                 double capacidade = (double) contentor.get("capacidade");
@@ -98,7 +98,7 @@ public class AidBox implements com.estg.core.AidBox {
                     e.getMessage();
                 }
                 
-            }
+            }*/
 
         } catch (Exception e) {
             throw new AidBoxException("Coulnd´t get data from this aidBox code.");
@@ -250,26 +250,26 @@ public class AidBox implements com.estg.core.AidBox {
      * @throws ContainerException
      */
     @Override
-    public boolean addContainer(Container cntnr) throws ContainerException {
+    public boolean addContainer(com.estg.core.Container cntnr) throws ContainerException {
 
         if (!canAddContainerToArray()) { //Verifica se cabe dentro do array
 
             throw new ContainerException("Containers array is full.");
         }
 
-        if (verifyContainer(cntnr)) { //Verifica se existe algum igual dentro do array
+        if (verifyContainer((Container) cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container already exists in array.");
 
         }
 
-        if (verifyContainerType(cntnr)) { //Verifica se existe algum igual dentro do array
+        if (verifyContainerType((Container) cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container type already exists in container array.");
 
         }
 
-        this.containers[this.containerCounter++] = cntnr;
+        this.containers[this.containerCounter++] = (Container) cntnr;
 
         return true;
     }
