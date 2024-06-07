@@ -25,28 +25,17 @@ public class Demo {
     public static void main(String[] args) throws ContainerException, IOException, AidBoxException{
         HTTPProvider provider = new HTTPProvider();
         
-        AidBox box = new AidBox("CAIXF44", "lixa");
-        AidBox box1 = new AidBox("CAIXF37", "lixa");
+        AidBox box = new AidBox("CAIXF44", "coisa");
+        AidBox box1 = new AidBox("CAIXF37", "coisa");
     
-        Container container = new Container("3232", 323, ItemType.CLOTHING);
+        Container container = new Container("3232", 323);
         
-        Container container2=new Container("3232", 323, ItemType.MEDICINE);
+        Container container1 = new Container("3232", 323);
         
      
-         System.out.println(box.getDuration(box1));
-        
-        //System.out.println(box.addContainer(container));
-        //System.out.println(box.getContainers()); 
-        //String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37");
-        
-        //System.out.println(string);
-        
-        //Menu menu = new Menu();
-        //menu.MainMenu();
-     
-
-        //String string = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=CAIXF37&to=CAIXF44");
-        //System.out.println(string);
+         //System.out.println(provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37"));
+         
+         System.out.println(box.getZone());
 
     }
     

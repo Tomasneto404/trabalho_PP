@@ -9,18 +9,16 @@
  */
 package PP_AC_8220190_8220862.core;
 
-import com.estg.core.Container;
-import com.estg.core.GeographicCoordinates;
+import PP_AC_8220190_8220862.core.Container;
+import PP_AC_8220190_8220862.core.GeographicCoordinates;
+
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
 
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Reader;
 import java.io.StringReader;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -70,9 +68,42 @@ public class AidBox implements com.estg.core.AidBox {
      * @param code String value that represents the code of an AidBox.
      * @param zone String value that represents the zone where the AiBox is.
      */
-    public AidBox(String code, String zone) {
+    public AidBox(String code, String refLocal) throws AidBoxException {
         this.code = code;
-        this.zone = zone;
+        this.refLocal = refLocal;
+        
+        String aidBoxString = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=" + code);
+        
+        JSONParser parser = new JSONParser();
+
+        try {
+            StringReader reader = new StringReader(aidBoxString);
+            
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            this.coordinates = new GeographicCoordinates((double) jsonObject.get("Latitude"), (double) jsonObject.get("Longitude"));
+            this.zone = (String) jsonObject.get("Zona");
+
+            
+            JSONArray containerssArray = (JSONArray) jsonObject.get("Contentores");
+            
+            for (Object obj : containerssArray) {
+                JSONObject contentor = (JSONObject) obj;
+                String codigo = (String) contentor.get("codigo");
+                double capacidade = (double) contentor.get("capacidade");
+                
+                try {
+                    addContainer(new Container(codigo, capacidade));
+                } catch (ContainerException e) {
+                    e.getMessage();
+                }
+                
+            }
+
+        } catch (Exception e) {
+            throw new AidBoxException("Coulnd´t get data from this aidBox code.");
+        }
+
     }
 
     /**
@@ -133,6 +164,7 @@ public class AidBox implements com.estg.core.AidBox {
             JSONObject firstObject = (JSONObject) toArray.get(0);
 
             Object distanceObj = firstObject.get("distance");
+
             double distance;
 
             if (distanceObj instanceof Long) {
@@ -178,6 +210,7 @@ public class AidBox implements com.estg.core.AidBox {
             JSONObject firstObject = (JSONObject) toArray.get(0);
 
             Object durationObj = firstObject.get("duration");
+
             double duration;
 
             if (durationObj instanceof Long) {
@@ -185,7 +218,7 @@ public class AidBox implements com.estg.core.AidBox {
             } else if (durationObj instanceof Double) {
                 duration = (Double) durationObj;
             } else {
-                throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN, "Unexpected type for distance");
+                throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN, "Unexpected type for duration");
             }
 
             return duration;
