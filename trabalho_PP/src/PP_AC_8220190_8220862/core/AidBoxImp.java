@@ -26,7 +26,7 @@ import org.json.simple.parser.ParseException;
  * <strong>AidBox()</strong>
  *
  */
-public class AidBox implements com.estg.core.AidBox {
+public class AidBoxImp implements com.estg.core.AidBox {
 
     private final int MAX_CONTAINERS = 4;
 
@@ -36,9 +36,9 @@ public class AidBox implements com.estg.core.AidBox {
 
     private String refLocal;
 
-    private GeographicCoordinates coordinates;
+    private GeographicCoordinatesImp coordinates;
 
-    private Container[] containers;
+    private ContainerImp[] containers;
 
     private int containerCounter;
 
@@ -53,7 +53,7 @@ public class AidBox implements com.estg.core.AidBox {
      * of the instance.</p>
      */
     {
-        this.containers = new Container[MAX_CONTAINERS];
+        this.containers = new ContainerImp[MAX_CONTAINERS];
         this.containerCounter = 0;
         this.provider = new HTTPProvider();
     }
@@ -66,7 +66,7 @@ public class AidBox implements com.estg.core.AidBox {
      * @param code String value that represents the code of an AidBox.
      * @param zone String value that represents the zone where the AiBox is.
      */
-    public AidBox(String code, String refLocal) throws AidBoxException {
+    public AidBoxImp(String code, String refLocal) throws AidBoxException {
         this.code = code;
         this.refLocal = refLocal;
         
@@ -79,10 +79,10 @@ public class AidBox implements com.estg.core.AidBox {
             
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
-            this.coordinates = new GeographicCoordinates((double) jsonObject.get("Latitude"), (double) jsonObject.get("Longitude"));
+            this.coordinates = new GeographicCoordinatesImp((double) jsonObject.get("Latitude"), (double) jsonObject.get("Longitude"));
             this.zone = (String) jsonObject.get("Zona");
 
-            /*
+            
             JSONArray containersArray = (JSONArray) jsonObject.get("Contentores");
             
             for (Object obj : containersArray) {
@@ -91,12 +91,12 @@ public class AidBox implements com.estg.core.AidBox {
                 double capacidade = (double) contentor.get("capacidade");
                 
                 try {
-                    addContainer(new Container(codigo, capacidade));
+                    addContainer(new ContainerImp(codigo, capacidade));
                 } catch (ContainerException e) {
                     e.getMessage();
                 }
                 
-            }*/
+            }
 
         } catch (Exception e) {
             throw new AidBoxException("Coulnd´t get data from this aidBox code.");
@@ -233,7 +233,7 @@ public class AidBox implements com.estg.core.AidBox {
      * the AidBox
      */
     @Override
-    public GeographicCoordinates getCoordinates() {
+    public GeographicCoordinatesImp getCoordinates() {
         return this.coordinates;
     }
 
@@ -255,19 +255,19 @@ public class AidBox implements com.estg.core.AidBox {
             throw new ContainerException("Containers array is full.");
         }
 
-        if (verifyContainer((Container) cntnr)) { //Verifica se existe algum igual dentro do array
+        if (verifyContainer((ContainerImp) cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container already exists in array.");
 
         }
 
-        if (verifyContainerType((Container) cntnr)) { //Verifica se existe algum igual dentro do array
+        if (verifyContainerType((ContainerImp) cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container type already exists in container array.");
 
         }
 
-        this.containers[this.containerCounter++] = (Container) cntnr;
+        this.containers[this.containerCounter++] = (ContainerImp) cntnr;
 
         return true;
     }
@@ -293,9 +293,9 @@ public class AidBox implements com.estg.core.AidBox {
      * @param cntnr - Container to be analyzed
      * @return true if already exists an equal container, false if it doesn't
      */
-    private boolean verifyContainer(Container cntnr) {
+    private boolean verifyContainer(ContainerImp cntnr) {
 
-        for (Container container : this.containers) {
+        for (ContainerImp container : this.containers) {
 
             if (container.equals(cntnr)) {
 
@@ -319,9 +319,9 @@ public class AidBox implements com.estg.core.AidBox {
      * @return True if there is a Container with the same type as the one to be
      * inserted. False if it doesn't.
      */
-    private boolean verifyContainerType(Container cntnr) {
+    private boolean verifyContainerType(ContainerImp cntnr) {
 
-        for (Container container : this.containers) {
+        for (ContainerImp container : this.containers) {
 
             if (container.getType() == cntnr.getType()) {
 
@@ -343,9 +343,9 @@ public class AidBox implements com.estg.core.AidBox {
      * no container with the specific item type.
      */
     @Override
-    public Container getContainer(ItemType it) {
+    public ContainerImp getContainer(ItemType it) {
 
-        for (Container container : this.containers) {
+        for (ContainerImp container : this.containers) {
 
             if (container.getType() == it) {
 
@@ -367,7 +367,7 @@ public class AidBox implements com.estg.core.AidBox {
      * @return The array of containers
      */
     @Override
-    public Container[] getContainers() {
+    public ContainerImp[] getContainers() {
         return this.containers;
     }
 

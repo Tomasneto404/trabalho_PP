@@ -8,13 +8,12 @@
 * Turma: LSIRC12T1
  */
 
-<<<<<<< HEAD
 package PP_AC_8220190_8220862.pickingManagement;
-=======
-import PP_AC_8220190_8220862.enums.VehicleState;
->>>>>>> 0c1ebc5e81ec8b87580d4ee7f7b538cc385a3697
+
 import com.estg.core.exceptions.VehicleException;
 import com.estg.core.ItemType;
+
+import PP_AC_8220190_8220862.enums.VehicleState;
 
 /**
  * <strong>Vehicle</strong>

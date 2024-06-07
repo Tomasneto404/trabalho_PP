@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  * <p>
  * This class identifies a container</p>
  */
-public class Container implements com.estg.core.Container {
+public class ContainerImp implements com.estg.core.Container {
 
     private final int MAX_MEASUREMENT = 100;
 
@@ -56,7 +56,7 @@ public class Container implements com.estg.core.Container {
      * @param capacity receives the container's capacity
      * @param type receives the container's type
      */
-    public Container(String code, double capacity) {
+    public ContainerImp(String code, double capacity) {
         this.code = code;
         this.capacity = capacity;
     }
@@ -235,8 +235,8 @@ public class Container implements com.estg.core.Container {
     @Override
     public boolean equals(Object o) {
 
-        if (o instanceof Container) {
-            if (this.code.equals((Container) o)) {
+        if (o instanceof ContainerImp) {
+            if (this.code.equals((ContainerImp) o)) {
                 return true;
             }
         }

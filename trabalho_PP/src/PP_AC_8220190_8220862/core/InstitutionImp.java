@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
  *
  * @author tomas
  */
-public class Institution implements com.estg.core.Institution {
+public class InstitutionImp implements com.estg.core.Institution {
 
     private final int MAX_AIDBOXS = 10;
     
@@ -58,7 +58,7 @@ public class Institution implements com.estg.core.Institution {
      * <p>Constructor method of Institution</p>
      * @param name Receives the name of the institution.
      */
-    public Institution(String name) {
+    public InstitutionImp(String name) {
         this.name = name;
         this.aidBoxCounter = 0;
         this.vehicleCounter = 0;
@@ -299,13 +299,9 @@ public class Institution implements com.estg.core.Institution {
         return false;
     }
     
-    /**
-     * 
-     * @param vhcl
-     * @throws VehicleException 
-     */
+    
     @Override
-    public void disableVehicle(Vehicle vhcl) throws VehicleException {
+    public void disableVehicle(Vehicle vhcl) throws VehicleException {        
         //vhcl.setState(VehicleState.INACTIVE);
     }
 

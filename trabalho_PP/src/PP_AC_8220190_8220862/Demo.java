@@ -9,8 +9,8 @@
  */
 package PP_AC_8220190_8220862;
 
-import PP_AC_8220190_8220862.core.AidBox;
-import PP_AC_8220190_8220862.core.Container;
+import PP_AC_8220190_8220862.core.AidBoxImp;
+import PP_AC_8220190_8220862.core.ContainerImp;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
 import java.io.IOException;
@@ -22,12 +22,12 @@ public class Demo {
     public static void main(String[] args) throws ContainerException, IOException, AidBoxException{
         HTTPProvider provider = new HTTPProvider();
         
-        AidBox box = new AidBox("CAIXF44", "coisa");
-        AidBox box1 = new AidBox("CAIXF37", "coisa");
+        AidBoxImp box = new AidBoxImp("CAIXF44", "coisa");
+        AidBoxImp box1 = new AidBoxImp("CAIXF37", "coisa");
     
-        Container container = new Container("3232", 323);
+        ContainerImp container = new ContainerImp("3232", 323);
         
-        Container container1 = new Container("3232", 323);
+        ContainerImp container1 = new ContainerImp("3232", 323);
         
      
          System.out.println(provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/readings"));
