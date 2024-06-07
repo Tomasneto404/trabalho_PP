@@ -87,12 +87,13 @@ public class AidBox implements com.estg.core.AidBox {
             
             /*
             for (Object obj : containersArray) {
+                
                 JSONObject contentor = (JSONObject) obj;
                 String codigo = (String) contentor.get("codigo");
                 double capacidade = (double) contentor.get("capacidade");
                 
                 try {
-                    addContainer(new ContainerImp(codigo, capacidade));
+                    addContainer(new Container(codigo, capacidade));
                 } catch (ContainerException e) {
                     e.getMessage();
                 }
