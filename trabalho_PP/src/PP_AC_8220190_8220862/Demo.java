@@ -10,13 +10,10 @@
 package PP_AC_8220190_8220862;
 
 import PP_AC_8220190_8220862.core.AidBox;
-import PP_AC_8220190_8220862.core.GeographicCoordinates;
 import PP_AC_8220190_8220862.core.Container;
-import com.estg.core.ItemType;
 import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
 import java.io.IOException;
-import PP_AC_8220190_8220862.menus.Menu;
 import com.estg.core.exceptions.AidBoxException;
 
 
@@ -36,6 +33,8 @@ public class Demo {
          //System.out.println(provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=CAIXF37"));
          
          System.out.println(box.getZone());
+         System.out.println(box.getCoordinates().getLatitude());
+         System.out.println(box.getCoordinates().getLongitude());
 
     }
     

@@ -45,7 +45,7 @@ public class GeographicCoordinates implements com.estg.core.GeographicCoordinate
      */
     @Override
     public double getLongitude() {
-        return this.latitude;
+        return this.longitude;
     }
 
     /**
