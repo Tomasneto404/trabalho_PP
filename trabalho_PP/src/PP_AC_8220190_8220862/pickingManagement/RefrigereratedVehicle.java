@@ -23,7 +23,7 @@ public class RefrigereratedVehicle extends Vehicle {
     
     @Override
      public void setItem(ItemType item) throws VehicleException {
-        if (item != ItemType.PERISHABLE_FOOD) {
+        if (item != ItemType.PERISHABLE_FOOD) { 
             throw new VehicleException("Wrong type");
         }
         this.item = item;
