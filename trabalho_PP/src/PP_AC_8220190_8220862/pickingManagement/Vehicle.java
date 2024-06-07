@@ -7,7 +7,7 @@
 * Número: 8220190
 * Turma: LSIRC12T1
  */
-package PP_AC_8220190_8220862.PickingManagement;
+package PP_AC_8220190_8220862.pickingManagement;
 
 import com.estg.core.exceptions.VehicleException;
 import com.estg.core.ItemType;
