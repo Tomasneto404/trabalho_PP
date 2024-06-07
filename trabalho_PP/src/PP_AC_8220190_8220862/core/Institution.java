@@ -38,6 +38,8 @@ public class Institution implements com.estg.core.Institution {
     
     private Measurement[] measurements;
     
+    private int measurementCounter;
+    
     private Vehicle[] vehicles;
     
     private int vehicleCounter;
@@ -51,6 +53,7 @@ public class Institution implements com.estg.core.Institution {
         this.name = name;
         this.aidBoxCounter = 0;
         this.vehicleCounter = 0;
+        this.measurementCounter = 0;
         this.aidBoxs = new AidBox[MAX_AIDBOXS];
         this.measurements = new Measurement[MAX_MEASUREMENTS];
         this.vehicles = new Vehicle[MAX_VEHICLES];
@@ -121,7 +124,32 @@ public class Institution implements com.estg.core.Institution {
     
     @Override
     public boolean addMeasurement(Measurement msrmnt, Container cntnr) throws ContainerException, MeasurementException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if ( !canAddMeasurementToArray() ) {
+            throw new MeasurementException("Measurements array is full");
+        }
+        
+                
+        
+        this.measurements[measurementCounter++] = msrmnt;
+        
+        return true;
+    }
+    
+    private boolean verifyMeasurement() {
+        
+        
+        
+        return true;
+    }
+    
+    /**
+     * <strong>canAddMeasurementToArray()</strong>
+     * <p>This method verifys if it's possible to fit a new Measurement Object to the array.</p>
+     * @return True if there is space to insert a new Measurement.
+     */
+    private boolean canAddMeasurementToArray(){
+        return this.measurementCounter < this.measurements.length;
     }
 
     /**

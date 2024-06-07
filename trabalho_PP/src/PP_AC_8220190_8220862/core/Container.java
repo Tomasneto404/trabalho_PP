@@ -129,7 +129,7 @@ public class Container implements com.estg.core.Container {
 
         for (int i = 0; i < this.measurements.length; i++) {
             if (this.measurements[i].getDate().equals(ld2)) {
-                tmp[++contador] = this.measurements[i];
+                tmp[contador++] = this.measurements[i];
             }
         }
 
