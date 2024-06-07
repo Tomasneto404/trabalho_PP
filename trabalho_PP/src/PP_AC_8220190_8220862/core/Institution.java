@@ -5,6 +5,7 @@
  */
 package PP_AC_8220190_8220862.core;
 
+import PP_AC_8220190_8220862.enums.VehicleState;
 import com.estg.core.AidBox;
 import com.estg.core.Container;
 import com.estg.core.ItemType;
@@ -290,12 +291,12 @@ public class Institution implements com.estg.core.Institution {
     
     @Override
     public void disableVehicle(Vehicle vhcl) throws VehicleException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        vhcl.setState(VehicleState.INACTIVE);
     }
 
     @Override
     public void enableVehicle(Vehicle vhcl) throws VehicleException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        vhcl.setState(VehicleState.ACTIVE);
     }
 
     @Override
