@@ -3,17 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PP_AC_8220190_8220862.menus;
+package PP_AC_8220190_8220862.app;
 
 import PP_AC_8220190_8220862.core.Institution;
+import com.estg.core.exceptions.InstitutionException;
 import com.estg.io.HTTPProvider;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public final class Menu {
+public final class app {
 
+    private final String AIDBOXES_FILE = "src/Files/aidboxes.json";
+    
+    private final String READINGS_FILE = "src/Files/containersReadings.json";
+    
     private HTTPProvider provider;
 
     private Institution institution;
@@ -26,14 +32,14 @@ public final class Menu {
     }
 
     public void start() {
-        this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxes", "src/Files/aidboxes.json");
-        this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/readings", "src/Files/containersReadings.json");
+        this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxes", AIDBOXES_FILE);
+        this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/readings", READINGS_FILE);
         
         System.out.print("Institution name: \n> ");
         try {
             
            this.institution = new Institution(reader.readLine());
-           
+           this.MainMenu();
            
            
         } catch(IOException e) {
@@ -44,19 +50,18 @@ public final class Menu {
     }
     
     private void MainMenu() throws IOException {
-
-        
-
         boolean flag = true;
 
         while (flag == true) {
-            System.out.println("<Main Menu>\n" + "1 - Manage Institution\n" + "2 - Manage outra coisa\n" + "\n" + "0 - Quit\n");
+            System.out.print("""
+                             <Main Menu>
+                             1 - Manage Institution
+                             2 - Manage outra coisa
+                             3 - Get Reports
+                             0 - Quit
+                             > """);
 
-            System.out.print("> ");
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-            String option = reader.readLine();
+            String option = this.reader.readLine();
 
             switch (option) {
                 case "1":
@@ -80,13 +85,9 @@ public final class Menu {
         boolean flag = true;
 
         while (flag == true) {
-            System.out.println("<Institution Menu>\n" + "1 - Manage vehicles\n" + "2 - Manage Aid Box\n" + "3 - Manage Picking Maps\n" + "4 -\n" + "\n" + "0 - Quit\n");
+            System.out.print("<Institution Menu>\n" + "1 - Manage vehicles\n" + "2 - Manage Aid Box\n" + "3 - Manage Picking Maps\n" + "4 -\n" + "\n" + "0 - Quit\n> ");
 
-            System.out.print("> ");
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-            String option = reader.readLine();
+            String option = this.reader.readLine();
 
             switch (option) {
                 case "1":
@@ -110,9 +111,9 @@ public final class Menu {
 
         return true;
     }
-
+    
     public static void main(String[] args) {
-        Menu menu = new Menu();
+        app menu = new app();
         menu.start();
 
     }

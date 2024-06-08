@@ -172,7 +172,7 @@ public class Institution implements com.estg.core.Institution {
     public boolean addMeasurement(Measurement msrmnt, Container cntnr) throws ContainerException, MeasurementException {
 
         if (!canAddMeasurementToArray()) {
-            throw new MeasurementException("Measurements array is full");
+            throw new MeasurementException("Measurements array is full.");
         }
 
         if (verifyMeasurement(msrmnt)) {
@@ -410,7 +410,10 @@ public class Institution implements com.estg.core.Institution {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean importData() {
+    public boolean saveDataToFile (String filePath){
+        
+        
+        
         return true;
     }
 
