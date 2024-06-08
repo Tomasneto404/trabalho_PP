@@ -32,18 +32,25 @@ public class Route implements com.estg.pickingManagement.Route {
     private double totalDistance;
 
     private double totalDuration;
+    
+    private double totalCapacityBoxs;
 
     {
         this.aidBoxs = new AidBox[MAX_AIDBOXS];
         this.totalDistance = 0.0;
         this.totalDuration = 0.0;
         this.counter = 0;
+        this.totalCapacityBoxs=0.0;
+        
     }
 
     public Route(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
+    public AidBox[] getAidBoxs(){
+      return this.aidBoxs;
+    }
     @Override
     public void addAidBox(com.estg.core.AidBox aidbox) throws RouteException {
         AidBox aidBox = (AidBox) aidbox;
@@ -59,6 +66,10 @@ public class Route implements com.estg.pickingManagement.Route {
 
         if (!verifyCompatibility(containers)) {
             throw new RouteException("Doesn't exist compatibility between AidBox and Vehicle");
+        }
+        
+        if(this.totalCapacityBoxs>=vehicle.getMaxCapacity()){
+            throw new RouteException("The vehicle is full");
         }
 
         this.aidBoxs[this.counter++] = aidBox;
@@ -207,7 +218,7 @@ public class Route implements com.estg.pickingManagement.Route {
         return -1;
     }
 
-    private boolean verifyCompatibility(Container[] containers) {
+    public boolean verifyCompatibility(Container[] containers) {
         for (int i = 0; i < containers.length; i++) {
             if (containers[i].getType() != vehicle.getSupplyType()) {
                 return false;
@@ -216,4 +227,11 @@ public class Route implements com.estg.pickingManagement.Route {
         return true;
     }
 
+    public double getTotalCapacityBoxs(){
+        for (int i = 0; i < this.counter; i++) {
+            this.totalCapacityBoxs += this.aidBoxs[i].getTotalCapacity();
+        }
+
+        return this.totalCapacityBoxs;
+    }
 }

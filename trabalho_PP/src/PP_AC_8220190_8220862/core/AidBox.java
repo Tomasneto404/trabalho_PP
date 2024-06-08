@@ -9,7 +9,6 @@
  */
 package PP_AC_8220190_8220862.core;
 
-
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.AidBoxException;
 import com.estg.core.exceptions.ContainerException;
@@ -24,6 +23,7 @@ import org.json.simple.parser.ParseException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * <strong>AidBox()</strong>
  *
@@ -46,6 +46,8 @@ public class AidBox implements com.estg.core.AidBox {
 
     private HTTPProvider provider;
 
+    private double totalCapacity;
+
     private double weight;
 
     /**
@@ -58,6 +60,7 @@ public class AidBox implements com.estg.core.AidBox {
         this.containers = new Container[MAX_CONTAINERS];
         this.containerCounter = 0;
         this.provider = new HTTPProvider();
+        this.totalCapacity = 0.0;
     }
 
     /**
@@ -71,22 +74,21 @@ public class AidBox implements com.estg.core.AidBox {
     public AidBox(String code, String refLocal) throws AidBoxException {
         this.code = code;
         this.refLocal = refLocal;
-        
+
         String aidBoxString = provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxesbyid?codigo=" + this.code);
-        
+
         JSONParser parser = new JSONParser();
 
         try {
             StringReader reader = new StringReader(aidBoxString);
-            
+
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
             this.coordinates = new GeographicCoordinates((double) jsonObject.get("Latitude"), (double) jsonObject.get("Longitude"));
             this.zone = (String) jsonObject.get("Zona");
 
-            
             JSONArray containersArray = (JSONArray) jsonObject.get("Contentores");
-            
+
             /*
             for (Object obj : containersArray) {
                 
@@ -101,7 +103,6 @@ public class AidBox implements com.estg.core.AidBox {
                 }
                 
             }*/
-
         } catch (Exception e) {
             throw new AidBoxException("Coulnd´t get data from this aidBox code.");
         }
@@ -197,7 +198,7 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
-        
+
         try {
 
             String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
@@ -385,5 +386,13 @@ public class AidBox implements com.estg.core.AidBox {
         }
         return cloned;
     }
-}
 
+    public double getTotalCapacity() {
+
+        for (int i = 0; i < this.containerCounter; i++) {
+            this.totalCapacity += this.containers[i].getCapacity();
+        }
+
+        return this.totalCapacity;
+    }
+}
