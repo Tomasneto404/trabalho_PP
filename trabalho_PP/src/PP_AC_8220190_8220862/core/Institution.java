@@ -6,7 +6,8 @@
 package PP_AC_8220190_8220862.core;
 
 import PP_AC_8220190_8220862.enums.VehicleState;
-import com.estg.core.AidBox;
+import PP_AC_8220190_8220862.core.AidBox;
+
 import com.estg.core.Container;
 import com.estg.core.ItemType;
 import com.estg.core.Measurement;
@@ -27,7 +28,7 @@ import PP_AC_8220190_8220862.pickingManagement.Vehicle;
  */
 public class Institution implements com.estg.core.Institution {
 
-    private final int MAX_AIDBOXS = 10;
+    private final int MAX_AIDBOXS = 100;
 
     private final int MAX_MEASUREMENTS = 10;
 
@@ -106,17 +107,17 @@ public class Institution implements com.estg.core.Institution {
      * @throws AidBoxException
      */
     @Override
-    public boolean addAidBox(AidBox aidbox) throws AidBoxException {
+    public boolean addAidBox(com.estg.core.AidBox aidbox) throws AidBoxException {
 
         if (!canAddAidBoxToArray()) {
             throw new AidBoxException("AidBox array is full.");
         }
 
-        if (verifyAidBox(aidbox)) {
+        if (verifyAidBox((AidBox) aidbox)) {
             throw new AidBoxException("This AidBox already exists in the array.");
         }
 
-        this.aidBoxs[this.aidBoxCounter++] = aidbox;
+        this.aidBoxs[this.aidBoxCounter++] = (AidBox) aidbox;
 
         return true;
     }
@@ -131,14 +132,16 @@ public class Institution implements com.estg.core.Institution {
      * @return True if already exists the same aindabox. false if it doesn't.
      */
     private boolean verifyAidBox(AidBox adbx) {
-        for (AidBox aidbox : this.aidBoxs) {
+        if (this.aidBoxs != null || adbx != null) {
+            for (AidBox aidbox : this.aidBoxs) {
 
-            if (aidbox.equals(adbx)) {
+                if (aidbox != null && aidbox.equals(adbx)) {
 
-                return true;
+                    return true;
+
+                }
 
             }
-
         }
 
         return false;
@@ -265,7 +268,7 @@ public class Institution implements com.estg.core.Institution {
      * @throws ContainerException If Container was not found.
      */
     @Override
-    public Container getContainer(AidBox aidbox, ItemType it) throws ContainerException {
+    public Container getContainer(com.estg.core.AidBox aidbox, ItemType it) throws ContainerException {
 
         if (aidbox.getContainer(it) == null) {
             throw new ContainerException("Container with item type " + it + "doesn't exist in this AidBox.");
@@ -406,14 +409,12 @@ public class Institution implements com.estg.core.Institution {
     }
 
     @Override
-    public double getDistance(AidBox aidbox) throws AidBoxException {
+    public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean saveDataToFile (String filePath){
-        
-        
-        
+    public boolean saveDataToFile(String filePath) {
+
         return true;
     }
 

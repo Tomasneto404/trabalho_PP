@@ -94,7 +94,7 @@ public class AidBox implements com.estg.core.AidBox {
             while (i.hasNext()) {
 
                 System.out.println("fds");
-                
+
                 JSONObject container = (JSONObject) i.next();
 
                 if (container.get("codigo") == null || container.get("capacidade") == null) {
@@ -114,6 +114,12 @@ public class AidBox implements com.estg.core.AidBox {
             throw new AidBoxException("Coulnd´t get data from this aidBox code.");
         }
 
+    }
+
+    public AidBox(String code, String zone, double latitude, double longitude) {
+        this.code = code;
+        this.zone = zone;
+        this.coordinates = new GeographicCoordinates(latitude, longitude);
     }
 
     /**
@@ -263,6 +269,10 @@ public class AidBox implements com.estg.core.AidBox {
     @Override
     public boolean addContainer(com.estg.core.Container cntnr) throws ContainerException {
 
+        if (this.containers == null) {
+            throw new ContainerException("Containers array is null.");
+        }
+
         if (!canAddContainerToArray()) { //Verifica se cabe dentro do array
 
             throw new ContainerException("Containers array is full.");
@@ -274,11 +284,12 @@ public class AidBox implements com.estg.core.AidBox {
 
         }
 
+        /*
         if (verifyContainerType((Container) cntnr)) { //Verifica se existe algum igual dentro do array
 
             throw new ContainerException("Container type already exists in container array.");
 
-        }
+        }*/
 
         this.containers[this.containerCounter++] = (Container) cntnr;
 
@@ -308,14 +319,16 @@ public class AidBox implements com.estg.core.AidBox {
      */
     private boolean verifyContainer(Container cntnr) {
 
-        for (Container container : this.containers) {
+        if (this.containers != null || cntnr != null) {
+            for (Container container : this.containers) {
 
-            if (container.equals(cntnr)) {
+                if (container != null && container.equals(cntnr)) {
 
-                return true;
+                    return true;
+
+                }
 
             }
-
         }
 
         return false;
@@ -334,14 +347,16 @@ public class AidBox implements com.estg.core.AidBox {
      */
     private boolean verifyContainerType(Container cntnr) {
 
-        for (Container container : this.containers) {
+        if (this.containers != null || cntnr != null) {
+            for (Container container : this.containers) {
 
-            if (container.getType() == cntnr.getType()) {
+                if (container != null && container.getType() == cntnr.getType()) {
 
-                return true;
+                    return true;
+
+                }
 
             }
-
         }
 
         return false;
@@ -401,5 +416,16 @@ public class AidBox implements com.estg.core.AidBox {
         }
 
         return this.totalCapacity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AidBox) {
+            if (this.code == ((AidBox) o).getCode()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

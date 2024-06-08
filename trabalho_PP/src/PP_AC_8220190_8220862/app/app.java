@@ -6,8 +6,9 @@
 package PP_AC_8220190_8220862.app;
 
 import PP_AC_8220190_8220862.core.Institution;
-import com.estg.core.exceptions.InstitutionException;
 import com.estg.io.HTTPProvider;
+import PP_AC_8220190_8220862.io.Importer;
+import com.estg.core.exceptions.InstitutionException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -25,13 +26,16 @@ public final class app {
     private Institution institution;
     
     private BufferedReader reader;
+    
+    private Importer importer;
 
     {
         this.provider = new HTTPProvider();
         this.reader = new BufferedReader(new InputStreamReader(System.in));
+        this.importer = new Importer();
     }
 
-    public void start() {
+    public void start() throws FileNotFoundException, InstitutionException {
         this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxes", AIDBOXES_FILE);
         this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/readings", READINGS_FILE);
         
@@ -39,7 +43,9 @@ public final class app {
         try {
             
            this.institution = new Institution(reader.readLine());
-           this.MainMenu();
+           this.importer.importData(this.institution);
+           
+           //this.MainMenu();
            
            
         } catch(IOException e) {
@@ -58,6 +64,7 @@ public final class app {
                              1 - Manage Institution
                              2 - Manage outra coisa
                              3 - Get Reports
+                             4 - Save Data To File
                              0 - Quit
                              > """);
 
@@ -85,12 +92,17 @@ public final class app {
         boolean flag = true;
 
         while (flag == true) {
-            System.out.print("<Institution Menu>\n" + "1 - Manage vehicles\n" + "2 - Manage Aid Box\n" + "3 - Manage Picking Maps\n" + "4 -\n" + "\n" + "0 - Quit\n> ");
+            System.out.print("""
+                             <Institution Menu>
+                             1 - Coisa
+                             0 - Quit
+                             > """);
 
             String option = this.reader.readLine();
 
             switch (option) {
                 case "1":
+                    
                     break;
                 default:
                     flag = false;
@@ -104,6 +116,7 @@ public final class app {
 
         try ( FileWriter writer = new FileWriter(filePath)) {
             writer.write(data);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -114,7 +127,14 @@ public final class app {
     
     public static void main(String[] args) {
         app menu = new app();
-        menu.start();
+        try {
+             menu.start();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (InstitutionException e) {
+            e.printStackTrace();
+        }
+       
 
     }
 

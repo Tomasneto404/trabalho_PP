@@ -236,7 +236,7 @@ public class Container implements com.estg.core.Container {
     public boolean equals(Object o) {
 
         if (o instanceof Container) {
-            if (this.code.equals((Container) o)) {
+            if (this.code == ((Container) o).getCode()) {
                 return true;
             }
         }
@@ -297,4 +297,6 @@ public class Container implements com.estg.core.Container {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+    
+    
 }
