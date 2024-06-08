@@ -23,7 +23,7 @@ public class Route implements com.estg.pickingManagement.Route {
 
     private final int MAX_AIDBOXS = 20;
 
-    private int counter;
+    private int aidBoxCounter;
 
     private AidBox[] aidBoxs;
 
@@ -32,25 +32,26 @@ public class Route implements com.estg.pickingManagement.Route {
     private double totalDistance;
 
     private double totalDuration;
-    
+
     private double totalCapacityBoxs;
 
     {
         this.aidBoxs = new AidBox[MAX_AIDBOXS];
         this.totalDistance = 0.0;
         this.totalDuration = 0.0;
-        this.counter = 0;
-        this.totalCapacityBoxs=0.0;
-        
+        this.aidBoxCounter = 0;
+        this.totalCapacityBoxs = 0.0;
+
     }
 
     public Route(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
-    public AidBox[] getAidBoxs(){
-      return this.aidBoxs;
+    public AidBox[] getAidBoxs() {
+        return this.aidBoxs;
     }
+
     @Override
     public void addAidBox(com.estg.core.AidBox aidbox) throws RouteException {
         AidBox aidBox = (AidBox) aidbox;
@@ -67,12 +68,12 @@ public class Route implements com.estg.pickingManagement.Route {
         if (!verifyCompatibility(containers)) {
             throw new RouteException("Doesn't exist compatibility between AidBox and Vehicle");
         }
-        
-        if(this.totalCapacityBoxs>=vehicle.getMaxCapacity()){
+
+        if (this.totalCapacityBoxs >= vehicle.getMaxCapacity()) {
             throw new RouteException("The vehicle is full");
         }
 
-        this.aidBoxs[this.counter++] = aidBox;
+        this.aidBoxs[this.aidBoxCounter++] = aidBox;
     }
 
     @Override
@@ -84,11 +85,11 @@ public class Route implements com.estg.pickingManagement.Route {
             throw new RouteException("This aidbox doesn´t exist");
         }
 
-        for (int i = pos; i < this.counter; i++) {
+        for (int i = pos; i < this.aidBoxCounter; i++) {
             this.aidBoxs[i] = this.aidBoxs[i + 1];
         }
 
-        this.aidBoxs[this.counter--] = null;
+        this.aidBoxs[this.aidBoxCounter--] = null;
 
         return aidBox;
     }
@@ -168,9 +169,9 @@ public class Route implements com.estg.pickingManagement.Route {
 
     @Override
     public AidBox[] getRoute() {
-        AidBox[] tmp = new AidBox[this.counter];
+        AidBox[] tmp = new AidBox[this.aidBoxCounter];
 
-        for (int i = 0; i < this.counter; i++) {
+        for (int i = 0; i < this.aidBoxCounter; i++) {
             if (this.aidBoxs[i] != null) {
                 try {
                     tmp[i] = (AidBox) this.aidBoxs[i].clone();
@@ -194,22 +195,44 @@ public class Route implements com.estg.pickingManagement.Route {
 
     @Override
     public double getTotalDistance() {
-        for(int i=0; i<this.counter;i++){
-           // totalDistance+=this.aidBoxs[i].getDistance(aidbox);
+
+        for (int i = 0; i < this.aidBoxCounter; i++) {
+
+            while (i < this.aidBoxCounter) {
+
+                try {
+                    totalDistance += this.aidBoxs[i].getDistance(this.aidBoxs[i + 1]);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+
+            }
+
         }
+
         return this.totalDistance;
     }
 
     @Override
     public double getTotalDuration() {
-         for(int i=0; i<this.counter;i++){
-           // totalDistance+=this.aidBoxs[i].getDistance(aidbox);
+
+        for (int i = 0; i < this.aidBoxCounter; i++) {
+            
+            while (i < this.aidBoxCounter) {
+
+                try {
+                    totalDuration += this.aidBoxs[i].getDuration(this.aidBoxs[i + 1]);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+
+            }
         }
         return this.totalDuration;
     }
 
     private int getIndex(AidBox aidbox) {
-        for (int i = 0; i < this.counter; i++) {
+        for (int i = 0; i < this.aidBoxCounter; i++) {
             if (this.aidBoxs[i].equals(aidbox)) {
                 return i;
             }
@@ -227,8 +250,8 @@ public class Route implements com.estg.pickingManagement.Route {
         return true;
     }
 
-    public double getTotalCapacityBoxs(){
-        for (int i = 0; i < this.counter; i++) {
+    public double getTotalCapacityBoxs() {
+        for (int i = 0; i < this.aidBoxCounter; i++) {
             this.totalCapacityBoxs += this.aidBoxs[i].getTotalCapacity();
         }
 
