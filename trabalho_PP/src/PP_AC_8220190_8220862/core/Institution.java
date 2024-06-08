@@ -405,17 +405,41 @@ public class Institution implements com.estg.core.Institution {
 
     @Override
     public boolean addPickingMap(PickingMap pm) throws PickingMapException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if (hasPickingMap(pm)) {
+            return false;
+        }
 
-    @Override
-    public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if (pm == null) {
+            throw new PickingMapException("Picking map is null");
+        }
 
-    public boolean saveDataToFile(String filePath) {
+        this.pickingMaps[this.pickingMpaCounter++] = pm;
 
         return true;
     }
 
+    public boolean saveDataToFile(String filePath) {
+        return true;
+    }
+
+    @Override
+    public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
+        AidBox aidbox1 = (AidBox) aidbox;
+
+        return aidbox1.getDistance(aidbox1);
+    }
+
+    public boolean hasPickingMap(PickingMap pickingmap) {
+        for (PickingMap map : this.pickingMaps) {
+
+            if (map.equals(pickingmap)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+    }
 }

@@ -59,6 +59,7 @@ public final class app {
         boolean flag = true;
 
         while (flag == true) {
+
             System.out.print("""
                              <Main Menu>
                              1 - Manage Institution
@@ -67,6 +68,9 @@ public final class app {
                              4 - Save Data To File
                              0 - Quit
                              > """);
+
+            System.out.print("<Main Menu>\n" + "1 - Manage Institution\n" + "2 - Manage outra coisa\n" + "3 - Get Reports\n" + "0 - Quit\n" + ">");
+
 
             String option = this.reader.readLine();
 
