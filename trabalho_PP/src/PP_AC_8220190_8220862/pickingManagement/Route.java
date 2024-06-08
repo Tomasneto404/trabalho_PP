@@ -242,8 +242,8 @@ public class Route implements com.estg.pickingManagement.Route {
     }
 
     public boolean verifyCompatibility(Container[] containers) {
-        for (int i = 0; i < containers.length; i++) {
-            if (containers[i].getType() != vehicle.getSupplyType()) {
+        for (Container container : containers) {
+            if (container.getType() != vehicle.getSupplyType()) {
                 return false;
             }
         }

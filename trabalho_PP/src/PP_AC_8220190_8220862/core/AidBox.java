@@ -15,6 +15,7 @@ import com.estg.core.exceptions.ContainerException;
 import com.estg.io.HTTPProvider;
 
 import java.io.StringReader;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -88,21 +89,27 @@ public class AidBox implements com.estg.core.AidBox {
             this.zone = (String) jsonObject.get("Zona");
 
             JSONArray containersArray = (JSONArray) jsonObject.get("Contentores");
+            Iterator i = containersArray.iterator();
 
-            /*
-            for (Object obj : containersArray) {
+            while (i.hasNext()) {
+
+                System.out.println("fds");
                 
-                JSONObject contentor = (JSONObject) obj;
-                String codigo = (String) contentor.get("codigo");
-                double capacidade = (double) contentor.get("capacidade");
-                
-                try {
-                    addContainer(new Container(codigo, capacidade));
-                } catch (ContainerException e) {
-                    e.getMessage();
+                JSONObject container = (JSONObject) i.next();
+
+                if (container.get("codigo") == null || container.get("capacidade") == null) {
+                    throw new AidBoxException("Container JSON missing required fields.");
                 }
-                
-            }*/
+
+                String containerCode = (String) container.get("codigo");
+                double containerCapacity = (double) container.get("capacidade");
+
+                this.containers[this.containerCounter++] = new Container(containerCode, containerCapacity);
+
+            }
+
+        } catch (AidBoxException e) {
+            throw e;
         } catch (Exception e) {
             throw new AidBoxException("Coulnd´t get data from this aidBox code.");
         }

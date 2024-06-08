@@ -5,13 +5,47 @@
  */
 package PP_AC_8220190_8220862.menus;
 
+import PP_AC_8220190_8220862.core.Institution;
+import com.estg.io.HTTPProvider;
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public final class Menu {
 
-    public void MainMenu() throws IOException {
+    private HTTPProvider provider;
+
+    private Institution institution;
+    
+    private BufferedReader reader;
+
+    {
+        this.provider = new HTTPProvider();
+        this.reader = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public void start() {
+        this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxes", "src/Files/aidboxes.json");
+        this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/readings", "src/Files/containersReadings.json");
+        
+        System.out.print("Institution name: \n> ");
+        try {
+            
+           this.institution = new Institution(reader.readLine());
+           
+           
+           
+        } catch(IOException e) {
+            System.out.println("Invalid Input");
+        }
+        
+        
+    }
+    
+    private void MainMenu() throws IOException {
+
+        
 
         boolean flag = true;
 
@@ -61,6 +95,26 @@ public final class Menu {
                     flag = false;
             }
         }
+    }
+
+    private boolean saveDataFromAPI(String url, String filePath) {
+
+        String data = this.provider.getFromURL(url);
+
+        try ( FileWriter writer = new FileWriter(filePath)) {
+            writer.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Menu menu = new Menu();
+        menu.start();
+
     }
 
 }
