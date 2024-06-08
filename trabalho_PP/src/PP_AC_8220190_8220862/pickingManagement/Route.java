@@ -183,11 +183,17 @@ public class Route implements com.estg.pickingManagement.Route {
 
     @Override
     public double getTotalDistance() {
+        for(int i=0; i<this.counter;i++){
+           // totalDistance+=this.aidBoxs[i].getDistance(aidbox);
+        }
         return this.totalDistance;
     }
 
     @Override
     public double getTotalDuration() {
+         for(int i=0; i<this.counter;i++){
+           // totalDistance+=this.aidBoxs[i].getDistance(aidbox);
+        }
         return this.totalDuration;
     }
 

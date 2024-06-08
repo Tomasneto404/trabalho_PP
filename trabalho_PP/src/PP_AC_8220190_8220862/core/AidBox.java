@@ -197,6 +197,7 @@ public class AidBox implements com.estg.core.AidBox {
      */
     @Override
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
+        
         try {
 
             String jsonString = this.provider.getFromURL("https://data.mongodb-api.com/app/data-docuz/endpoint/distances?from=" + this.code + "&to=" + aidbox.getCode());
