@@ -9,6 +9,7 @@ import PP_AC_8220190_8220862.core.Institution;
 import PP_AC_8220190_8220862.io.Exporter;
 import com.estg.io.HTTPProvider;
 import PP_AC_8220190_8220862.io.Importer;
+import PP_AC_8220190_8220862.pickingManagement.RefrigeratedVehicle;
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.InstitutionException;
@@ -82,15 +83,15 @@ public final class app {
                 case "1":
                     this.institutionMenu();
                     break;
-                    
+
                 case "2":
                     System.out.println("2");
                     break;
-                    
+
                 case "4":
                     this.exporter.exportData(this.institution);
                     break;
-                    
+
                 default:
                     flag = false;
             }
@@ -127,8 +128,12 @@ public final class app {
 
         while (flag == true) {
             System.out.print("""
-                             <Vehicle Menu>
+                             ***Vehicle Menu***
                              1 - Add new vehicle
+                             2 - Show Vehicles
+                             3 - Delete Vehicle
+                             4 - Enable Vehicle
+                             5 - Disable Vehicle
                              0 - Quit
                              > """);
 
@@ -139,13 +144,46 @@ public final class app {
                     this.insertVehicle();
                     break;
 
+                case "2":
+                    this.showVehicles();
+                    break;
+                
+                case "3":
+                    this.removeVehicle();
+                    break;
+
                 default:
                     flag = false;
             }
         }
     }
 
-    private boolean insertVehicle() throws IOException {
+    private void updateVehicle(){
+        
+    }
+    
+    private void removeVehicle(){
+        if (this.institution.getVehicles() != null) {
+            
+        }
+    }
+    
+    private void showVehicles() {
+
+        for (Vehicle vhcl : this.institution.getVehicles()) {
+
+            if (vhcl != null) {
+                System.out.println("Plate: " + vhcl.getPlate());
+                System.out.println("Supply type: " + vhcl.getSupplyType());
+                System.out.println("Max Capacity: " + vhcl.getMaxCapacity());
+                System.out.println("State: " + vhcl.getState());
+                System.out.println("--------------------------------\n");
+            }
+
+        }
+    }
+
+    private void insertVehicle() throws IOException {
         System.out.print("<Plate>\n> ");
         String plate = this.reader.readLine();
 
@@ -160,38 +198,35 @@ public final class app {
                          4 - MEDICINE
                          \n> """);
         String typeOption = this.reader.readLine();
-        
+
         ItemType type;
         switch (typeOption) {
             case "1":
                 type = ItemType.PERISHABLE_FOOD;
                 break;
-                
+
             case "2":
                 type = ItemType.NON_PERISHABLE_FOOD;
                 break;
-                
+
             case "3":
                 type = ItemType.CLOTHING;
                 break;
-                
+
             case "4":
                 type = ItemType.MEDICINE;
                 break;
-                
+
             default:
                 type = null;
                 break;
         }
-        
-        try {
+
+        try {            
             this.institution.addVehicle(new Vehicle(plate, (double) capacity, type));
         } catch (VehicleException e) {
             e.getMessage();
         }
-        
-        
-        return true;
     }
 
     private boolean saveDataFromAPI(String url, String filePath) {

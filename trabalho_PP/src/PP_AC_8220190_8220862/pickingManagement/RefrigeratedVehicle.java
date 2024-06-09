@@ -17,7 +17,7 @@ import com.estg.core.exceptions.VehicleException;
  * <p>
  * This class identifies a vehicle</p>
  */
-public class RefrigereratedVehicle extends Vehicle {
+public class RefrigeratedVehicle extends Vehicle {
 
     private double maxKilometers;
 
@@ -32,7 +32,7 @@ public class RefrigereratedVehicle extends Vehicle {
      * @param maxCapacity variable of double type
      * @param maxKilometers variable of double type
      */
-    public RefrigereratedVehicle(String plate, double maxCapacity, double maxKilometers) {
+    public RefrigeratedVehicle(String plate, double maxCapacity, double maxKilometers) {
         super(plate, maxCapacity);
         this.maxKilometers = maxKilometers;
     }

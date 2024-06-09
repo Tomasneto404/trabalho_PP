@@ -470,11 +470,16 @@
             "Code": "CAIXF51",
             "Longitude": -8.22361
         }],
-    "Name": "Maria Luisa Chama Chama",
+    "Name": "Teste",
     "Vehicles": [{
-            "Type": "MEDICINE",
-            "Capacity": 500.0,
+            "Type": "NON_PERISHABLE_FOOD",
+            "Capacity": 123.0,
             "State": "ACTIVE",
-            "Plate": "42 AS 42"
+            "Plate": "Teste1"
+        }, {
+            "Type": "CLOTHING",
+            "Capacity": 453.0,
+            "State": "ACTIVE",
+            "Plate": "Teset2"
         }]
 }

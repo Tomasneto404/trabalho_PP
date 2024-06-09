@@ -186,8 +186,8 @@ public class Route implements com.estg.pickingManagement.Route {
 
     @Override
     public Vehicle getVehicle() {
-        if (this.vehicle instanceof RefrigereratedVehicle) {
-            return (RefrigereratedVehicle) this.vehicle;
+        if (this.vehicle instanceof RefrigeratedVehicle) {
+            return (RefrigeratedVehicle) this.vehicle;
         }
 
         return this.vehicle;
