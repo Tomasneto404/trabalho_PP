@@ -470,11 +470,11 @@
             "Code": "CAIXF51",
             "Longitude": -8.22361
         }],
-    "Name": "sda",
+    "Name": "Maria Luisa Chama Chama",
     "Vehicles": [{
-            "Type": null,
-            "Capacity": 52.0,
+            "Type": "MEDICINE",
+            "Capacity": 500.0,
             "State": "ACTIVE",
-            "Plate": "1231"
+            "Plate": "42 AS 42"
         }]
 }

@@ -26,7 +26,7 @@ import PP_AC_8220190_8220862.enums.VehicleState;
  */
 public class Vehicle implements com.estg.pickingManagement.Vehicle {
 
-    private ItemType item;
+    private ItemType type;
 
     private String plate;
 
@@ -34,6 +34,10 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
     
     private VehicleState state;
 
+    {
+        this.state = VehicleState.ACTIVE;
+    }
+    
     /**
      * <strong>Vehicle() </strong>
      * <p>
@@ -44,12 +48,14 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
      * @throws VehicleException exception corresponding to a vehicle
      */
     public Vehicle(String plate, double maxCapacity) {
-
         this.plate = plate;
-        this.item = item;
-        this.state = VehicleState.ACTIVE;
-
         this.maxCapacity = maxCapacity;
+    }
+    
+    public Vehicle(String plate, double maxCapacity, ItemType type) {
+        this.plate = plate;
+        this.maxCapacity = maxCapacity;
+        this.type = type;
     }
 
     /**
@@ -65,7 +71,7 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
         if (item == ItemType.PERISHABLE_FOOD) {
             throw new VehicleException("Wrong type");
         }
-        this.item = item;
+        this.type = item;
     }
 
     /**
@@ -88,7 +94,7 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
      */
     @Override
     public ItemType getSupplyType() {
-        return this.item;
+        return this.type;
     }
 
     /**

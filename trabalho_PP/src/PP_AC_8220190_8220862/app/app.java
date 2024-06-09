@@ -10,6 +10,7 @@ import PP_AC_8220190_8220862.io.Exporter;
 import com.estg.io.HTTPProvider;
 import PP_AC_8220190_8220862.io.Importer;
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
+import com.estg.core.ItemType;
 import com.estg.core.exceptions.InstitutionException;
 import com.estg.core.exceptions.VehicleException;
 import java.io.BufferedReader;
@@ -69,7 +70,7 @@ public final class app {
             System.out.print("""
                              <Main Menu>
                              1 - Manage Institution
-                             2 - Manage outra coisa
+                             2 - Manage Aid Boxs
                              3 - Get Reports
                              4 - Save Institution Data To File
                              0 - Quit
@@ -79,19 +80,17 @@ public final class app {
 
             switch (option) {
                 case "1":
-                try {
                     this.institutionMenu();
-                } catch (IOException e) {
-                    System.out.println("Invalid input.");
-                }
-
-                break;
+                    break;
+                    
                 case "2":
                     System.out.println("2");
                     break;
+                    
                 case "4":
                     this.exporter.exportData(this.institution);
                     break;
+                    
                 default:
                     flag = false;
             }
@@ -105,6 +104,9 @@ public final class app {
             System.out.print("""
                              <Institution Menu>
                              1 - Vehicles
+                             2 - Aid Boxs
+                             3 - Routes
+                             4 - Picking Maps
                              0 - Quit
                              > """);
 
@@ -119,7 +121,7 @@ public final class app {
             }
         }
     }
-    
+
     private void vehicleMenu() throws IOException {
         boolean flag = true;
 
@@ -136,34 +138,57 @@ public final class app {
                 case "1":
                     this.insertVehicle();
                     break;
-                    
+
                 default:
                     flag = false;
             }
         }
     }
-    
-    private boolean insertVehicle() throws IOException{
+
+    private boolean insertVehicle() throws IOException {
         System.out.print("<Plate>\n> ");
         String plate = this.reader.readLine();
-        
+
         System.out.print("<Max Capacity>\n> ");
-        double capacity = this.reader.read();
-        
-        try {
-            this.institution.addVehicle(new Vehicle(plate, capacity));
-        } catch (VehicleException e) {
-            e.getMessage();
-        }
-        
-        /*System.out.print("""
+        int capacity = Integer.parseInt(reader.readLine());
+
+        System.out.print("""
                          <Type>:
                          1 - PERISHABLE_FOOD
                          2 - NON_PERISHABLE_FOOD
                          3 - CLOTHING
                          4 - MEDICINE
                          \n> """);
-        String type = this.reader.readLine();*/
+        String typeOption = this.reader.readLine();
+        
+        ItemType type;
+        switch (typeOption) {
+            case "1":
+                type = ItemType.PERISHABLE_FOOD;
+                break;
+                
+            case "2":
+                type = ItemType.NON_PERISHABLE_FOOD;
+                break;
+                
+            case "3":
+                type = ItemType.CLOTHING;
+                break;
+                
+            case "4":
+                type = ItemType.MEDICINE;
+                break;
+                
+            default:
+                type = null;
+                break;
+        }
+        
+        try {
+            this.institution.addVehicle(new Vehicle(plate, (double) capacity, type));
+        } catch (VehicleException e) {
+            e.getMessage();
+        }
         
         
         return true;

@@ -95,7 +95,7 @@ public class Exporter {
             
             JSONObject vhclObj = new JSONObject();
             vhclObj.put("Plate", vhcl.getPlate());
-            vhclObj.put("Type", vhcl.getSupplyType() );
+            vhclObj.put("Type", vhcl.getSupplyType().toString() );
             vhclObj.put("Capacity", vhcl.getMaxCapacity());
             vhclObj.put("State", vhcl.getState().toString());
             
