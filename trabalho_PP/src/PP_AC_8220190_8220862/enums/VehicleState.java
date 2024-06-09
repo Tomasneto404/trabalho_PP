@@ -10,5 +10,5 @@ package PP_AC_8220190_8220862.enums;
  * @author tomas
  */
 public enum VehicleState {
-    ACTIVE, INACTIVE
+    ACTIVE, INACTIVE;
 }

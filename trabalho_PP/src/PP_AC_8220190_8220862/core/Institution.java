@@ -340,14 +340,16 @@ public class Institution implements com.estg.core.Institution {
      */
     private boolean verifyVehicle(Vehicle vhcl) {
 
-        for (Vehicle vehicle : this.vehicles) {
+        if (this.vehicles != null && vhcl != null) {
+            for (Vehicle vehicle : this.vehicles) {
 
-            if (vehicle.equals(vhcl)) {
+                if ((vehicle != null) && vehicle.equals(vhcl)) {
 
-                return true;
+                    return true;
+
+                }
 
             }
-
         }
 
         return false;
@@ -441,5 +443,31 @@ public class Institution implements com.estg.core.Institution {
         }
 
         return false;
+    }
+
+    public Container getContainer(String containerCode) throws AidBoxException {
+
+        if (this.aidBoxs == null) {
+            throw new AidBoxException("AidBoxs array is null.");
+        }
+
+        for (AidBox box : this.aidBoxs) {
+            if (box == null) {
+                continue;
+            }
+
+            Container[] containerArray = box.getContainers();
+            if (containerArray == null) {
+                continue;
+            }
+
+            for (Container container : containerArray) {
+                if (container != null && container.getCode() != null && container.getCode().equals(containerCode)) {
+                    return container;
+                }
+            }
+        }
+
+        return null;
     }
 }

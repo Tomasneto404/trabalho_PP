@@ -121,4 +121,13 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
         return this.state;
     }
 
+    @Override
+    public boolean equals(Object o){ 
+        if (o instanceof Vehicle) {
+            if (this.plate == ((Vehicle) o).getPlate()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
