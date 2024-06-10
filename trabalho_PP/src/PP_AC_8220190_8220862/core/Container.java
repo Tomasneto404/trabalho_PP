@@ -154,8 +154,8 @@ public class Container implements com.estg.core.Container {
             throw new MeasurementException("Measurements are full");
         }
 
-        if (this.capacity == msrmnt.getValue()) {
-            throw new MeasurementException("The capacity is full");
+        if (this.capacity == msrmnt.getValue() || this.capacity < msrmnt.getValue()) {
+            throw new MeasurementException("The capacity is ultrapassed");
         }
 
         if (exist(msrmnt)) {
@@ -212,18 +212,22 @@ public class Container implements com.estg.core.Container {
 
     /**
      * <strong> listMeasurements </strong>
-     * <p> lists all measurements that are contracted within the measurement array </p>
+     * <p>
+     * lists all measurements that are contracted within the measurement array
+     * </p>
+     *
      * @return measurement array
      */
     public Measurement[] listMeasurements() {
         Measurement[] temp = new Measurement[this.counter];
-        
+
         for (int i = 0; i < this.counter; i++) {
             temp[i] = this.measurements[i];
         }
-        
+
         return temp;
     }
+
     /**
      * <strong>equals()</strong>
      * <p>
@@ -293,10 +297,9 @@ public class Container implements com.estg.core.Container {
         return date.atStartOfDay();
     }
 
-      @Override
+    @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-    
-    
+
 }

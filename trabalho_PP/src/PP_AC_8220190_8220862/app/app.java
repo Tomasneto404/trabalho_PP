@@ -68,14 +68,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             <Main Menu>
-                             1 - Manage Institution
-                             2 - Manage Aid Boxs
-                             3 - Get Reports
-                             4 - Save Institution Data To File
-                             0 - Quit
-                             > """);
+            System.out.print("<Main Menu>\n" + "1 - Manage Institution\n" + "2 - Manage Aid Boxs\n" + "3 - Get Reports\n" + "4 - Save Institution Data To File\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -102,14 +95,7 @@ public final class app {
         boolean flag = true;
 
         while (flag == true) {
-            System.out.print("""
-                             <Institution Menu>
-                             1 - Vehicles
-                             2 - Aid Boxs
-                             3 - Routes
-                             4 - Picking Maps
-                             0 - Quit
-                             > """);
+            System.out.print("<Institution Menu>\n" + "1 - Vehicles\n" + "2 - Aid Boxs\n" + "3 - Routes\n" + "4 - Picking Maps\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -127,15 +113,7 @@ public final class app {
         boolean flag = true;
 
         while (flag == true) {
-            System.out.print("""
-                             ***Vehicle Menu***
-                             1 - Add new vehicle
-                             2 - Show Vehicles
-                             3 - Delete Vehicle
-                             4 - Enable Vehicle
-                             5 - Disable Vehicle
-                             0 - Quit
-                             > """);
+            System.out.print("***Vehicle Menu***\n" + "1 - Add new vehicle\n" + "2 - Show Vehicles\n" + "3 - Delete Vehicle\n" + "4 - Enable Vehicle\n" + "5 - Disable Vehicle\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -190,13 +168,7 @@ public final class app {
         System.out.print("<Max Capacity>\n> ");
         int capacity = Integer.parseInt(reader.readLine());
 
-        System.out.print("""
-                         <Type>:
-                         1 - PERISHABLE_FOOD
-                         2 - NON_PERISHABLE_FOOD
-                         3 - CLOTHING
-                         4 - MEDICINE
-                         \n> """);
+        System.out.print("<Type>:\n" + "1 - PERISHABLE_FOOD\n" + "2 - NON_PERISHABLE_FOOD\n" + "3 - CLOTHING\n" + "4 - MEDICINE\n" + "\n" + ">");
         String typeOption = this.reader.readLine();
 
         ItemType type;
