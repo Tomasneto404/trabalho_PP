@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Nome: Tomás Leonardo Leão Sousa Neto
+* Número: 8220862
+* Turma: LSIRC12T1
+*
+* Nome: Tânia Sofia da Silva Morais
+* Número: 8220190
+* Turma: LSIRC12T1
  */
 package PP_AC_8220190_8220862.core;
 
@@ -17,15 +21,17 @@ import com.estg.core.exceptions.ContainerException;
 import com.estg.core.exceptions.MeasurementException;
 import com.estg.core.exceptions.PickingMapException;
 import com.estg.core.exceptions.VehicleException;
-import com.estg.pickingManagement.PickingMap;
+
+import PP_AC_8220190_8220862.pickingManagement.PickingMap;
 
 import java.time.LocalDateTime;
 
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 
 /**
- *
- * @author tomas
+ * <strong>Institution</strong>
+ * <p>
+ * This classe identifies a institution </p>
  */
 public class Institution implements com.estg.core.Institution {
 
@@ -55,6 +61,12 @@ public class Institution implements com.estg.core.Institution {
 
     private int pickingMpaCounter;
 
+    /**
+     * <strong>Instance Constructor Method</strong>
+     * <p>
+     * This method defines the default values for all the constructors methods
+     * of the instance.</p>
+     */
     {
         this.aidBoxCounter = 0;
         this.vehicleCounter = 0;
@@ -183,7 +195,6 @@ public class Institution implements com.estg.core.Institution {
             throw new MeasurementException("This Measurement already exists in the array.");
         }
 
-        
         if (verifyContainerMeasurements(msrmnt, (Container) cntnr)) {
             throw new ContainerException("Container already has a measurement with the same date.");
         }
@@ -207,18 +218,13 @@ public class Institution implements com.estg.core.Institution {
      */
     private boolean verifyContainerMeasurements(com.estg.core.Measurement msrmnt, Container cntnr) {
 
-        if (msrmnt == null || cntnr == null) {
-            throw new IllegalArgumentException("Measurement and Container must not be null");
-        }
-
         Measurement[] msrmntsArray = cntnr.getMeasurements(msrmnt.getDate().toLocalDate());
 
         if (msrmntsArray == null) {
-            //return false;
-            throw new IllegalArgumentException("Measurements array must not be null");
+            return false;
         }
 
-        return msrmntsArray.length > 1;
+        return msrmntsArray.length > 0;
     }
 
     /**
@@ -368,6 +374,15 @@ public class Institution implements com.estg.core.Institution {
         return false;
     }
 
+    /**
+     * <strong> disableVehicle() </strong>
+     * <p>
+     * changes the state of a vehicle to inactive, disabling it </p>
+     *
+     * @param vhcl Vehicle value that represents a vehicle
+     * @throws VehicleException If ocurred and error during the validations to
+     * insert the new vehicle.
+     */
     @Override
     public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         for (Vehicle vehicle : this.vehicles) {
@@ -377,6 +392,15 @@ public class Institution implements com.estg.core.Institution {
         }
     }
 
+    /**
+     * <strong> enableVehicle() </strong>
+     * <p>
+     * Enables a vehicle, changing the state to active </p>
+     *
+     * @param vhcl receives the vehicle whose status is intended to be changed
+     * @throws VehicleException If ocurred and error during the validations to
+     * insert the new vehicle.
+     */
     @Override
     public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         for (Vehicle vehicle : this.vehicles) {
@@ -386,6 +410,14 @@ public class Institution implements com.estg.core.Institution {
         }
     }
 
+    /**
+     * <strong> getVehicle </strong>
+     * <p>
+     * allows you to obtain a specific vehicle through registration </p>
+     *
+     * @param vehiclePlate of the vehicle you intend to obtain
+     * @return the vehicle if found and null if not found
+     */
     public Vehicle getVehicle(String vehiclePlate) {
 
         if (this.vehicles != null) {
@@ -412,9 +444,28 @@ public class Institution implements com.estg.core.Institution {
         return this.pickingMaps;
     }
 
+    /**
+     * <strong> getPickingMaps() </strong>
+     * <p>
+     * obtain a picking map between two given dates </p>
+     *
+     * @param ldt start date
+     * @param ldt1 final date
+     * @return the picking maps that are found between these dates
+     */
     @Override
     public PickingMap[] getPickingMaps(LocalDateTime ldt, LocalDateTime ldt1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int counter = countPickingMaps(ldt, ldt1);
+        PickingMap[] mapsBetweenTwoDates = new PickingMap[counter];
+        int index = 0;
+
+        for (int i = 0; i < counter; i++) {
+            LocalDateTime tmp = this.pickingMaps[i].getDate();
+            if ((tmp.isAfter(ldt) && tmp.isBefore(ldt1)) || tmp.equals(ldt) || tmp.equals(ldt1)) {
+                mapsBetweenTwoDates[index++] = this.pickingMaps[i];
+            }
+        }
+        return mapsBetweenTwoDates;
     }
 
     /**
@@ -438,32 +489,69 @@ public class Institution implements com.estg.core.Institution {
         return lastPckMp;
     }
 
+    /**
+     * <strong> addPickingMap </strong>
+     * <p>
+     * allows you to add a picking map </p>
+     *
+     * @param pm picking map that you want to add
+     * @return true if successful and false if it already exists
+     * @throws PickingMapException If the value of a picking map is null
+     */
     @Override
-    public boolean addPickingMap(PickingMap pm) throws PickingMapException {
-        if (hasPickingMap(pm)) {
+    public boolean addPickingMap(com.estg.pickingManagement.PickingMap pm) throws PickingMapException {
+        PickingMap pm2 = (PickingMap) pm;
+        if (hasPickingMap(pm2)) {
             return false;
         }
 
-        if (pm == null) {
+        if (pm2 == null) {
             throw new PickingMapException("Picking map is null");
         }
 
-        this.pickingMaps[this.pickingMpaCounter++] = pm;
+        this.pickingMaps[this.pickingMpaCounter++] = pm2;
 
         return true;
     }
 
+    /**
+     * <strong> saveDataToFile() </strong>
+     *
+     * @param filePath receives a path to the file
+     * @return true if save successfully
+     */
     public boolean saveDataToFile(String filePath) {
         return true;
     }
 
+    /**
+     * <strong> getDistance() </strong>
+     * <p>
+     * get the distance of an aidbox </p>
+     *
+     * @param aidbox that you want to obtain the distance
+     * @return the distance
+     * @throws AidBoxException If the supply box does not exist
+     */
     @Override
     public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
         AidBox aidbox1 = (AidBox) aidbox;
 
+        if (!verifyAidBox(aidbox1)) {
+            throw new AidBoxException("The aidbox doesn't exist");
+        }
+
         return aidbox1.getDistance(aidbox1);
     }
 
+    /**
+     * <strong> hasPickingMap() </strong>
+     * <p>
+     * checks if there is a picking map </p>
+     *
+     * @param pickingmap that you want to check
+     * @return true if exits, false if don't
+     */
     public boolean hasPickingMap(PickingMap pickingmap) {
         for (PickingMap map : this.pickingMaps) {
 
@@ -478,6 +566,16 @@ public class Institution implements com.estg.core.Institution {
         return false;
     }
 
+    /**
+     *
+     * < strong> getContainer () </strong>
+     * <p>
+     * obtain a container using a given code </p>
+     *
+     * @param containerCode of the container you intend to obtain
+     * @return container if it exists and null if not
+     * @throws AidBoxException If the aidboxes array is null
+     */
     public Container getContainer(String containerCode) throws AidBoxException {
 
         if (this.aidBoxs == null) {
@@ -495,7 +593,7 @@ public class Institution implements com.estg.core.Institution {
             }
 
             for (Container container : containerArray) {
-                if (container != null && container.getCode() != null && container.getCode() == containerCode) {
+                if (container != null && container.getCode() != null && container.getCode().equals(containerCode)) {
                     return container;
                 }
             }
@@ -504,4 +602,25 @@ public class Institution implements com.estg.core.Institution {
         return null;
     }
 
+    /**
+     * <strong> countPickingMaps() </strong>
+     * <p>
+     * counts the picking maps that are located on these dates </p>
+     *
+     * @param ld initial date
+     * @param  ld2 final date
+     * @return the number of picking maps
+     */
+    private int countPickingMaps(LocalDateTime ld, LocalDateTime ld2) {
+        int counter = 0;
+
+        for (int i = 0; i < this.pickingMpaCounter; i++) {
+            LocalDateTime tmp = this.pickingMaps[i].getDate();
+            if ((tmp.isAfter(ld) && tmp.isBefore(ld2)) || tmp.equals(ld) || tmp.equals(ld2)) {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
 }
