@@ -122,6 +122,10 @@ public class AidBox implements com.estg.core.AidBox {
         this.coordinates = new GeographicCoordinates(latitude, longitude);
     }
 
+    public AidBox(Container[] container) {
+        this.containers=container;
+    }
+
     /**
      * <strong>getCode()</strong>
      *

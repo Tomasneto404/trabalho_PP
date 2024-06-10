@@ -94,13 +94,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             <Main Menu>
-                             1 - Manage Institution
-                             3 - Get Reports (Não funciona)
-                             4 - Save Institution Data To File
-                             0 - Quit
-                             > """);
+            System.out.print("<Main Menu>\n" + "1 - Manage Institution\n" + "3 - Get Reports (N\u00e3o funciona)\n" + "4 - Save Institution Data To File\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -133,14 +127,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             <Institution Menu>
-                             1 - Vehicles
-                             2 - Aid Boxs
-                             3 - Routes (Não funciona)
-                             4 - Picking Maps (Não funciona)
-                             0 - Quit
-                             > """);
+            System.out.print("<Institution Menu>\n" + "1 - Vehicles\n" + "2 - Aid Boxs\n" + "3 - Routes (N\u00e3o funciona)\n" + "4 - Picking Maps (N\u00e3o funciona)\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -168,11 +155,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             ***Aid Box Menu***
-                             1 - Show Aid Boxs
-                             0 - Quit
-                             > """);
+            System.out.print("***Aid Box Menu***\n" + "1 - Show Aid Boxs\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -247,14 +230,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             ***Vehicle Menu***
-                             1 - Add new vehicle
-                             2 - Show Vehicles
-                             3 - Enable Vehicle
-                             4 - Disable Vehicle
-                             0 - Quit
-                             > """);
+            System.out.print("***Vehicle Menu***\n" + "1 - Add new vehicle\n" + "2 - Show Vehicles\n" + "3 - Enable Vehicle\n" + "4 - Disable Vehicle\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
