@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Nome: Tomás Leonardo Leão Sousa Neto
+* Número: 8220862
+* Turma: LSIRC12T1
+*
+* Nome: Tânia Sofia da Silva Morais
+* Número: 8220190
+* Turma: LSIRC12T1
  */
 package PP_AC_8220190_8220862.pickingManagement;
 
@@ -14,8 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Asus
+ * <strong> Report </strong>
+ * <p>
+ * this class identifies a report </p>
  */
 public class Report implements com.estg.pickingManagement.Report {
 
@@ -23,22 +28,36 @@ public class Report implements com.estg.pickingManagement.Report {
 
     private Institution institution;
 
+    /**
+     * <strong> Report() </strong>
+     * <p>
+     * Report constructor method </p>
+     *
+     * @param institution the institution that is intended to make a report
+     */
     public Report(Institution institution) {
         this.institution = institution;
         this.date = LocalDateTime.now();
     }
 
+    /**
+     * <strong> getUsedVehicles() </strong>
+     * <p>
+     * Get all vehicles used </p>
+     *
+     * @return the number of vehicles used
+     */
     @Override
     public int getUsedVehicles() {
-        
+
         if (this.institution == null) {
             throw new NullPointerException("Institution is not initialized.");
         }
 
-        if ( this.institution.getVehicles() == null) {
+        if (this.institution.getVehicles() == null) {
             throw new NullPointerException("Vehicles array is empty.");
         }
-        
+
         int counter = 0;
 
         for (Vehicle vhcl : this.institution.getVehicles()) {
@@ -49,16 +68,23 @@ public class Report implements com.estg.pickingManagement.Report {
         return counter;
     }
 
+    /**
+     * <strong> getNotUsedVehicles() </strong>
+     * <p>
+     * get the number of unused vehicles </p>
+     *
+     * @return the number of unused vehicles
+     */
     @Override
     public int getNotUsedVehicles() {
         if (this.institution == null) {
             throw new NullPointerException("Institution is not initialized.");
         }
 
-        if ( this.institution.getVehicles() == null) {
+        if (this.institution.getVehicles() == null) {
             throw new NullPointerException("Vehicles array is empty.");
         }
-        
+
         int counter = 0;
 
         for (Vehicle vhcl : this.institution.getVehicles()) {
@@ -69,6 +95,13 @@ public class Report implements com.estg.pickingManagement.Report {
         return counter;
     }
 
+    /**
+     * <strong> getTotalDistance () <strong>
+     * <p>
+     * get the total distance </p>
+     *
+     * @return total distance
+     */
     @Override
     public double getTotalDistance() {
 
@@ -86,9 +119,16 @@ public class Report implements com.estg.pickingManagement.Report {
 
             }
         }
-        return sum/1000;
+        return sum / 1000;
     }
 
+    /**
+     * <strong> getTotalDuration () <strong>
+     * <p>
+     * get the total duration</p>
+     *
+     * @return total duration
+     */
     @Override
     public double getTotalDuration() {
         double sum = 0;
@@ -105,19 +145,40 @@ public class Report implements com.estg.pickingManagement.Report {
 
             }
         }
-        return sum/3600;
+        return sum / 3600;
     }
 
+    /**
+     * <strong> getDate() </strong>
+     * <p>
+     * get the report date </p>
+     *
+     * @return a varibale of LocalDateTime type
+     */
     @Override
     public LocalDateTime getDate() {
         return this.date;
     }
 
+    /**
+     * <strong> getPickedContainers() </strong>
+     * <p>
+     * gets the number of containers that were picked up
+     *
+     * @return 1
+     */
     @Override
     public int getPickedContainers() {
         return 1;
     }
 
+    /**
+     * <strong> getNonPickedContainers() </strong>
+     * <p>
+     * gets the number of containers that weren't picked up
+     *
+     * @return 1
+     */
     @Override
     public int getNonPickedContainers() {
         return 1;
