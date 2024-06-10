@@ -130,14 +130,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             <Reports Menu>
-                             1 - Used Vehicles
-                             2 - Unused vehicles
-                             3 - Total Distance
-                             4 - Total Duration
-                             0 - Quit
-                             > """);
+            System.out.print("<Reports Menu>\n" + "1 - Used Vehicles\n" + "2 - Unused vehicles\n" + "3 - Total Distance\n" + "4 - Total Duration\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 

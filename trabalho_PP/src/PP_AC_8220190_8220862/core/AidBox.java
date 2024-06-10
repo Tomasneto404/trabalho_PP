@@ -116,16 +116,31 @@ public class AidBox implements com.estg.core.AidBox {
 
     }
 
+    /**
+     * <strong>AidBox() </strong>
+     * <p>
+     * AidBox constructor method </p>
+     *
+     * @param code String value that represents the code of an AidBox.
+     * @param zone String value that represents the zone where the AiBox is
+     * @param latitude double value that represents the latitude of an AidBox
+     * @param longitude double value that represents the longitude of an AidBox
+     */
     public AidBox(String code, String zone, double latitude, double longitude) {
         this.code = code;
         this.zone = zone;
         this.coordinates = new GeographicCoordinates(latitude, longitude);
     }
 
+    /**
+     * <strong> AidBox() </strong>
+     * <p>
+     * AidBox constructor method </p>
+     *
+     * @param container Container value that represents a container.
+     */
     public AidBox(Container[] container) {
-
         this.containers = container;
-
     }
 
     /**
@@ -404,6 +419,14 @@ public class AidBox implements com.estg.core.AidBox {
         return this.containers;
     }
 
+    /**
+     * <strong> clone() </strong>
+     * <p>
+     * method used to create a deep copy of the AidBox object </p>
+     *
+     * @return the cloned object
+     * @throws CloneNotSupportedException exception that references a clone
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         AidBox cloned = (AidBox) super.clone();
@@ -414,6 +437,13 @@ public class AidBox implements com.estg.core.AidBox {
         return cloned;
     }
 
+    /**
+     * <strong> getTotalCapacity() </strong>
+     * <p>
+     * This method allows you to obtain full capacity </p>
+     *
+     * @return total capacity
+     */
     public double getTotalCapacity() {
 
         for (int i = 0; i < this.containerCounter; i++) {
@@ -423,6 +453,14 @@ public class AidBox implements com.estg.core.AidBox {
         return this.totalCapacity;
     }
 
+    /**
+     * <strong> equals() </strong>
+     * <p>
+     * allows you to check if one AidBox is the same as another </strong>
+     *
+     * @param o Object to compare with another
+     * @return true if it is the same, false if it is different
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof AidBox) {
