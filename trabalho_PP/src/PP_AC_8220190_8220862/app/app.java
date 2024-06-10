@@ -5,6 +5,8 @@
  */
 package PP_AC_8220190_8220862.app;
 
+import PP_AC_8220190_8220862.core.AidBox;
+import PP_AC_8220190_8220862.core.Container;
 import PP_AC_8220190_8220862.core.Institution;
 import PP_AC_8220190_8220862.enums.VehicleState;
 import PP_AC_8220190_8220862.io.Exporter;
@@ -13,6 +15,7 @@ import PP_AC_8220190_8220862.io.Importer;
 import PP_AC_8220190_8220862.pickingManagement.RefrigeratedVehicle;
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 import com.estg.core.ItemType;
+import com.estg.core.Measurement;
 import com.estg.core.exceptions.InstitutionException;
 import com.estg.core.exceptions.VehicleException;
 import java.io.BufferedReader;
@@ -69,7 +72,6 @@ public final class app {
 
         while (flag == true) {
 
-
             System.out.print("""
                              <Main Menu>
                              1 - Manage Institution
@@ -107,7 +109,7 @@ public final class app {
             System.out.print("""
                              <Institution Menu>
                              1 - Vehicles
-                             2 - Aid Boxs (Não funciona)
+                             2 - Aid Boxs
                              3 - Routes (Não funciona)
                              4 - Picking Maps (Não funciona)
                              0 - Quit
@@ -119,9 +121,88 @@ public final class app {
                 case "1":
                     this.vehicleMenu();
                     break;
+
+                case "2":
+                    this.aidBoxMenu();
+                    break;
                 default:
                     flag = false;
             }
+        }
+    }
+
+    private void aidBoxMenu() throws IOException {
+        boolean flag = true;
+
+        while (flag == true) {
+
+            System.out.print("""
+                             ***Aid Box Menu***
+                             1 - Show Aid Boxs
+                             2 - Remove Aid Box
+                             0 - Quit
+                             > """);
+
+            String option = this.reader.readLine();
+
+            switch (option) {
+                case "1":
+                    this.showAidBoxes();
+                    break;
+
+                case "2":
+                    break;
+
+                default:
+                    flag = false;
+            }
+        }
+    }
+
+    private void showAidBoxes() {
+
+        if (this.institution.getAidBoxes().length == 0) {
+            System.out.println("No AidBoxs available.");
+        }
+
+        for (AidBox adbx : this.institution.getAidBoxes()) {
+
+            if (adbx != null) {
+                System.out.println("Code: " + adbx.getCode());
+                System.out.println("Zone: " + adbx.getZone());
+                System.out.println("Ref. Local: " + adbx.getRefLocal());
+                System.out.println("Coordinates: ");
+                System.out.println("    Latitude: " + adbx.getCoordinates().getLatitude());
+                System.out.println("    Longitude: " + adbx.getCoordinates().getLongitude());
+                System.out.println("Containers: ");
+
+                for (Container cntnr : adbx.getContainers()) {
+
+                    if (cntnr != null) {
+
+                        System.out.println("    Code: " + cntnr.getCode());
+                        System.out.println("    Capacity: " + cntnr.getCapacity());
+                        System.out.println("    Type: " + cntnr.getType());
+                        System.out.println("    Measurements: ");
+
+                        for (Measurement msrmnt : cntnr.getMeasurements()) {
+
+                            if (msrmnt != null) {
+                                System.out.println("        Date: " + msrmnt.getDate());
+                                System.out.println("        Value: " + msrmnt.getValue());
+                                System.out.println("        ----------------");
+                            }
+
+                        }
+
+                        System.out.println("    *********************");
+                    }
+
+                }
+
+                System.out.println("--------------------------------\n");
+            }
+
         }
     }
 
@@ -149,17 +230,21 @@ public final class app {
                 case "2":
                     this.showVehicles();
                     break;
-                
+
                 case "3":
                     if (this.enableVehicleOption()) {
                         System.out.println("Vehicle Enabled");
+                    } else {
+                        System.out.println("Vehicle not found.");
                     }
-                    
+
                     break;
-                    
+
                 case "4":
                     if (this.disableVehicleOption()) {
                         System.out.println("Vehicle Disabled");
+                    } else {
+                        System.out.println("Vehicle not found.");
                     }
                     break;
 
@@ -168,16 +253,16 @@ public final class app {
             }
         }
     }
-    
-    private boolean enableVehicleOption() throws IOException{
-        
+
+    private boolean enableVehicleOption() throws IOException {
+
         if (this.institution.getVehicles() != null) {
-            
+
             System.out.println("Vehicle plate: ");
             String vhclPlate = this.reader.readLine();
-            
-            for (Vehicle vhcl : this.institution.getVehicles()){
-                if ( (vhcl != null) && (vhcl.getPlate() == vhclPlate) ){
+
+            for (Vehicle vhcl : this.institution.getVehicles()) {
+                if ((vhcl != null) && (vhcl.getPlate() == vhclPlate)) {
                     try {
                         this.institution.enableVehicle(vhcl);
                         return true;
@@ -189,16 +274,16 @@ public final class app {
         }
         return false;
     }
-    
-    private boolean disableVehicleOption() throws IOException{
-        
+
+    private boolean disableVehicleOption() throws IOException {
+
         if (this.institution.getVehicles() != null) {
-            
+
             System.out.println("Vehicle plate: ");
             String vhclPlate = this.reader.readLine();
-            
-            for (Vehicle vhcl : this.institution.getVehicles()){
-                if ( (vhcl != null) && (vhcl.getPlate() == vhclPlate) ){
+
+            for (Vehicle vhcl : this.institution.getVehicles()) {
+                if ((vhcl != null) && (vhcl.getPlate() == vhclPlate)) {
                     try {
                         this.institution.disableVehicle(vhcl);
                         return true;
@@ -210,8 +295,12 @@ public final class app {
         }
         return false;
     }
-    
+
     private void showVehicles() {
+
+        if (this.institution.getVehicles().length == 0) {
+            System.out.println("No Vehicles available.");
+        }
 
         for (Vehicle vhcl : this.institution.getVehicles()) {
 
@@ -259,7 +348,7 @@ public final class app {
                 break;
         }
 
-        try {            
+        try {
             this.institution.addVehicle(new Vehicle(plate, (double) capacity, type));
         } catch (VehicleException e) {
             e.getMessage();
