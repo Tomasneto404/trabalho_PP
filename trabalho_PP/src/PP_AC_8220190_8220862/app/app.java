@@ -12,9 +12,11 @@ package PP_AC_8220190_8220862.app;
 import PP_AC_8220190_8220862.core.AidBox;
 import PP_AC_8220190_8220862.core.Container;
 import PP_AC_8220190_8220862.core.Institution;
+import PP_AC_8220190_8220862.enums.VehicleState;
 import PP_AC_8220190_8220862.io.Exporter;
 import com.estg.io.HTTPProvider;
 import PP_AC_8220190_8220862.io.Importer;
+import PP_AC_8220190_8220862.pickingManagement.RefrigeratedVehicle;
 import PP_AC_8220190_8220862.pickingManagement.Report;
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 import com.estg.core.ItemType;
@@ -125,6 +127,14 @@ public final class app {
         }
     }
 
+    /**
+     * <strong>reportsMenu()</strong>
+     * <p>
+     * This method prints in the console the reports manage menu of the
+     * application.</p>
+     *
+     * @throws IOException If couldn´t read the user input.
+     */
     private void reportsMenu() throws IOException {
         boolean flag = true;
 
@@ -420,6 +430,7 @@ public final class app {
         switch (typeOption) {
             case "1":
                 type = ItemType.PERISHABLE_FOOD;
+
                 break;
 
             case "2":
@@ -439,8 +450,31 @@ public final class app {
                 break;
         }
 
+        System.out.print("<Type>:\n" + "1 - ACTIVE \n" + "2 - INACTIVE\n> ");
+        String stateOption = this.reader.readLine();
+
+        VehicleState state;
+        switch (stateOption) {
+            case "1":
+                state = VehicleState.ACTIVE;
+                break;
+
+            default:
+                state = VehicleState.INACTIVE;
+                break;
+        }
+
         try {
-            this.institution.addVehicle(new Vehicle(plate, (double) capacity, type));
+            if (type == ItemType.PERISHABLE_FOOD) {
+                
+                System.out.print("<Max Capacity>\n> ");
+                int maxKm = Integer.parseInt(reader.readLine());
+
+                this.institution.addVehicle(new RefrigeratedVehicle(plate, (double) capacity, type, state, maxKm));
+            }
+
+            this.institution.addVehicle(new Vehicle(plate, (double) capacity, type, state));
+
         } catch (VehicleException e) {
             e.getMessage();
         }

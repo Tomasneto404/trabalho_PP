@@ -42,6 +42,14 @@ public class Importer implements com.estg.io.Importer {
         this.readingsFile = readingsFile;
     }
 
+    /**
+     * <strong>importData()</strong>
+     * <p>This method imports data from files to the Institution object.</p>
+     * @param instn - Institution to receive the data.
+     * @throws FileNotFoundException - If the files weren't found.
+     * @throws IOException - If user enters invalid inputs.
+     * @throws InstitutionException - If institution not found.
+     */
     @Override
     public void importData(com.estg.core.Institution instn) throws FileNotFoundException, IOException, InstitutionException {
 
@@ -81,7 +89,7 @@ public class Importer implements com.estg.io.Importer {
                     Container tmpCntnr = new Container(containerCode, capacity);
 
                     //Add Measurements to institution
-                    for (Object readingsObj : measurementsArray) {
+                    /*for (Object readingsObj : measurementsArray) {
                         JSONObject measurement = (JSONObject) readingsObj;
 
                         String msrmntContainerCode = (String) measurement.get("contentor");
@@ -96,7 +104,7 @@ public class Importer implements com.estg.io.Importer {
                             inst.addMeasurement(tmpMsrmnt, tmpContainer);
                         } 
 
-                    }
+                    }*/
 
                     tmpBox.addContainer(tmpCntnr);
                 }

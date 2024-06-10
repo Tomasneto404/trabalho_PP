@@ -32,6 +32,12 @@ public class Exporter {
         this.exportFile = exportFile;
     }
 
+    /**
+     * <strong>exportData()</strong>
+     * <p>This methods exports all the Institution and the Report data to a file.</p>
+     * @param inst Institution to export the data.
+     * @param reporter The Report object to export the data.
+     */
     public void exportData(Institution inst, Report reporter) {
 
         JSONObject instObject = new JSONObject();

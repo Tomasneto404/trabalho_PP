@@ -9,6 +9,7 @@
  */
 package PP_AC_8220190_8220862.pickingManagement;
 
+import PP_AC_8220190_8220862.enums.VehicleState;
 import com.estg.core.ItemType;
 import com.estg.core.exceptions.VehicleException;
 
@@ -36,6 +37,24 @@ public class RefrigeratedVehicle extends Vehicle {
         super(plate, maxCapacity);
         this.maxKilometers = maxKilometers;
     }
+
+    /**
+     * <strong> RegrigereratedVehicle() </strong>
+     * <p>
+     * constructor method </p>
+     * 
+     * param plate variable of String type
+     * @param maxCapacity variable of double type
+     * @param maxKilometers variable of double type
+     * @param state VehicleState variable
+     * @param maxKilometers Double type variable
+     */
+    public RefrigeratedVehicle(String plate, double maxCapacity, ItemType type, VehicleState state, double maxKilometers) {
+       super(plate, maxCapacity, type, state);
+       this.maxKilometers = maxKilometers;
+    }
+    
+    
 
     /**
      * <strong> getMaxKilometers() </strong>

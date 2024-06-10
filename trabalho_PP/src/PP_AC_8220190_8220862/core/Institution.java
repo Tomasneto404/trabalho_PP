@@ -218,13 +218,17 @@ public class Institution implements com.estg.core.Institution {
      */
     private boolean verifyContainerMeasurements(com.estg.core.Measurement msrmnt, Container cntnr) {
 
+        if (msrmnt == null || cntnr == null) {
+            throw new IllegalArgumentException("Measurement and Container must not be null");
+        }
+
         Measurement[] msrmntsArray = cntnr.getMeasurements(msrmnt.getDate().toLocalDate());
 
         if (msrmntsArray == null) {
-            return false;
+            throw new IllegalArgumentException("Measurements array must not be null");
         }
 
-        return msrmntsArray.length > 0;
+        return msrmntsArray.length > 1;
     }
 
     /**
