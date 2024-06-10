@@ -39,7 +39,7 @@ public class Report implements com.estg.pickingManagement.Report {
         this.institution = institution;
         this.date = LocalDateTime.now();
     }
-
+    
     /**
      * <strong> getUsedVehicles() </strong>
      * <p>
