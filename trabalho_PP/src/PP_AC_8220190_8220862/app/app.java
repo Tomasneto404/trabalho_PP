@@ -32,7 +32,7 @@ import java.io.InputStreamReader;
  * <strong>app</strong>
  * <p>This class represents the application itself.</p>
  */
-public final class App {
+public final class app {
 
     private final String AIDBOXES_FILE = "src/Files/aidboxes.json";
 
@@ -188,7 +188,7 @@ public final class App {
 
     /**
      * <strong>showAidBoxes()</strong>
-     * <p>prints in the console the informations of each aid box inside the institution.</p>
+     * <p>Prints in the console the informations of each aid box inside the institution.</p>
      */
     private void showAidBoxes() {
 
@@ -290,6 +290,12 @@ public final class App {
         }
     }
 
+    /**
+     * <strong>enableVehicleOption()</strong>
+     * <p>Allows to identify a vehicle and change it's state to ACTIVE.</p>
+     * @return True if operation was successfull. False if it was not.
+     * @throws IOException If couldn´t read the user input.
+     */
     private boolean enableVehicleOption() throws IOException {
 
         if (this.institution.getVehicles() != null) {
@@ -311,6 +317,12 @@ public final class App {
         return false;
     }
 
+    /**
+     * <strong>disableVehicleOption()</strong>
+     * <p>Allows to identify a vehicle and change it's state to INACTIVE.</p>
+     * @return True if operation was successfull. False if it was not.
+     * @throws IOException - If couldn´t read the user input.
+     */
     private boolean disableVehicleOption() throws IOException {
 
         if (this.institution.getVehicles() != null) {
@@ -332,6 +344,10 @@ public final class App {
         return false;
     }
 
+    /**
+     * <strong>showVehicles()</strong>
+     * <p>Prints in the console the informations of each vehicle inside the institution.</p>
+     */
     private void showVehicles() {
 
         if (this.institution.getVehicles().length == 0) {
@@ -351,6 +367,11 @@ public final class App {
         }
     }
 
+    /**
+     * <strong>insertVehicle()</strong>
+     * <p>Allows the user to input data of a vehicle and insert it into the Institution.</p>
+     * @throws IOException - If couldn´t read the user input.
+     */
     private void insertVehicle() throws IOException {
         System.out.print("<Plate>\n> ");
         String plate = this.reader.readLine();
@@ -391,6 +412,13 @@ public final class App {
         }
     }
 
+    /**
+     * <strong>saveDataFromAPI()</strong>
+     * <p>Allows to get data from a given API url and stores it in a given file path.</p>
+     * @param url - API url
+     * @param filePath - Path to the file to store the data.
+     * @return True if operation was successfull. False if it was not.
+     */
     private boolean saveDataFromAPI(String url, String filePath) {
 
         String data = this.provider.getFromURL(url);
@@ -406,8 +434,11 @@ public final class App {
         return true;
     }
 
-    public static void main(String[] args) {
-        App menu = new App();
+    /**
+     * Main method to run the program.
+     */
+    public static void main(String args[]) {
+        app menu = new app();
         try {
             menu.start();
         } catch (InstitutionException e) {

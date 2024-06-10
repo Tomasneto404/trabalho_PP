@@ -13,18 +13,18 @@ import java.time.LocalDateTime;
  * @author tomas
  */
 public class PickingMap implements com.estg.pickingManagement.PickingMap {
-    
-    private final int MAX_ROUTES=20;
+
+    private final int MAX_ROUTES = 20;
 
     private LocalDateTime date;
-    
+
     private Route[] routes;
-    
+
     public PickingMap() {
         this.date = LocalDateTime.now();
-        this.routes=new Route[MAX_ROUTES];
+        this.routes = new Route[MAX_ROUTES];
     }
-    
+
     @Override
     public LocalDateTime getDate() {
         return this.date;
@@ -34,5 +34,5 @@ public class PickingMap implements com.estg.pickingManagement.PickingMap {
     public Route[] getRoutes() {
         return this.routes;
     }
-    
+
 }
