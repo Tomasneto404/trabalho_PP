@@ -116,7 +116,7 @@ public final class app {
                     break;
 
                 case "3":
-                    this.exporter.exportData(this.institution);
+                    this.exporter.exportData(this.institution, this.reporter);
                     break;
 
                 default:
@@ -155,7 +155,7 @@ public final class app {
                     break;
 
                 case "4":
-                    System.out.printf("\nTotal Duration: %.2f HOURS\n", this.reporter.getTotalDuration());
+                    System.out.printf("\nTotal Duration: %.2f HOURS\n\n", this.reporter.getTotalDuration());
                     break;
 
                 default:

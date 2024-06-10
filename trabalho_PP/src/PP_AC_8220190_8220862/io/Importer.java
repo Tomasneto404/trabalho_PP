@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -41,6 +42,7 @@ public class Importer implements com.estg.io.Importer {
     public void importData(com.estg.core.Institution instn) throws FileNotFoundException, IOException, InstitutionException {
 
         Institution inst = (Institution) instn;
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
         try {
             JSONParser parser = new JSONParser();
@@ -75,22 +77,22 @@ public class Importer implements com.estg.io.Importer {
                     Container tmpCntnr = new Container(containerCode, capacity);
 
                     //Add Measurements to institution
-                    /*for (Object readingsObj : measurementsArray) {
+                    for (Object readingsObj : measurementsArray) {
                         JSONObject measurement = (JSONObject) readingsObj;
 
                         String msrmntContainerCode = (String) measurement.get("contentor");
 
                         Container tmpContainer = inst.getContainer(msrmntContainerCode);
 
-                        //LocalDate date = (LocalDate) measurement.get("data");
+                        LocalDate date = LocalDate.parse(measurement.get("data").toString(), formatter);
                         long value = (long) measurement.get("valor");
-                        
-                        LocalDateTime date = LocalDateTime.now();
-                        
-                        Measurement tmpMsrmnt = new Measurement(value, date);
 
-                        inst.addMeasurement(tmpMsrmnt, tmpContainer);
-                    }*/
+                        Measurement tmpMsrmnt = new Measurement(value, date);
+                        if (tmpContainer != null) {
+                            inst.addMeasurement(tmpMsrmnt, tmpContainer);
+                        } 
+
+                    }
 
                     tmpBox.addContainer(tmpCntnr);
                 }

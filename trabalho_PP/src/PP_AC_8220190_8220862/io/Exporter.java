@@ -8,6 +8,7 @@ package PP_AC_8220190_8220862.io;
 import PP_AC_8220190_8220862.core.AidBox;
 import PP_AC_8220190_8220862.core.Container;
 import PP_AC_8220190_8220862.core.Institution;
+import PP_AC_8220190_8220862.pickingManagement.Report;
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 import com.estg.core.Measurement;
 import java.io.FileWriter;
@@ -27,10 +28,19 @@ public class Exporter {
         this.exportFile = exportFile;
     }
 
-    public void exportData(Institution inst) {
+    public void exportData(Institution inst, Report reporter) {
 
         JSONObject instObject = new JSONObject();
         instObject.put("Name", inst.getName());
+        
+        JSONObject reporterObj = new JSONObject();
+        reporterObj.put("Date", reporter.getDate().toString());
+        reporterObj.put("UsedVehicles", reporter.getUsedVehicles());
+        reporterObj.put("UnusedVehicles", reporter.getNotUsedVehicles());
+        reporterObj.put("TotalDistance", reporter.getTotalDistance());
+        reporterObj.put("TotalDuration", reporter.getTotalDuration());
+        
+        instObject.put("Report", reporterObj);
 
         JSONArray aidBoxArray = new JSONArray(); //Array de AidBoxs
 
@@ -69,10 +79,10 @@ public class Exporter {
                     JSONObject msrmntObj = new JSONObject();
                     msrmntObj.put("Date", msrmnt.getDate());
                     msrmntObj.put("Value", msrmnt.getValue());
-                    
+
                     measurementsArray.add(msrmntObj);
                 }
-                
+
                 containerObj.put("Measurements", measurementsArray);
 
                 containersArray.add(containerObj);
@@ -84,25 +94,26 @@ public class Exporter {
         }
 
         instObject.put("AidBoxs", aidBoxArray); //Adiciona Array de AidBox ao JSONObject principal
-        
+
         JSONArray vhclArray = new JSONArray(); //Array de Vehicles
-        
+
         for (Vehicle vhcl : inst.getVehicles()) {
-            
+
             if (vhcl == null) {
                 continue;
             }
-            
+
             JSONObject vhclObj = new JSONObject();
             vhclObj.put("Plate", vhcl.getPlate());
-            vhclObj.put("Type", vhcl.getSupplyType().toString() );
+            vhclObj.put("Type", vhcl.getSupplyType().toString());
             vhclObj.put("Capacity", vhcl.getMaxCapacity());
             vhclObj.put("State", vhcl.getState().toString());
-            
+
             vhclArray.add(vhclObj);
         }
-        
+
         instObject.put("Vehicles", vhclArray); //Adiciona Array de Vehicles ao JSONObject principal
+
 
         try ( FileWriter file = new FileWriter(this.exportFile)) {
             file.write(instObject.toString());

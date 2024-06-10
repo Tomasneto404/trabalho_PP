@@ -183,6 +183,7 @@ public class Institution implements com.estg.core.Institution {
             throw new MeasurementException("This Measurement already exists in the array.");
         }
 
+        
         if (verifyContainerMeasurements(msrmnt, (Container) cntnr)) {
             throw new ContainerException("Container already has a measurement with the same date.");
         }
@@ -206,13 +207,18 @@ public class Institution implements com.estg.core.Institution {
      */
     private boolean verifyContainerMeasurements(com.estg.core.Measurement msrmnt, Container cntnr) {
 
-        Measurement[] msrmntsArray = cntnr.getMeasurements(msrmnt.getDate().toLocalDate());
-        
-        if (msrmntsArray == null) {
-            return false;
+        if (msrmnt == null || cntnr == null) {
+            throw new IllegalArgumentException("Measurement and Container must not be null");
         }
-        
-        return msrmntsArray.length > 0;
+
+        Measurement[] msrmntsArray = cntnr.getMeasurements(msrmnt.getDate().toLocalDate());
+
+        if (msrmntsArray == null) {
+            //return false;
+            throw new IllegalArgumentException("Measurements array must not be null");
+        }
+
+        return msrmntsArray.length > 1;
     }
 
     /**
@@ -228,7 +234,7 @@ public class Institution implements com.estg.core.Institution {
 
         for (Measurement measurement : this.measurements) {
 
-            if ( measurement != null && measurement.equals(msrmnt)) {
+            if (measurement != null && measurement.equals(msrmnt)) {
 
                 return true;
 
@@ -365,7 +371,7 @@ public class Institution implements com.estg.core.Institution {
     @Override
     public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         for (Vehicle vehicle : this.vehicles) {
-            if (vehicle.equals( (Vehicle) vhcl)) {
+            if (vehicle.equals((Vehicle) vhcl)) {
                 vehicle.setState(VehicleState.INACTIVE);
             }
         }
@@ -374,7 +380,7 @@ public class Institution implements com.estg.core.Institution {
     @Override
     public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
         for (Vehicle vehicle : this.vehicles) {
-            if (vehicle.equals( (Vehicle) vhcl)) {
+            if (vehicle.equals((Vehicle) vhcl)) {
                 vehicle.setState(VehicleState.ACTIVE);
             }
         }
@@ -489,7 +495,7 @@ public class Institution implements com.estg.core.Institution {
             }
 
             for (Container container : containerArray) {
-                if (container != null && container.getCode() != null && container.getCode().equals(containerCode)) {
+                if (container != null && container.getCode() != null && container.getCode() == containerCode) {
                     return container;
                 }
             }

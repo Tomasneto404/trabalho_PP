@@ -1,4 +1,11 @@
 {
+    "Report": {
+        "UsedVehicles": 0,
+        "UnusedVehicles": 0,
+        "TotalDistance": 184.161,
+        "Date": "2024-06-10T17:04:48.766629100",
+        "TotalDuration": 4.335555555555556
+    },
     "AidBoxs": [{
             "Zone": "Pombeiro",
             "Containers": [{
@@ -470,6 +477,6 @@
             "Code": "CAIXF40",
             "Longitude": -8.198204
         }],
-    "Name": "teste",
+    "Name": "dasd",
     "Vehicles": []
 }

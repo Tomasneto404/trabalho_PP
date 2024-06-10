@@ -9,6 +9,7 @@
  */
 package PP_AC_8220190_8220862.core;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
  */
 public class Measurement implements com.estg.core.Measurement {
 
-    private LocalDateTime date;
+    private LocalDate date;
 
     private double value;
 
@@ -29,7 +30,7 @@ public class Measurement implements com.estg.core.Measurement {
      * <p>Measurement constructor method.</p>
      * @param value receives the container weight in kg
      */
-    public Measurement(double value, LocalDateTime date) {        
+    public Measurement(double value, LocalDate date) {        
         this.value = value;
         this.date = date;
     }
@@ -41,7 +42,7 @@ public class Measurement implements com.estg.core.Measurement {
      */
     @Override
     public LocalDateTime getDate() {
-        return this.date;
+        return this.date.atStartOfDay();
     }
 
     /**

@@ -10,10 +10,9 @@
 package PP_AC_8220190_8220862.core;
 
 import com.estg.core.ItemType;
-import com.estg.core.Measurement;
+import PP_AC_8220190_8220862.core.Measurement;
 import com.estg.core.exceptions.MeasurementException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * *
@@ -120,19 +119,21 @@ public class Container implements com.estg.core.Container {
      */
     @Override
     public Measurement[] getMeasurements(LocalDate ld) {
-
-        Measurement[] tmp = new Measurement[MAX_MEASUREMENT];
-        int contador = 0;
-
-        //convert a LocalDate variable in a LocalDateTime variable
-        LocalDateTime ld2 = convertToDatetime(ld);
-
-        for (Measurement measurement : this.measurements) {
-            if (measurement.getDate().equals(ld2)) {
-                tmp[contador++] = measurement;
-            }
+        
+        if (ld == null) {
+            System.out.println("fds");
         }
 
+        Measurement[] tmp = new Measurement[MAX_MEASUREMENT];
+        int counter = 0;
+
+        for (Measurement measurement : this.measurements) {
+
+            if ( measurement != null && !measurement.getDate().toLocalDate().isEqual(ld)) {
+                tmp[counter++] = measurement;
+            }
+
+        }
         return tmp;
     }
 
@@ -148,7 +149,7 @@ public class Container implements com.estg.core.Container {
      * @throws MeasurementException exception corresponding to a measurement
      */
     @Override
-    public boolean addMeasurement(Measurement msrmnt) throws MeasurementException {
+    public boolean addMeasurement(com.estg.core.Measurement msrmnt) throws MeasurementException {
 
         if (this.counter == MAX_MEASUREMENT) {
             throw new MeasurementException("Measurements are full");
@@ -158,11 +159,11 @@ public class Container implements com.estg.core.Container {
             throw new MeasurementException("The capacity is ultrapassed");
         }
 
-        if (exist(msrmnt)) {
+        if (exist((Measurement) msrmnt)) {
             throw new MeasurementException("The measurement exist");
         }
 
-        this.measurements[counter++] = msrmnt;
+        this.measurements[counter++] = (Measurement) msrmnt;
 
         return true;
     }
@@ -292,11 +293,10 @@ public class Container implements com.estg.core.Container {
      *
      * @param date receives a date of type LocalDate
      * @return a date of type LocalDateTime
+     *
+     * private LocalDateTime convertToDatetime(LocalDate date) { return
+     * date.atStartOfDay(); }
      */
-    private LocalDateTime convertToDatetime(LocalDate date) {
-        return date.atStartOfDay();
-    }
-
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
