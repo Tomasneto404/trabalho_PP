@@ -144,7 +144,7 @@ public class Route implements com.estg.pickingManagement.Route {
 
     }
 
-    //com dúvidas
+   
     @Override
     public void insertAfter(com.estg.core.AidBox aidbox, com.estg.core.AidBox aidbox1) throws RouteException {
         AidBox aidBox = (AidBox) aidbox;

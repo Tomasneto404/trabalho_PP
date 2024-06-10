@@ -7,7 +7,6 @@
 * Número: 8220190
 * Turma: LSIRC12T1
  */
-
 package PP_AC_8220190_8220862.pickingManagement;
 
 import com.estg.core.exceptions.VehicleException;
@@ -27,13 +26,13 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
     private String plate;
 
     private double maxCapacity;
-    
+
     private VehicleState state;
 
     {
         this.state = VehicleState.ACTIVE;
     }
-    
+
     /**
      * <strong>Vehicle() </strong>
      * <p>
@@ -47,7 +46,7 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
         this.plate = plate;
         this.maxCapacity = maxCapacity;
     }
-    
+
     public Vehicle(String plate, double maxCapacity, ItemType type) {
         this.plate = plate;
         this.maxCapacity = maxCapacity;
@@ -104,27 +103,40 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
     public double getMaxCapacity() {
         return this.maxCapacity;
     }
-    
+
     /**
      * <strong>setState()</strong>
-     * <p>Sets the value of state to the vehicle.</p>
-     * @param state 
+     * <p>
+     * Sets the value of state to the vehicle.</p>
+     *
+     * @param state
      */
     public void setState(VehicleState state) {
         this.state = state;
     }
-    
+
     /**
      * <strong>getState()</strong>
-     * <p>Gets the value of the actual state of the vehicle.</p>
-     * @return The VehicleState object that identifies the actual state of vehicle.
+     * <p>
+     * Gets the value of the actual state of the vehicle.</p>
+     *
+     * @return The VehicleState object that identifies the actual state of
+     * vehicle.
      */
-    public VehicleState getState(){
+    public VehicleState getState() {
         return this.state;
     }
 
+    /**
+     * <strong> equals() </strong>
+     * <p>
+     * verify if two vehicles is equals </p>
+     *
+     * @param o the object that we pretend to compare
+     * @return true if is equal e false if not
+     */
     @Override
-    public boolean equals(Object o){ 
+    public boolean equals(Object o) {
         if (o instanceof Vehicle) {
             if (this.plate == ((Vehicle) o).getPlate()) {
                 return true;
