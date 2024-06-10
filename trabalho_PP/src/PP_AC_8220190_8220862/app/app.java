@@ -69,6 +69,7 @@ public final class app {
 
         while (flag == true) {
 
+
             System.out.print("""
                              <Main Menu>
                              1 - Manage Institution
@@ -102,6 +103,7 @@ public final class app {
         boolean flag = true;
 
         while (flag == true) {
+
             System.out.print("""
                              <Institution Menu>
                              1 - Vehicles
@@ -127,6 +129,7 @@ public final class app {
         boolean flag = true;
 
         while (flag == true) {
+
             System.out.print("""
                              ***Vehicle Menu***
                              1 - Add new vehicle
@@ -230,13 +233,7 @@ public final class app {
         System.out.print("<Max Capacity>\n> ");
         int capacity = Integer.parseInt(reader.readLine());
 
-        System.out.print("""
-                         <Type>:
-                         1 - PERISHABLE_FOOD
-                         2 - NON_PERISHABLE_FOOD
-                         3 - CLOTHING
-                         4 - MEDICINE
-                         \n> """);
+        System.out.print("<Type>:\n" + "1 - PERISHABLE_FOOD\n" + "2 - NON_PERISHABLE_FOOD\n" + "3 - CLOTHING\n" + "4 - MEDICINE\n" + "\n" + ">");
         String typeOption = this.reader.readLine();
 
         ItemType type;
