@@ -123,7 +123,9 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     public AidBox(Container[] container) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.containers = container;
+
     }
 
     /**
@@ -294,7 +296,6 @@ public class AidBox implements com.estg.core.AidBox {
             throw new ContainerException("Container type already exists in container array.");
 
         }*/
-
         this.containers[this.containerCounter++] = (Container) cntnr;
 
         return true;

@@ -49,8 +49,9 @@ public class Route implements com.estg.pickingManagement.Route {
         this.aidBoxs = aidBoxs;
     }
 
-    Route(Vehicle vehicle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Route(Vehicle vehicle) {
+        this.vehicle = vehicle;
+
     }
 
     public AidBox[] getAidBoxs() {
@@ -222,7 +223,7 @@ public class Route implements com.estg.pickingManagement.Route {
     public double getTotalDuration() {
 
         for (int i = 0; i < this.aidBoxCounter; i++) {
-            
+
             while (i < this.aidBoxCounter) {
 
                 try {

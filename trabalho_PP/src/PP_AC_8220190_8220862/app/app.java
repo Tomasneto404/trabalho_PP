@@ -48,7 +48,7 @@ public final class app {
     private Importer importer;
 
     private Exporter exporter;
-    
+
     private Report reporter;
 
     /**
@@ -81,7 +81,7 @@ public final class app {
             this.importer.importData(this.institution);
 
             this.reporter = new Report(this.institution);
-            
+
             this.MainMenu();
 
         } catch (IOException e) {
@@ -102,13 +102,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             <Main Menu>
-                             1 - Manage Institution
-                             2 - Reports
-                             3 - Save Institution Data To File
-                             0 - Quit
-                             > """);
+            System.out.print("<Main Menu>\n1 - Manage Institution\n2 - Reports\n3 - Save Institution Data To File\n0 - Quit\n> ");
 
             String option = this.reader.readLine();
 
@@ -130,8 +124,8 @@ public final class app {
             }
         }
     }
-    
-    private void reportsMenu() throws IOException{
+
+    private void reportsMenu() throws IOException {
         boolean flag = true;
 
         while (flag == true) {
@@ -155,15 +149,15 @@ public final class app {
                 case "2":
                     System.out.println("\nUnused Vehicles: " + this.reporter.getNotUsedVehicles() + "\n");
                     break;
-                    
+
                 case "3":
-                    System.out.println("\nTotal Distance: " + this.reporter.getTotalDistance()+ " KM\n");
+                    System.out.println("\nTotal Distance: " + this.reporter.getTotalDistance() + " KM\n");
                     break;
-                    
+
                 case "4":
                     System.out.printf("\nTotal Duration: %.2f HOURS\n", this.reporter.getTotalDuration());
                     break;
-                    
+
                 default:
                     flag = false;
             }
@@ -183,14 +177,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             <Institution Menu>
-                             1 - Vehicles
-                             2 - Aid Boxs
-                             3 - Routes (Não funciona)
-                             4 - Picking Maps (Não funciona)
-                             0 - Quit
-                             > """);
+            System.out.print("<Institution Menu>\n" + "1 - Vehicles\n" + "2 - Aid Boxs\n" + "3 - Routes (N\u00e3o funciona)\n" + "4 - Picking Maps (N\u00e3o funciona)\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -221,11 +208,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             ***Aid Box Menu***
-                             1 - Show Aid Boxs
-                             0 - Quit
-                             > """);
+            System.out.print("***Aid Box Menu***\n" + "1 - Show Aid Boxs\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
@@ -305,14 +288,7 @@ public final class app {
 
         while (flag == true) {
 
-            System.out.print("""
-                             ***Vehicle Menu***
-                             1 - Add new vehicle
-                             2 - Show Vehicles
-                             3 - Enable Vehicle
-                             4 - Disable Vehicle
-                             0 - Quit
-                             > """);
+            System.out.print("***Vehicle Menu***\n" + "1 - Add new vehicle\n" + "2 - Show Vehicles\n" + "3 - Enable Vehicle\n" + "4 - Disable Vehicle\n" + "0 - Quit\n" + ">");
 
             String option = this.reader.readLine();
 
