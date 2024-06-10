@@ -8,7 +8,8 @@ package PP_AC_8220190_8220862.core;
 import PP_AC_8220190_8220862.enums.VehicleState;
 import PP_AC_8220190_8220862.core.AidBox;
 
-import com.estg.core.Container;
+import PP_AC_8220190_8220862.core.Container;
+
 import com.estg.core.ItemType;
 import com.estg.core.Measurement;
 import com.estg.core.exceptions.AidBoxException;
@@ -172,7 +173,7 @@ public class Institution implements com.estg.core.Institution {
      * @throws MeasurementException
      */
     @Override
-    public boolean addMeasurement(Measurement msrmnt, Container cntnr) throws ContainerException, MeasurementException {
+    public boolean addMeasurement(com.estg.core.Measurement msrmnt, com.estg.core.Container cntnr) throws ContainerException, MeasurementException {
 
         if (!canAddMeasurementToArray()) {
             throw new MeasurementException("Measurements array is full.");
@@ -182,7 +183,7 @@ public class Institution implements com.estg.core.Institution {
             throw new MeasurementException("This Measurement already exists in the array.");
         }
 
-        if (verifyContainerMeasurements(msrmnt, cntnr)) {
+        if (verifyContainerMeasurements(msrmnt, (Container) cntnr)) {
             throw new ContainerException("Container already has a measurement with the same date.");
         }
 
@@ -203,9 +204,15 @@ public class Institution implements com.estg.core.Institution {
      * @return True if there is a measurement with the same date. False if it
      * doesn't.
      */
-    private boolean verifyContainerMeasurements(Measurement msrmnt, Container cntnr) {
+    private boolean verifyContainerMeasurements(com.estg.core.Measurement msrmnt, Container cntnr) {
 
-        return cntnr.getMeasurements(msrmnt.getDate().toLocalDate()).length != 0;
+        Measurement[] msrmntsArray = cntnr.getMeasurements(msrmnt.getDate().toLocalDate());
+        
+        if (msrmntsArray == null) {
+            return false;
+        }
+        
+        return msrmntsArray.length > 0;
     }
 
     /**
@@ -221,7 +228,7 @@ public class Institution implements com.estg.core.Institution {
 
         for (Measurement measurement : this.measurements) {
 
-            if (measurement.equals(msrmnt)) {
+            if ( measurement != null && measurement.equals(msrmnt)) {
 
                 return true;
 
@@ -274,7 +281,7 @@ public class Institution implements com.estg.core.Institution {
             throw new ContainerException("Container with item type " + it + "doesn't exist in this AidBox.");
         }
 
-        return aidbox.getContainer(it);
+        return (Container) aidbox.getContainer(it);
     }
 
     /**

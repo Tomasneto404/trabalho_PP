@@ -44,8 +44,9 @@ public class Route implements com.estg.pickingManagement.Route {
 
     }
 
-    public Route(Vehicle vehicle) {
+    public Route(AidBox[] aidBoxs, Vehicle vehicle) {
         this.vehicle = vehicle;
+        this.aidBoxs = aidBoxs;
     }
 
     public AidBox[] getAidBoxs() {

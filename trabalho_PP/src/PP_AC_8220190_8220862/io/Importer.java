@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,16 +27,16 @@ import org.json.simple.parser.JSONParser;
  * @author tomas
  */
 public class Importer implements com.estg.io.Importer {
-    
+
     private String aidBoxsFile;
-    
+
     private String readingsFile;
 
     public Importer(String aidBoxsFile, String readingsFile) {
         this.aidBoxsFile = aidBoxsFile;
         this.readingsFile = readingsFile;
     }
-    
+
     @Override
     public void importData(com.estg.core.Institution instn) throws FileNotFoundException, IOException, InstitutionException {
 
@@ -72,25 +73,29 @@ public class Importer implements com.estg.io.Importer {
                     double capacity = ((Number) container.get("capacidade")).doubleValue();
 
                     Container tmpCntnr = new Container(containerCode, capacity);
+
+                    //Add Measurements to institution
+                    /*for (Object readingsObj : measurementsArray) {
+                        JSONObject measurement = (JSONObject) readingsObj;
+
+                        String msrmntContainerCode = (String) measurement.get("contentor");
+
+                        Container tmpContainer = inst.getContainer(msrmntContainerCode);
+
+                        //LocalDate date = (LocalDate) measurement.get("data");
+                        long value = (long) measurement.get("valor");
+                        
+                        LocalDateTime date = LocalDateTime.now();
+                        
+                        Measurement tmpMsrmnt = new Measurement(value, date);
+
+                        inst.addMeasurement(tmpMsrmnt, tmpContainer);
+                    }*/
+
                     tmpBox.addContainer(tmpCntnr);
                 }
                 inst.addAidBox(tmpBox);
             }
-
-            //Add Measurements to institution
-            /*for (Object readingsObj : measurementsArray) {
-                JSONObject measurement = (JSONObject) readingsObj;
-
-                String containerCode = (String) measurement.get("contentor");
-                
-                Container tmpContainer = (Container) inst.getContainer(containerCode);
-                
-                LocalDateTime date = (LocalDateTime) measurement.get("data");
-                double value = (double) measurement.get("valor");
-
-                Measurement tmpMsrmnt = new Measurement(value, date);
-                
-            }*/
 
             //System.out.println("Importado!!!!");
         } catch (IOException e) {

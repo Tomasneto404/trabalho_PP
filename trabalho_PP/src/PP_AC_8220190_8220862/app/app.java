@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Nome: Tomás Leonardo Leão Sousa Neto
+* Número: 8220862
+* Turma: LSIRC12T1
+*
+* Nome: Tânia Sofia da Silva Morais
+* Número: 8220190
+* Turma: LSIRC12T1
  */
 package PP_AC_8220190_8220862.app;
 
@@ -24,7 +28,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public final class app {
+/**
+ * <strong>app</strong>
+ * <p>This class represents the application itself.</p>
+ */
+public final class App {
 
     private final String AIDBOXES_FILE = "src/Files/aidboxes.json";
 
@@ -42,6 +50,10 @@ public final class app {
 
     private Exporter exporter;
 
+    /**
+     * <strong>App()</strong>
+     * <p>Default constructor method's definitions.</p>
+     */
     {
         this.provider = new HTTPProvider();
         this.reader = new BufferedReader(new InputStreamReader(System.in));
@@ -49,7 +61,12 @@ public final class app {
         this.exporter = new Exporter(INST_FILE);
     }
 
-    public void start() throws FileNotFoundException, InstitutionException {
+    /**
+     * <strong>start()</strong>
+     * <p>Main method to run the application.</p>
+     * @throws InstitutionException if the Institution was not defined;
+     */
+    public void start() throws InstitutionException {
         this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/aidboxes", AIDBOXES_FILE);
         this.saveDataFromAPI("https://data.mongodb-api.com/app/data-docuz/endpoint/readings", READINGS_FILE);
 
@@ -67,6 +84,11 @@ public final class app {
 
     }
 
+    /**
+     * <strong>MainMenu()</strong>
+     * <p>This method prints in the console the main menu of the application</p>
+     * @throws IOException If couldn´t read the user input.
+     */
     private void MainMenu() throws IOException {
         boolean flag = true;
 
@@ -101,6 +123,11 @@ public final class app {
         }
     }
 
+    /**
+     * <strong>institutionMenu()</strong>
+     * <p>This method prints in the console the institution manage menu of the application.</p>
+     * @throws IOException If couldn´t read the user input.
+     */
     private void institutionMenu() throws IOException {
         boolean flag = true;
 
@@ -131,6 +158,11 @@ public final class app {
         }
     }
 
+    /**
+     * <strong>aidBoxMenu()</strong>
+     * <p>This method prints in the console the aid box manage menu of the application.</p>
+     * @throws IOException If couldn´t read the user input.
+     */
     private void aidBoxMenu() throws IOException {
         boolean flag = true;
 
@@ -139,7 +171,6 @@ public final class app {
             System.out.print("""
                              ***Aid Box Menu***
                              1 - Show Aid Boxs
-                             2 - Remove Aid Box
                              0 - Quit
                              > """);
 
@@ -149,16 +180,16 @@ public final class app {
                 case "1":
                     this.showAidBoxes();
                     break;
-
-                case "2":
-                    break;
-
                 default:
                     flag = false;
             }
         }
     }
 
+    /**
+     * <strong>showAidBoxes()</strong>
+     * <p>prints in the console the informations of each aid box inside the institution.</p>
+     */
     private void showAidBoxes() {
 
         if (this.institution.getAidBoxes().length == 0) {
@@ -206,6 +237,11 @@ public final class app {
         }
     }
 
+    /**
+     * <strong>aidBoxMenu()</strong>
+     * <p>This method prints in the console the vehicle manage menu of the application.</p>
+     * @throws IOException If couldn´t read the user input.
+     */
     private void vehicleMenu() throws IOException {
         boolean flag = true;
 
@@ -371,11 +407,9 @@ public final class app {
     }
 
     public static void main(String[] args) {
-        app menu = new app();
+        App menu = new App();
         try {
             menu.start();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (InstitutionException e) {
             e.printStackTrace();
         }
