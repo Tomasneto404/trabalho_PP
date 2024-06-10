@@ -122,6 +122,10 @@ public class AidBox implements com.estg.core.AidBox {
         this.coordinates = new GeographicCoordinates(latitude, longitude);
     }
 
+    public AidBox(Container[] container) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * <strong>getCode()</strong>
      *

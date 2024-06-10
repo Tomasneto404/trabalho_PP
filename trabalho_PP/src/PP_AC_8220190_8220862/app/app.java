@@ -12,25 +12,24 @@ package PP_AC_8220190_8220862.app;
 import PP_AC_8220190_8220862.core.AidBox;
 import PP_AC_8220190_8220862.core.Container;
 import PP_AC_8220190_8220862.core.Institution;
-import PP_AC_8220190_8220862.enums.VehicleState;
 import PP_AC_8220190_8220862.io.Exporter;
 import com.estg.io.HTTPProvider;
 import PP_AC_8220190_8220862.io.Importer;
-import PP_AC_8220190_8220862.pickingManagement.RefrigeratedVehicle;
+import PP_AC_8220190_8220862.pickingManagement.Report;
 import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 import com.estg.core.ItemType;
 import com.estg.core.Measurement;
 import com.estg.core.exceptions.InstitutionException;
 import com.estg.core.exceptions.VehicleException;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
  * <strong>app</strong>
- * <p>This class represents the application itself.</p>
+ * <p>
+ * This class represents the application itself.</p>
  */
 public final class app {
 
@@ -49,10 +48,13 @@ public final class app {
     private Importer importer;
 
     private Exporter exporter;
+    
+    private Report reporter;
 
     /**
      * <strong>App()</strong>
-     * <p>Default constructor method's definitions.</p>
+     * <p>
+     * Default constructor method's definitions.</p>
      */
     {
         this.provider = new HTTPProvider();
@@ -63,7 +65,9 @@ public final class app {
 
     /**
      * <strong>start()</strong>
-     * <p>Main method to run the application.</p>
+     * <p>
+     * Main method to run the application.</p>
+     *
      * @throws InstitutionException if the Institution was not defined;
      */
     public void start() throws InstitutionException {
@@ -76,6 +80,8 @@ public final class app {
             this.institution = new Institution(reader.readLine());
             this.importer.importData(this.institution);
 
+            this.reporter = new Report(this.institution);
+            
             this.MainMenu();
 
         } catch (IOException e) {
@@ -86,7 +92,9 @@ public final class app {
 
     /**
      * <strong>MainMenu()</strong>
-     * <p>This method prints in the console the main menu of the application</p>
+     * <p>
+     * This method prints in the console the main menu of the application</p>
+     *
      * @throws IOException If couldn´t read the user input.
      */
     private void MainMenu() throws IOException {
@@ -97,8 +105,8 @@ public final class app {
             System.out.print("""
                              <Main Menu>
                              1 - Manage Institution
-                             3 - Get Reports (Não funciona)
-                             4 - Save Institution Data To File
+                             2 - Reports
+                             3 - Save Institution Data To File
                              0 - Quit
                              > """);
 
@@ -110,10 +118,10 @@ public final class app {
                     break;
 
                 case "2":
-                    System.out.println("2");
+                    this.reportsMenu();
                     break;
 
-                case "4":
+                case "3":
                     this.exporter.exportData(this.institution);
                     break;
 
@@ -122,10 +130,52 @@ public final class app {
             }
         }
     }
+    
+    private void reportsMenu() throws IOException{
+        boolean flag = true;
+
+        while (flag == true) {
+
+            System.out.print("""
+                             <Reports Menu>
+                             1 - Used Vehicles
+                             2 - Unused vehicles
+                             3 - Total Distance
+                             4 - Total Duration
+                             0 - Quit
+                             > """);
+
+            String option = this.reader.readLine();
+
+            switch (option) {
+                case "1":
+                    System.out.println("\nUsed Vehicles: " + this.reporter.getUsedVehicles() + "\n");
+                    break;
+
+                case "2":
+                    System.out.println("\nUnused Vehicles: " + this.reporter.getNotUsedVehicles() + "\n");
+                    break;
+                    
+                case "3":
+                    System.out.println("\nTotal Distance: " + this.reporter.getTotalDistance()+ " KM\n");
+                    break;
+                    
+                case "4":
+                    System.out.printf("\nTotal Duration: %.2f HOURS\n", this.reporter.getTotalDuration());
+                    break;
+                    
+                default:
+                    flag = false;
+            }
+        }
+    }
 
     /**
      * <strong>institutionMenu()</strong>
-     * <p>This method prints in the console the institution manage menu of the application.</p>
+     * <p>
+     * This method prints in the console the institution manage menu of the
+     * application.</p>
+     *
      * @throws IOException If couldn´t read the user input.
      */
     private void institutionMenu() throws IOException {
@@ -160,7 +210,10 @@ public final class app {
 
     /**
      * <strong>aidBoxMenu()</strong>
-     * <p>This method prints in the console the aid box manage menu of the application.</p>
+     * <p>
+     * This method prints in the console the aid box manage menu of the
+     * application.</p>
+     *
      * @throws IOException If couldn´t read the user input.
      */
     private void aidBoxMenu() throws IOException {
@@ -188,7 +241,9 @@ public final class app {
 
     /**
      * <strong>showAidBoxes()</strong>
-     * <p>Prints in the console the informations of each aid box inside the institution.</p>
+     * <p>
+     * Prints in the console the informations of each aid box inside the
+     * institution.</p>
      */
     private void showAidBoxes() {
 
@@ -239,7 +294,10 @@ public final class app {
 
     /**
      * <strong>aidBoxMenu()</strong>
-     * <p>This method prints in the console the vehicle manage menu of the application.</p>
+     * <p>
+     * This method prints in the console the vehicle manage menu of the
+     * application.</p>
+     *
      * @throws IOException If couldn´t read the user input.
      */
     private void vehicleMenu() throws IOException {
@@ -270,17 +328,12 @@ public final class app {
                 case "3":
                     if (this.enableVehicleOption()) {
                         System.out.println("Vehicle Enabled");
-                    } else {
-                        System.out.println("Vehicle not found.");
                     }
-
                     break;
 
                 case "4":
                     if (this.disableVehicleOption()) {
                         System.out.println("Vehicle Disabled");
-                    } else {
-                        System.out.println("Vehicle not found.");
                     }
                     break;
 
@@ -292,61 +345,70 @@ public final class app {
 
     /**
      * <strong>enableVehicleOption()</strong>
-     * <p>Allows to identify a vehicle and change it's state to ACTIVE.</p>
+     * <p>
+     * Allows to identify a vehicle and change it's state to ACTIVE.</p>
+     *
      * @return True if operation was successfull. False if it was not.
      * @throws IOException If couldn´t read the user input.
      */
     private boolean enableVehicleOption() throws IOException {
 
-        if (this.institution.getVehicles() != null) {
+        if (this.institution.getVehicles() == null) {
+            throw new NullPointerException("Vehicles array is null.");
+        }
 
-            System.out.println("Vehicle plate: ");
-            String vhclPlate = this.reader.readLine();
+        System.out.println("Vehicle plate: ");
+        String vhclPlate = this.reader.readLine();
 
-            for (Vehicle vhcl : this.institution.getVehicles()) {
-                if ((vhcl != null) && (vhcl.getPlate() == vhclPlate)) {
-                    try {
-                        this.institution.enableVehicle(vhcl);
-                        return true;
-                    } catch (VehicleException e) {
-                        e.getMessage();
-                    }
+        for (Vehicle vhcl : this.institution.getVehicles()) {
+            if ((vhcl != null) && (vhcl.getPlate() == vhclPlate)) {
+                try {
+                    this.institution.enableVehicle(vhcl);
+                    return true;
+                } catch (VehicleException e) {
+                    e.getMessage();
                 }
             }
         }
+
         return false;
     }
 
     /**
      * <strong>disableVehicleOption()</strong>
-     * <p>Allows to identify a vehicle and change it's state to INACTIVE.</p>
+     * <p>
+     * Allows to identify a vehicle and change it's state to INACTIVE.</p>
+     *
      * @return True if operation was successfull. False if it was not.
      * @throws IOException - If couldn´t read the user input.
      */
     private boolean disableVehicleOption() throws IOException {
 
-        if (this.institution.getVehicles() != null) {
+        if (this.institution.getVehicles() == null) {
+            throw new NullPointerException("Vehicles array is null.");
+        }
+        System.out.println("Vehicle plate: ");
+        String vhclPlate = this.reader.readLine();
 
-            System.out.println("Vehicle plate: ");
-            String vhclPlate = this.reader.readLine();
-
-            for (Vehicle vhcl : this.institution.getVehicles()) {
-                if ((vhcl != null) && (vhcl.getPlate() == vhclPlate)) {
-                    try {
-                        this.institution.disableVehicle(vhcl);
-                        return true;
-                    } catch (VehicleException e) {
-                        e.getMessage();
-                    }
+        for (Vehicle vhcl : this.institution.getVehicles()) {
+            if ((vhcl != null) && (vhcl.getPlate() == vhclPlate)) {
+                try {
+                    this.institution.disableVehicle(vhcl);
+                    return true;
+                } catch (VehicleException e) {
+                    e.getMessage();
                 }
             }
         }
+
         return false;
     }
 
     /**
      * <strong>showVehicles()</strong>
-     * <p>Prints in the console the informations of each vehicle inside the institution.</p>
+     * <p>
+     * Prints in the console the informations of each vehicle inside the
+     * institution.</p>
      */
     private void showVehicles() {
 
@@ -369,7 +431,10 @@ public final class app {
 
     /**
      * <strong>insertVehicle()</strong>
-     * <p>Allows the user to input data of a vehicle and insert it into the Institution.</p>
+     * <p>
+     * Allows the user to input data of a vehicle and insert it into the
+     * Institution.</p>
+     *
      * @throws IOException - If couldn´t read the user input.
      */
     private void insertVehicle() throws IOException {
@@ -414,7 +479,10 @@ public final class app {
 
     /**
      * <strong>saveDataFromAPI()</strong>
-     * <p>Allows to get data from a given API url and stores it in a given file path.</p>
+     * <p>
+     * Allows to get data from a given API url and stores it in a given file
+     * path.</p>
+     *
      * @param url - API url
      * @param filePath - Path to the file to store the data.
      * @return True if operation was successfull. False if it was not.

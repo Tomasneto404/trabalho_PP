@@ -49,6 +49,10 @@ public class Route implements com.estg.pickingManagement.Route {
         this.aidBoxs = aidBoxs;
     }
 
+    Route(Vehicle vehicle) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public AidBox[] getAidBoxs() {
         return this.aidBoxs;
     }

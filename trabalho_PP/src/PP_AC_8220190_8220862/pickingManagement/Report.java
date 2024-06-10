@@ -5,7 +5,13 @@
  */
 package PP_AC_8220190_8220862.pickingManagement;
 
+import PP_AC_8220190_8220862.core.AidBox;
+import PP_AC_8220190_8220862.core.Institution;
+import PP_AC_8220190_8220862.enums.VehicleState;
+import com.estg.core.exceptions.AidBoxException;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,73 +21,106 @@ public class Report implements com.estg.pickingManagement.Report {
 
     private LocalDateTime date;
 
-    private int nonPickedContainers;
+    private Institution institution;
 
-    private int notUsedVehicles;
-
-    private int pickedContainers;
-
-    private double totalDistance;
-
-    private double totalDuration;
-
-    private int usedVehicles;
-
-    public Report(LocalDateTime date, int nonPickedContainers, int notUsedVehicles, int pickedContainers, double getTotalDistance, double totalDuration, int usedVehicles) {
-        this.date = date;
-        this.nonPickedContainers = nonPickedContainers;
-        this.notUsedVehicles = notUsedVehicles;
-        this.pickedContainers = pickedContainers;
-        this.totalDistance = getTotalDistance;
-        this.totalDuration = totalDuration;
-        this.usedVehicles = usedVehicles;
-    }
-
-    public void setNonPickedContainers(int nonPickedContainers) {
-        this.nonPickedContainers = nonPickedContainers;
-    }
-
-    public void setNotUsedVehicles(int notUsedVehicles) {
-        this.notUsedVehicles = notUsedVehicles;
-    }
-
-    public void setUsedVehicles(int usedVehicles) {
-        this.usedVehicles = usedVehicles;
+    public Report(Institution institution) {
+        this.institution = institution;
+        this.date = LocalDateTime.now();
     }
 
     @Override
     public int getUsedVehicles() {
-        return this.usedVehicles;
-    }
+        
+        if (this.institution == null) {
+            throw new NullPointerException("Institution is not initialized.");
+        }
 
-    @Override
-    public int getPickedContainers() {
-        return this.pickedContainers;
-    }
+        if ( this.institution.getVehicles() == null) {
+            throw new NullPointerException("Vehicles array is empty.");
+        }
+        
+        int counter = 0;
 
-    @Override
-    public double getTotalDistance() {
-        return this.totalDistance;
-    }
-
-    @Override
-    public double getTotalDuration() {
-        return this.totalDuration;
-    }
-
-    @Override
-    public int getNonPickedContainers() {
-        return this.nonPickedContainers;
+        for (Vehicle vhcl : this.institution.getVehicles()) {
+            if ((vhcl != null) && (vhcl.getState() == VehicleState.ACTIVE)) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
     @Override
     public int getNotUsedVehicles() {
-        return this.notUsedVehicles;
+        if (this.institution == null) {
+            throw new NullPointerException("Institution is not initialized.");
+        }
+
+        if ( this.institution.getVehicles() == null) {
+            throw new NullPointerException("Vehicles array is empty.");
+        }
+        
+        int counter = 0;
+
+        for (Vehicle vhcl : this.institution.getVehicles()) {
+            if ((vhcl != null) && (vhcl.getState() == VehicleState.INACTIVE)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    @Override
+    public double getTotalDistance() {
+
+        double sum = 0;
+
+        AidBox[] aibxArray = this.institution.getAidBoxes();
+
+        for (int i = 0; i < aibxArray.length; i++) {
+            if (aibxArray[i] != null && aibxArray[i + 1] != null) {
+                try {
+                    sum += aibxArray[i].getDistance(aibxArray[i + 1]);
+                } catch (AidBoxException e) {
+                    e.getMessage();
+                }
+
+            }
+        }
+        return sum/1000;
+    }
+
+    @Override
+    public double getTotalDuration() {
+        double sum = 0;
+
+        AidBox[] aibxArray = this.institution.getAidBoxes();
+
+        for (int i = 0; i < aibxArray.length; i++) {
+            if (aibxArray[i] != null && aibxArray[i + 1] != null) {
+                try {
+                    sum += aibxArray[i].getDuration(aibxArray[i + 1]);
+                } catch (AidBoxException e) {
+                    e.getMessage();
+                }
+
+            }
+        }
+        return sum/3600;
     }
 
     @Override
     public LocalDateTime getDate() {
         return this.date;
+    }
+
+    @Override
+    public int getPickedContainers() {
+        return 1;
+    }
+
+    @Override
+    public int getNonPickedContainers() {
+        return 1;
     }
 
 }
