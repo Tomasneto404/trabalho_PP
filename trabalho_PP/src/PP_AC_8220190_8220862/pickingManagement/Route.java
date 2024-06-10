@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Nome: Tomás Leonardo Leão Sousa Neto
+* Número: 8220862
+* Turma: LSIRC12T1
+*
+* Nome: Tânia Sofia da Silva Morais
+* Número: 8220190
+* Turma: LSIRC12T1
  */
 package PP_AC_8220190_8220862.pickingManagement;
 
@@ -16,8 +20,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * <strong> Route </strong>
+ * <p>
+ * this classe identifies a route </p>
  *
- * isto +e etste
  */
 public class Route implements com.estg.pickingManagement.Route {
 
@@ -35,6 +41,12 @@ public class Route implements com.estg.pickingManagement.Route {
 
     private double totalCapacityBoxs;
 
+    /**
+     * <strong>Instance Constructor Method</strong>
+     * <p>
+     * This method defines the default values for all the constructors methods
+     * of the instance.</p>
+     */
     {
         this.aidBoxs = new AidBox[MAX_AIDBOXS];
         this.totalDistance = 0.0;
@@ -44,20 +56,51 @@ public class Route implements com.estg.pickingManagement.Route {
 
     }
 
+    /**
+     * <strong> Route() </strong <p>
+     * Route constructor method </p>
+     *
+     * @param aidBoxs receives a variable of AidBox type
+     * @param vehicle receives a variable of Vehicle type
+     */
     public Route(AidBox[] aidBoxs, Vehicle vehicle) {
         this.vehicle = vehicle;
         this.aidBoxs = aidBoxs;
     }
 
+    /**
+     * <strong> Route() </strong>
+     * <p>
+     * Route constructor method </p>
+     *
+     * @param vehicle receives a variable of Vehicle type
+     */
     public Route(Vehicle vehicle) {
         this.vehicle = vehicle;
 
     }
 
+    /**
+     * <strong> getAidBoxs() </strong>
+     * <p>
+     * Obtains all aidBoxs </p>
+     *
+     * @return all aidboxs
+     */
     public AidBox[] getAidBoxs() {
         return this.aidBoxs;
     }
 
+    /**
+     * <strong> addAidBox() </strong>
+     * <p>
+     * adds a supply crate to a route </p>
+     *
+     * @param aidbox that you want to add
+     * @throws RouteException if the supply box is null, if it already exists or
+     * if it is not compatible with the vehicle or if the capacity exceeds the
+     * maximum capacity of a vehicle
+     */
     @Override
     public void addAidBox(com.estg.core.AidBox aidbox) throws RouteException {
         AidBox aidBox = (AidBox) aidbox;
@@ -82,6 +125,12 @@ public class Route implements com.estg.pickingManagement.Route {
         this.aidBoxs[this.aidBoxCounter++] = aidBox;
     }
 
+    /**
+     * <strong> removeAidBox() </strong>
+     * @param aidbox that you want to remove
+     * @return the aidbox that was removed
+     * @throws RouteException if the aidbox does not exist
+     */
     @Override
     public AidBox removeAidBox(com.estg.core.AidBox aidbox) throws RouteException {
         AidBox aidBox = (AidBox) aidbox;
@@ -144,7 +193,6 @@ public class Route implements com.estg.pickingManagement.Route {
 
     }
 
-   
     @Override
     public void insertAfter(com.estg.core.AidBox aidbox, com.estg.core.AidBox aidbox1) throws RouteException {
         AidBox aidBox = (AidBox) aidbox;
