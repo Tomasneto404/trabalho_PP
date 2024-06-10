@@ -357,14 +357,34 @@ public class Institution implements com.estg.core.Institution {
 
     @Override
     public void disableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
-        Vehicle vehicle = (Vehicle) vhcl;
-        vehicle.setState(VehicleState.INACTIVE);
+        for (Vehicle vehicle : this.vehicles) {
+            if (vehicle.equals( (Vehicle) vhcl)) {
+                vehicle.setState(VehicleState.INACTIVE);
+            }
+        }
     }
 
     @Override
     public void enableVehicle(com.estg.pickingManagement.Vehicle vhcl) throws VehicleException {
-        Vehicle vehicle = (Vehicle) vhcl;
-        vehicle.setState(VehicleState.ACTIVE);
+        for (Vehicle vehicle : this.vehicles) {
+            if (vehicle.equals( (Vehicle) vhcl)) {
+                vehicle.setState(VehicleState.ACTIVE);
+            }
+        }
+    }
+
+    public Vehicle getVehicle(String vehiclePlate) {
+
+        if (this.vehicles != null) {
+            for (Vehicle vhcl : this.vehicles) {
+
+                if (vhcl != null && vhcl.getPlate() == vehiclePlate) {
+                    return vhcl;
+                }
+
+            }
+        }
+        return null;
     }
 
     /**
@@ -470,4 +490,5 @@ public class Institution implements com.estg.core.Institution {
 
         return null;
     }
+
 }

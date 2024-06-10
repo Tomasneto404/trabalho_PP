@@ -6,6 +6,7 @@
 package PP_AC_8220190_8220862.app;
 
 import PP_AC_8220190_8220862.core.Institution;
+import PP_AC_8220190_8220862.enums.VehicleState;
 import PP_AC_8220190_8220862.io.Exporter;
 import com.estg.io.HTTPProvider;
 import PP_AC_8220190_8220862.io.Importer;
@@ -71,8 +72,7 @@ public final class app {
             System.out.print("""
                              <Main Menu>
                              1 - Manage Institution
-                             2 - Manage Aid Boxs
-                             3 - Get Reports
+                             3 - Get Reports (Não funciona)
                              4 - Save Institution Data To File
                              0 - Quit
                              > """);
@@ -105,9 +105,9 @@ public final class app {
             System.out.print("""
                              <Institution Menu>
                              1 - Vehicles
-                             2 - Aid Boxs
-                             3 - Routes
-                             4 - Picking Maps
+                             2 - Aid Boxs (Não funciona)
+                             3 - Routes (Não funciona)
+                             4 - Picking Maps (Não funciona)
                              0 - Quit
                              > """);
 
@@ -131,9 +131,8 @@ public final class app {
                              ***Vehicle Menu***
                              1 - Add new vehicle
                              2 - Show Vehicles
-                             3 - Delete Vehicle
-                             4 - Enable Vehicle
-                             5 - Disable Vehicle
+                             3 - Enable Vehicle
+                             4 - Disable Vehicle
                              0 - Quit
                              > """);
 
@@ -149,7 +148,16 @@ public final class app {
                     break;
                 
                 case "3":
-                    this.removeVehicle();
+                    if (this.enableVehicleOption()) {
+                        System.out.println("Vehicle Enabled");
+                    }
+                    
+                    break;
+                    
+                case "4":
+                    if (this.disableVehicleOption()) {
+                        System.out.println("Vehicle Disabled");
+                    }
                     break;
 
                 default:
@@ -157,15 +165,47 @@ public final class app {
             }
         }
     }
-
-    private void updateVehicle(){
-        
-    }
     
-    private void removeVehicle(){
+    private boolean enableVehicleOption() throws IOException{
+        
         if (this.institution.getVehicles() != null) {
             
+            System.out.println("Vehicle plate: ");
+            String vhclPlate = this.reader.readLine();
+            
+            for (Vehicle vhcl : this.institution.getVehicles()){
+                if ( (vhcl != null) && (vhcl.getPlate() == vhclPlate) ){
+                    try {
+                        this.institution.enableVehicle(vhcl);
+                        return true;
+                    } catch (VehicleException e) {
+                        e.getMessage();
+                    }
+                }
+            }
         }
+        return false;
+    }
+    
+    private boolean disableVehicleOption() throws IOException{
+        
+        if (this.institution.getVehicles() != null) {
+            
+            System.out.println("Vehicle plate: ");
+            String vhclPlate = this.reader.readLine();
+            
+            for (Vehicle vhcl : this.institution.getVehicles()){
+                if ( (vhcl != null) && (vhcl.getPlate() == vhclPlate) ){
+                    try {
+                        this.institution.disableVehicle(vhcl);
+                        return true;
+                    } catch (VehicleException e) {
+                        e.getMessage();
+                    }
+                }
+            }
+        }
+        return false;
     }
     
     private void showVehicles() {

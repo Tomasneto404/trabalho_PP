@@ -470,16 +470,11 @@
             "Code": "CAIXF51",
             "Longitude": -8.22361
         }],
-    "Name": "Teste",
+    "Name": "Marilu",
     "Vehicles": [{
             "Type": "NON_PERISHABLE_FOOD",
-            "Capacity": 123.0,
+            "Capacity": 5.0,
             "State": "ACTIVE",
-            "Plate": "Teste1"
-        }, {
-            "Type": "CLOTHING",
-            "Capacity": 453.0,
-            "State": "ACTIVE",
-            "Plate": "Teset2"
+            "Plate": "Toyota"
         }]
 }
