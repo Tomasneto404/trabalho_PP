@@ -29,7 +29,7 @@ public class RouteValidator implements com.estg.pickingManagement.RouteValidator
      *
      * @param route variable of Route type
      * @param aidbox variable of AidBox type
-     * @returnfalse if the route and the aidbox are null, if the route already
+     * @return false if the route and the aidbox are null, if the route already
      * has that aidbox, if there is no compatibility and if the total capacity
      * is greater than that of the vehicle. Returns true if successful.
      */

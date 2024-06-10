@@ -30,8 +30,7 @@ import java.io.InputStreamReader;
 
 /**
  * <strong>app</strong>
- * <p>
- * This class represents the application itself.</p>
+ * <p>This class represents the application itself.</p>
  */
 public final class app {
 
@@ -506,7 +505,8 @@ public final class app {
     }
 
     /**
-     * Main method to run the program.
+     * 
+     * @param args Default console arguments;s
      */
     public static void main(String args[]) {
         app menu = new app();

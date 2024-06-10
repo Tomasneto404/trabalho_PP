@@ -56,8 +56,8 @@ public class Route implements com.estg.pickingManagement.Route {
     }
 
     /**
-     * <strong> Route() </strong <p>
-     * Route constructor method </p>
+     * <strong> Route() </strong> 
+     * <p>Route constructor method </p>
      *
      * @param aidBoxs receives a variable of AidBox type
      * @param vehicle receives a variable of Vehicle type

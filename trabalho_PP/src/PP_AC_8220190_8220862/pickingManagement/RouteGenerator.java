@@ -36,7 +36,7 @@ public class RouteGenerator implements com.estg.pickingManagement.RouteGenerator
      * @param rv variable of RouteValidator type
      * @param report variable of Report type
      * @return routes generated
-     * @throws PickingMapException
+     * @throws PickingMapException - An error ocurred generating the Routes
      */
     @Override
     public Route[] generateRoutes(com.estg.core.Institution instn, com.estg.pickingManagement.Strategy strtg, com.estg.pickingManagement.RouteValidator rv, com.estg.pickingManagement.Report report) throws PickingMapException {

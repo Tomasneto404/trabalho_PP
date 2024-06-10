@@ -53,7 +53,6 @@ public class Container implements com.estg.core.Container {
      *
      * @param code receives the containers's code
      * @param capacity receives the container's capacity
-     * @param type receives the container's type
      */
     public Container(String code, double capacity) {
         this.code = code;

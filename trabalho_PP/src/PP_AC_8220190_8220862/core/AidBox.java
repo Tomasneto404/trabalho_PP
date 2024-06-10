@@ -63,12 +63,13 @@ public class AidBox implements com.estg.core.AidBox {
     }
 
     /**
-     * <strong>AidBox()
+     * <strong>AidBox()</strong>
      * <p>
      * AidBox constructor method.</p>
      *
      * @param code String value that represents the code of an AidBox.
-     * @param zone String value that represents the zone where the AiBox is.
+     * @param refLocal String value that represents the zone where the AiBox is.
+     * @throws AidBoxException - If couldn´t get data from the aidBox code;
      */
     public AidBox(String code, String refLocal) throws AidBoxException {
         this.code = code;
@@ -177,9 +178,9 @@ public class AidBox implements com.estg.core.AidBox {
      * This method makes the request to the WEB API and returns the distance
      * from one aid box to another</p>
      *
-     * @param aidbox
+     * @param aidbox - Next aidBox to get the distance
      * @return Distance in meters from one aid box to another
-     * @throws AidBoxException
+     * @throws AidBoxException - If coulnd´t get data from the API.
      */
     @Override
     public double getDistance(com.estg.core.AidBox aidbox) throws AidBoxException {
@@ -224,9 +225,9 @@ public class AidBox implements com.estg.core.AidBox {
      * This method makes the request to the WEB API and returns the duration
      * from one aid box to another</p>
      *
-     * @param aidbox
+     * @param aidbox - Next aidBox to get the duration
      * @return Duration in seconds from one aid box to another
-     * @throws AidBoxException
+     * @throws AidBoxException - If coulnd´t get data from the API.
      */
     @Override
     public double getDuration(com.estg.core.AidBox aidbox) throws AidBoxException {
@@ -283,7 +284,7 @@ public class AidBox implements com.estg.core.AidBox {
      * @param cntnr Container to be added
      * @return True if it was possible to insert the new container, false if it
      * wasn't.
-     * @throws ContainerException
+     * @throws ContainerException - If array of containers is full, null or if a container is already inserted.
      */
     @Override
     public boolean addContainer(com.estg.core.Container cntnr) throws ContainerException {
@@ -453,8 +454,7 @@ public class AidBox implements com.estg.core.AidBox {
 
     /**
      * <strong> equals() </strong>
-     * <p>
-     * allows you to check if one AidBox is the same as another </strong>
+     * <p> Allows you to check if one AidBox is the same as another</p>
      *
      * @param o Object to compare with another
      * @return true if it is the same, false if it is different

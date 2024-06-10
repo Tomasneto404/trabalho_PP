@@ -115,9 +115,9 @@ public class Institution implements com.estg.core.Institution {
      * <p>
      * This method inserts and aidBox to the institution aidbox array.</p>
      *
-     * @param aidbox
+     * @param aidbox - AidBox to add to the array.
      * @return true if it was possible to insert the new aidBox.
-     * @throws AidBoxException
+     * @throws AidBoxException - If Aidbox array is full or if aidbox already exists in the array.
      */
     @Override
     public boolean addAidBox(com.estg.core.AidBox aidbox) throws AidBoxException {
@@ -141,7 +141,7 @@ public class Institution implements com.estg.core.Institution {
      * This method verifys if there is and equal aidbox to the one to be
      * inserted in the array</p>
      *
-     * @param adbx
+     * @param adbx - AidBox to verify.
      * @return True if already exists the same aindabox. false if it doesn't.
      */
     private boolean verifyAidBox(AidBox adbx) {
@@ -181,8 +181,8 @@ public class Institution implements com.estg.core.Institution {
      * @param msrmnt Measurement object to be inserted
      * @param cntnr Container of the measurement
      * @return true if it was possible to add the new Measurement to the array.
-     * @throws ContainerException
-     * @throws MeasurementException
+     * @throws ContainerException - If Container already has a measurement qual to msrmnt
+     * @throws MeasurementException - If Measurements array is full or if a msrmnt is already in the array.
      */
     @Override
     public boolean addMeasurement(com.estg.core.Measurement msrmnt, com.estg.core.Container cntnr) throws ContainerException, MeasurementException {
@@ -572,9 +572,8 @@ public class Institution implements com.estg.core.Institution {
 
     /**
      *
-     * < strong> getContainer () </strong>
-     * <p>
-     * obtain a container using a given code </p>
+     * <strong> getContainer() </strong>
+     * <p> Obtain a container using a given code </p>
      *
      * @param containerCode of the container you intend to obtain
      * @return container if it exists and null if not

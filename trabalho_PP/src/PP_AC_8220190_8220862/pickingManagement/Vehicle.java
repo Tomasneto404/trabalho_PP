@@ -38,9 +38,8 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
      * <p>
      * contructor method </p>
      *
-     * @param item receives a variable of ItemType type
+     * @param plate Plate of the vehicle.
      * @param maxCapacity receives a variable of double type
-     * @throws VehicleException exception corresponding to a vehicle
      */
     public Vehicle(String plate, double maxCapacity) {
         this.plate = plate;
@@ -120,7 +119,7 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
      * <p>
      * Sets the value of state to the vehicle.</p>
      *
-     * @param state
+     * @param state - The VehicleState of the vehicle
      */
     public void setState(VehicleState state) {
         this.state = state;

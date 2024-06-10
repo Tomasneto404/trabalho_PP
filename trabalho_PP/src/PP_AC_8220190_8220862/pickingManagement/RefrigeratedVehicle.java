@@ -43,11 +43,11 @@ public class RefrigeratedVehicle extends Vehicle {
      * <p>
      * constructor method </p>
      * 
-     * param plate variable of String type
-     * @param maxCapacity variable of double type
-     * @param maxKilometers variable of double type
-     * @param state VehicleState variable
-     * @param maxKilometers Double type variable
+     * @param plate variable of String type.
+     * @param maxCapacity variable of double type.
+     * @param type ItemType of the vehicle.
+     * @param maxKilometers variable of double type.
+     * @param state VehicleState variable.
      */
     public RefrigeratedVehicle(String plate, double maxCapacity, ItemType type, VehicleState state, double maxKilometers) {
        super(plate, maxCapacity, type, state);

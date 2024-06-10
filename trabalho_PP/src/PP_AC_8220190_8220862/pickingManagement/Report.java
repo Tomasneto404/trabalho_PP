@@ -94,9 +94,8 @@ public class Report implements com.estg.pickingManagement.Report {
     }
 
     /**
-     * <strong> getTotalDistance () <strong>
-     * <p>
-     * get the total distance </p>
+     * <strong> getTotalDistance () </strong>
+     * <p>Get the total distance </p>
      *
      * @return total distance
      */
@@ -121,7 +120,7 @@ public class Report implements com.estg.pickingManagement.Report {
     }
 
     /**
-     * <strong> getTotalDuration () <strong>
+     * <strong> getTotalDuration () </strong>
      * <p>
      * get the total duration</p>
      *
