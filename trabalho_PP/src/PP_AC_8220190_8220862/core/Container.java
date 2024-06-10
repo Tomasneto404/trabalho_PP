@@ -296,6 +296,19 @@ public class Container implements com.estg.core.Container {
      *
      * private LocalDateTime convertToDatetime(LocalDate date) { return
      * date.atStartOfDay(); }
+    
+    private LocalDateTime convertToDatetime(LocalDate date) {
+        return date.atStartOfDay();
+    }*/
+
+    /**
+     * <strong> clone() </strong>
+     * <p>
+     * This method performs the superficial copy of the object </p>
+     *
+     * @return the object cloneable
+     * @throws CloneNotSupportedException exception that references a clone not
+     * supported
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
