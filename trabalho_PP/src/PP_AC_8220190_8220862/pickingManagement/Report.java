@@ -14,8 +14,6 @@ import PP_AC_8220190_8220862.core.Institution;
 import PP_AC_8220190_8220862.enums.VehicleState;
 import com.estg.core.exceptions.AidBoxException;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * <strong> Report </strong>

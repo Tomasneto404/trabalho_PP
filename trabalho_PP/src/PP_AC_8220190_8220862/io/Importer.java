@@ -27,10 +27,7 @@ import org.json.simple.JSONObject;
 
 import org.json.simple.parser.JSONParser;
 
-/**
- *
- * @author tomas
- */
+
 public class Importer implements com.estg.io.Importer {
 
     private String aidBoxsFile;

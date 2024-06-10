@@ -47,6 +47,16 @@ public class Vehicle implements com.estg.pickingManagement.Vehicle {
         this.maxCapacity = maxCapacity;
     }
 
+    /**
+     * <strong>Vehicle() </strong>
+     * <p>
+     * contructor method </p>
+     * 
+     * @param plate - Plate that identifies the vehicle
+     * @param maxCapacity - Max capacity of the vehicle
+     * @param type - Type of the vehicle
+     * @param state - State of the vehicle
+     */
     public Vehicle(String plate, double maxCapacity, ItemType type, VehicleState state) {
         this.plate = plate;
         this.maxCapacity = maxCapacity;

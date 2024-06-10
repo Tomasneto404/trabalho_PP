@@ -14,7 +14,6 @@ import PP_AC_8220190_8220862.pickingManagement.Vehicle;
 
 import PP_AC_8220190_8220862.core.AidBox;
 import PP_AC_8220190_8220862.core.Container;
-import com.estg.core.ItemType;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -20,10 +20,6 @@ import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-/**
- *
- * @author tomas
- */
 public class Exporter {
 
     private String exportFile;
